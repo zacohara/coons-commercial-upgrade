@@ -82,15 +82,17 @@ function Nav() {
             Call
           </a>
           <button onClick={()=>setOpen(!open)} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} style={{ background: "none", border: "none", cursor: "pointer", padding: 6, display: "flex", flexDirection: "column", gap: 5, width: 34, height: 34, alignItems: "center", justifyContent: "center" }} onFocus={e=>Object.assign(e.target.style,focusRing)} onBlur={e=>{e.target.style.outline="none"}}>
-            <span style={{ width: 22, height: 2, background: s ? "#fff" : "#ccc", transition: "all 0.3s", transformOrigin: "center", transform: open ? "rotate(45deg) translateY(3.5px)" : "none" }}/>
-            <span style={{ width: 22, height: 2, background: s ? "#fff" : "#ccc", transition: "all 0.3s", opacity: open ? 0 : 1 }}/>
-            <span style={{ width: 22, height: 2, background: s ? "#fff" : "#ccc", transition: "all 0.3s", transformOrigin: "center", transform: open ? "rotate(-45deg) translateY(-3.5px)" : "none" }}/>
+            <span style={{ width: 22, height: 2, background: "#fff", transition: "all 0.3s", transformOrigin: "center", transform: open ? "rotate(45deg) translateY(3.5px)" : "none" }}/>
+            <span style={{ width: 22, height: 2, background: "#fff", transition: "all 0.3s", opacity: open ? 0 : 1 }}/>
+            <span style={{ width: 22, height: 2, background: "#fff", transition: "all 0.3s", transformOrigin: "center", transform: open ? "rotate(-45deg) translateY(-3.5px)" : "none" }}/>
           </button>
         </div>
       </div>
     </nav>
     </header>
     {open && (
+      <>
+      <div onClick={()=>setOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 98, background: "transparent" }} />
       <div role="menu" style={{ position: "fixed", top: 60, left: 0, right: 0, zIndex: 99, background: "rgba(10,10,10,0.98)", backdropFilter: "blur(12px)", padding: "8px 24px 16px", maxHeight: "calc(100vh - 60px)", overflowY: "auto" }}>
         <div style={{ ...linkStyle, color: C.red, fontSize: 10, fontWeight: 800, letterSpacing: 2, borderBottom: "none", padding: "12px 0 4px" }}>Services</div>
         {[{t:"Roof Repair",p:"repair"},{t:"Maintenance",p:"maintenance"},{t:"Coatings & Restoration",p:"coatings"},{t:"Replacement",p:"replacement"},{t:"Inspections",p:"inspections"},{t:"Emergency Response",p:"emergency"}].map(s=>(
@@ -98,9 +100,10 @@ function Nav() {
         ))}
         <Link to="about" role="menuitem" style={linkStyle} onClick={()=>setOpen(false)}>About</Link>
         <Link to="projects" role="menuitem" style={linkStyle} onClick={()=>setOpen(false)}>Projects</Link>
-        <Link to="home" role="menuitem" style={linkStyle} onClick={()=>{setOpen(false);setTimeout(()=>document.getElementById("contact")?.scrollIntoView({behavior:"smooth"}),400);}}>Contact</Link>
+        <a role="menuitem" href="#contact" style={linkStyle} onClick={(e)=>{e.preventDefault();setOpen(false);setTimeout(()=>document.getElementById("contact")?.scrollIntoView({behavior:"smooth"}),100);}}>Contact</a>
         <a role="menuitem" href="tel:713-367-1495" style={{ ...linkStyle, color: C.red, borderBottom: "none", fontWeight: 700 }}>713-367-1495</a>
       </div>
+      </>
     )}
     </>
   );
@@ -199,7 +202,7 @@ function Difference() {
             Repair. Maintain. Restore.<br/><span style={{ color: C.red }}>Replace Only When Necessary.</span>
           </h2>
         </Fade>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 560, margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16, maxWidth: 560, margin: "0 auto" }}>
           {items.map((it, i) => (
             i === 4 ? (
               <div key={it.title} style={{ gridColumn: "1 / -1", maxWidth: 272, margin: "0 auto", width: "100%" }}>
@@ -423,7 +426,7 @@ function Reviews() {
         </Fade>
         <Fade delay={0.05}>
           <div style={{ textAlign: "center", marginBottom: 36 }}>
-            <a href="https://g.page/coonsroofing" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: C.light, padding: "10px 20px", borderRadius: 40, textDecoration: "none" }}>
+            <a href="https://g.page/coonsroofing" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: C.light, padding: "10px 16px", borderRadius: 40, textDecoration: "none", flexWrap: "wrap", justifyContent: "center" }}>
               <svg width="20" height="20" viewBox="0 0 48 48"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#4285F4"/><path d="M3 12.4l7.1 5.2C12.2 13.3 17.6 10 24 10c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 3.1 29.6 1 24 1 14.8 1 6.9 5.8 3 12.4z" fill="#EA4335"/><path d="M24 47c5.4 0 10.4-1.8 14.3-5l-6.6-5.6c-2 1.5-4.6 2.4-7.7 2.4-5.9 0-10.9-4-12.7-9.4L3.5 34.5C7.4 41.7 15.1 47 24 47z" fill="#34A853"/><path d="M46 24c0-1.3-.2-2.7-.5-4H24v8.5h11.8c-.9 3-2.8 5.4-5.2 7.1l6.6 5.6C41 38 46 31.8 46 24z" fill="#FBBC05"/></svg>
               <span style={{ fontFamily: F, fontSize: 18, fontWeight: 900, color: "#333" }}>5.0</span>
               <span style={{ display: "flex", gap: 1 }}>{[1,2,3,4,5].map(s=><span key={s} style={{ color: "#FFB800", fontSize: 14 }}>★</span>)}</span>
@@ -481,7 +484,7 @@ function FAQ() {
                   <span style={{ fontFamily: F, fontSize: 20, fontWeight: 300, color: C.red, flexShrink: 0, transform: openIdx === i ? "rotate(45deg)" : "none", transition: "transform 0.3s" }}>+</span>
                 </button>
                 <div style={{
-                  maxHeight: openIdx === i ? 200 : 0, overflow: "hidden", transition: "max-height 0.4s ease",
+                  maxHeight: openIdx === i ? 300 : 0, overflow: "hidden", transition: "max-height 0.4s ease",
                   padding: openIdx === i ? "0 20px 18px 23px" : "0 20px 0 23px"
                 }}>
                   <p style={{ fontFamily: F, fontSize: 13, color: C.slate, lineHeight: 1.7, margin: 0 }}>{faq.a}</p>
@@ -656,7 +659,7 @@ function PageHero({ tag, title, highlight, desc }) {
         <Fade delay={0.05}><h1 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(28px,7vw,48px)", color: "#fff", lineHeight: 1.1, marginBottom: 16 }}>{title} <span style={{ color: C.red }}>{highlight}</span></h1></Fade>
         <Fade delay={0.1}><p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.7, marginBottom: 24 }}>{desc}</p></Fade>
         <Fade delay={0.15}><div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 360, margin: "0 auto" }}>
-          <Link to="home" onClick={()=>setTimeout(()=>document.getElementById("contact")?.scrollIntoView({behavior:"smooth"}),400)} style={{ background: C.red, color: "#fff", padding: "14px 28px", fontFamily: F, fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, textAlign: "center" }}>Get a Free Assessment</Link>
+          <a href="#contact" onClick={(e)=>{e.preventDefault();document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}} style={{ background: C.red, color: "#fff", padding: "14px 28px", fontFamily: F, fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, textAlign: "center", textDecoration: "none", cursor: "pointer" }}>Get a Free Assessment</a>
           <a href="tel:713-367-1495" style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.7)", textDecoration: "none", textAlign: "center" }}>or call 713-367-1495</a>
         </div></Fade>
       </div>
