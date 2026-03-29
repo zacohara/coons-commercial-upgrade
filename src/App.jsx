@@ -99,6 +99,7 @@ function Nav() {
           <Link key={s.p} to={s.p} role="menuitem" style={subStyle} onClick={()=>setOpen(false)}>{s.t}</Link>
         ))}
         <Link to="about" role="menuitem" style={linkStyle} onClick={()=>setOpen(false)}>About</Link>
+        <Link to="blog" role="menuitem" style={linkStyle} onClick={()=>setOpen(false)}>Blog</Link>
         <Link to="projects" role="menuitem" style={linkStyle} onClick={()=>setOpen(false)}>Projects</Link>
         <a role="menuitem" href="#contact" style={linkStyle} onClick={(e)=>{e.preventDefault();setOpen(false);setTimeout(()=>document.getElementById("contact")?.scrollIntoView({behavior:"smooth"}),100);}}>Contact</a>
         <a role="menuitem" href="tel:713-367-1495" style={{ ...linkStyle, color: C.red, borderBottom: "none", fontWeight: 700 }}>713-367-1495</a>
@@ -722,6 +723,166 @@ const PAGES = {
   ]},
 };
 
+/* ── Blog Data ── */
+const BLOG = [
+  { slug: "commercial-roof-inspection-houston", title: "How Often Should a Commercial Roof Be Inspected in Houston?", date: "March 2026", read: "5 min", img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=75", body: [
+    "If you manage a commercial property in Houston, your roof takes more punishment than almost any other building component. Between hurricane season, hail, 100-degree summers, and UV exposure that never lets up, the question isn't whether your roof will deteriorate. It's how fast.",
+    "The short answer: twice a year minimum. Once in spring before storm season hits, and once in fall after the worst of it passes. If your building took a direct hit from a named storm or a serious hail event, you need an inspection within 48 hours regardless of schedule.",
+    "Here's what most property managers get wrong. They wait until a tenant calls about water stains on the ceiling. By that point, the membrane has been compromised for weeks or months. The water you see inside the building traveled laterally through the insulation before it found a path down. The actual failure point could be 30 feet from where the stain shows up. That's a much bigger repair than it needed to be.",
+    "A proper commercial roof inspection covers every membrane section, every seam, every flashing around pipes and HVAC curbs, all drainage points including scuppers and internal drains, parapet wall caps, and edge metal. The inspector should be documenting everything with photos and ranking findings by urgency: fix now, plan for within six months, or monitor.",
+    "One thing worth knowing: most manufacturer warranties require documented maintenance to stay valid. Skip inspections for two years and you might find out your 20-year NDL warranty doesn't cover the $40,000 repair you just discovered. The inspection costs a few hundred dollars. The warranty coverage it preserves is worth tens of thousands.",
+    "In Houston specifically, we see the most damage from ponding water after heavy rain events, UV degradation on exposed TPO and PVC membranes, and wind uplift on edge flashings. All three are catchable with regular inspections before they become emergencies."
+  ]},
+  { slug: "tpo-vs-pvc-houston", title: "TPO vs PVC: Which Membrane Is Right for Your Houston Commercial Building?", date: "March 2026", read: "6 min", img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=75", body: [
+    "If you're replacing a commercial roof in Houston, you'll probably hear two acronyms more than any others: TPO and PVC. Both are single-ply membranes. Both work well on flat and low-slope roofs. Both come in white, which helps with energy costs in Texas heat. But they're not interchangeable, and the right choice depends on your building.",
+    "TPO (thermoplastic polyolefin) is the more common choice for standard commercial buildings. It costs less per square foot, installs quickly, and performs well against UV exposure. For a typical office building, retail strip center, or warehouse in Houston, TPO is usually the right call. It handles our heat and UV load well, and the price point makes it easier to justify to ownership groups or HOA boards.",
+    "PVC (polyvinyl chloride) costs more upfront but earns it back in specific situations. If your building has rooftop grease exhaust (think restaurants, food processing, commercial kitchens), PVC is the only real option. Animal fats and cooking oils break down TPO over time, but PVC shrugs them off. PVC also has better chemical resistance overall, which matters for industrial buildings near refineries or chemical plants. In Houston, that's a real consideration for properties along the Ship Channel or in the industrial east side.",
+    "On weld strength, PVC has a slight edge. The heat-welded seams on PVC tend to be stronger than the membrane itself, meaning the seam is the last thing that fails. TPO seams have improved significantly over the past decade, but early-generation TPO had seam issues that gave it a mixed reputation. The current formulations from Versico, Carlisle, and GAF are solid.",
+    "For most Houston commercial buildings, our recommendation is TPO with a manufacturer-backed warranty through an approved installer. The cost savings over PVC are significant on a 15,000+ square foot roof, and the performance difference in a non-chemical, non-grease environment is negligible.",
+    "If you're on the fence, we'll walk your roof and give you a straight recommendation based on your building's actual conditions. Not a sales pitch for whichever system has the higher margin."
+  ]},
+  { slug: "signs-commercial-roof-needs-repair", title: "5 Signs Your Commercial Roof Needs Repair Before It Needs Replacement", date: "March 2026", read: "5 min", img: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=75", body: [
+    "Not every roofing problem means you need a new roof. In fact, most of the service calls we run in Houston end with a targeted repair, not a replacement proposal. The trick is catching problems early enough that repair is still an option.",
+    "First sign: ponding water that stays longer than 48 hours after rain. Some water pooling is normal on flat roofs. But if you've got standing water three days after a storm, your drainage is compromised. Clogged drains, sagging insulation, or settled decking are the usual culprits. Left alone, ponding water accelerates membrane breakdown and adds structural load your roof wasn't designed to carry.",
+    "Second sign: blistering or bubbling on the membrane surface. This means moisture got trapped between the membrane and insulation. In Houston's heat, that trapped moisture expands and creates bubbles. Each blister is a weak point that will eventually split open. Catch them small and they're a simple patch. Let them spread and you're looking at a section replacement.",
+    "Third sign: visible flashing separation around HVAC units, pipes, or parapet walls. Flashings are the most failure-prone part of any commercial roof because they're where the membrane meets a vertical surface. Thermal cycling in Houston (cool nights, 100-degree days) causes expansion and contraction that pulls flashings away from their substrate over time.",
+    "Fourth sign: interior water stains or musty smell. If your tenants are reporting ceiling stains, you're already behind. The leak has been active long enough for water to migrate through the insulation and decking to the interior. The repair scope just tripled because now you're dealing with wet insulation that needs to come out.",
+    "Fifth sign: the roof is 15+ years old and has never been recoated or maintained. A TPO or PVC membrane installed in 2010 is approaching the end of its expected service life. That doesn't mean it needs replacement tomorrow, but it does mean an inspection should happen now. Often, a coating restoration can extend the life another 10-15 years at a third of replacement cost."
+  ]},
+  { slug: "roof-coating-restoration-guide", title: "What Property Managers Need to Know About Roof Coating Restoration", date: "March 2026", read: "6 min", img: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=75", body: [
+    "Roof coatings are the most underused tool in a property manager's budget. When the conversation turns to \"the roof is getting old,\" most people jump straight to replacement. That's a $150,000+ conversation for a mid-size commercial building. A coating restoration on the same building runs $50,000-$80,000 and adds 10-20 years of warranted life.",
+    "Here's how it works. A fluid-applied coating system goes directly over your existing membrane. The coating fills every seam, crack, and pinhole, creating a seamless waterproof surface on top of what's already there. No tear-off, no dumpsters, no multi-week disruption to your tenants. Most coating jobs take 3-5 days.",
+    "Two types dominate the Houston market. Silicone coatings handle ponding water and UV exposure better than anything else. If your roof has areas where water sits after rain, silicone is the answer. It won't break down in standing water the way acrylics do. Acrylic coatings cost less and work great on sloped sections where water drains quickly. They're also better for reflectivity and energy savings.",
+    "The catch: coatings only work on roofs that are structurally sound. If your membrane has widespread failure, wet insulation underneath, or structural deck problems, coating over the top just traps the problem. That's why a thorough inspection matters before anyone starts quoting a coating job. We've walked away from coating projects and recommended replacement instead because the existing conditions didn't support it. Coating a bad roof is a waste of money.",
+    "For property managers, the business case is straightforward. A coating restoration at 40-60% of replacement cost, with a manufacturer-backed warranty, that extends roof life 10-20 years. No capital expenditure approval needed for most coating budgets. Minimal tenant disruption. And you can time it with your fiscal year instead of waiting for an emergency.",
+    "We install coating systems from Western Colloid, Karnak, and Everest Systems. Each has specific strengths depending on your roof type and conditions. Call us for an honest assessment of whether coating makes sense for your building."
+  ]},
+  { slug: "commercial-roof-leak-during-business-hours", title: "How to Handle a Commercial Roof Leak During Business Hours", date: "March 2026", read: "4 min", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=800&q=75", body: [
+    "It's 10am on a Tuesday. Your tenant calls and says water is dripping from the ceiling onto their office furniture. Here's exactly what to do, in order.",
+    "Step one: contain the interior damage. Move furniture and electronics away from the drip zone. Place buckets or trash cans to catch water. If the drip is near electrical panels or wiring, kill power to that area and call an electrician. Water and electricity are the combination you don't ignore.",
+    "Step two: call your roofer. Not tomorrow. Not after lunch. Right now. An active leak gets worse with every hour, and if rain is still falling, the damage is compounding. A good commercial roofer can have someone on your roof within hours to apply temporary weatherproofing and stop the active intrusion.",
+    "Step three: document everything. Take photos and video of the interior damage, the ceiling stain, any visible water path. Note the time you discovered the leak and the current weather conditions. This documentation matters for insurance claims and for your roofer to trace the leak source. Water travels laterally through roof insulation before it drips through, so the stain on the ceiling is rarely directly below the actual breach.",
+    "Step four: notify your insurance carrier. Most commercial property policies cover sudden water intrusion from roof failure. File the claim early even if the full scope isn't known yet. Your roofer should provide inspection photos and a written damage assessment that you can submit with the claim.",
+    "What not to do: don't send your maintenance guy up on a wet roof to \"take a look.\" Wet commercial roofs are slip hazards, and an untrained person walking on a membrane can cause more damage. Don't ignore a small drip because it seems minor. Small drips become big problems, especially in Houston where the next rain event could be 4 inches in two hours."
+  ]},
+  { slug: "property-manager-roof-maintenance-budgeting", title: "The Property Manager's Guide to Roof Maintenance Budgeting", date: "March 2026", read: "5 min", img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=75", body: [
+    "If you manage commercial property and you don't have a line item for roof maintenance in your annual budget, you're setting yourself up for a bad surprise. The math on preventative maintenance is some of the clearest math in building operations.",
+    "A typical commercial roof maintenance visit costs $300-$600 depending on building size. That visit includes drain clearing, debris removal, a full visual inspection of membranes, seams, flashings, and penetrations, and a written report with photos. Two visits per year puts you at $600-$1,200 annually.",
+    "Now compare that to the cost of deferred maintenance. A failed flashing that goes undetected for six months lets water into the insulation. By the time the leak shows up inside the building, you're looking at membrane repair ($2,000-$5,000), insulation replacement ($3,000-$8,000), and interior damage restoration ($5,000-$15,000). That's $10,000-$28,000 for a problem that a $400 inspection would have caught as a $500 flashing repair.",
+    "Here's a budgeting framework that works. Set aside $0.10-$0.15 per square foot of roof area annually for maintenance. A 20,000 square foot commercial building should budget $2,000-$3,000 per year. That covers two inspections, minor repairs found during those inspections, and drain maintenance.",
+    "For capital planning, budget $0.50-$1.00 per square foot per year into a roof reserve fund. That same 20,000 square foot building would accumulate $10,000-$20,000 per year toward eventual replacement. After 15 years, you've got $150,000-$300,000 set aside, which covers a full replacement without a special assessment or emergency capital call.",
+    "One more thing: documented maintenance protects your manufacturer warranty. Most NDL (No Dollar Limit) warranties from TPO and PVC manufacturers require proof of regular maintenance. Skip it, and that 20-year warranty you paid a premium for might not cover the claim when you need it most."
+  ]},
+  { slug: "houston-storm-season-roof-preparation", title: "Houston Storm Season: How to Prepare Your Commercial Roof", date: "March 2026", read: "5 min", img: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=75", body: [
+    "Houston's storm season runs roughly June through November, but if you've lived here long enough, you know April hailstorms and March windstorms are just as real. Preparing your commercial roof before the heavy weather hits is the cheapest insurance you'll buy all year.",
+    "Start with drains. Every internal drain, scupper, and gutter on your roof should be completely clear of debris before storm season. A single clogged drain during a 3-inch-per-hour Houston downpour turns your roof into a swimming pool. That ponding load can exceed the structural capacity of the deck. We've seen roofs sag permanently from a single storm event where the drains were blocked.",
+    "Check your edge metal and coping caps. Wind uplift starts at the edges and corners of a roof. If the edge metal is loose, corroded, or has gaps, that's where wind gets under the membrane and starts peeling it back. A $200 edge repair before the storm prevents a $20,000 membrane replacement after it.",
+    "Inspect all rooftop equipment. HVAC units, exhaust fans, satellite dishes, signage. Each one penetrates the membrane and has flashings that can fail. Make sure nothing is loose that could become a projectile in high winds. Secure any rooftop items that aren't permanently mounted.",
+    "Know your emergency plan. Have your roofer's number saved, not buried in a file drawer. Identify your building's most vulnerable points (typically edges, corners, and areas around older equipment) so you can communicate quickly if damage occurs. Keep a tarp kit on-site for temporary weatherproofing.",
+    "After any significant storm event, get a professional inspection within 48 hours. Hail damage on a commercial membrane often isn't visible from the ground. Small impacts that bruise the membrane without puncturing it can fail weeks later when UV exposure breaks down the weakened material. Document everything for insurance before you make any repairs."
+  ]},
+  { slug: "roofing-contractor-insurance-requirements", title: "Why Your Roofing Contractor Should Carry Both GL and Workers Comp", date: "March 2026", read: "4 min", img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=75", body: [
+    "This is the thing nobody wants to talk about until something goes wrong. And when it goes wrong on a commercial roof, it goes really wrong.",
+    "General Liability insurance covers damage the contractor causes to your property. A roofer drags equipment across your parking lot and cracks the asphalt. A worker drops a tool off the roof and damages a tenant's vehicle. The roofing crew accidentally damages an HVAC unit during membrane work. GL covers all of that. Without it, you're suing the contractor directly. Good luck collecting from a company with no assets.",
+    "Workers Compensation covers injuries to the contractor's employees while working on your property. Roofing is consistently ranked in the top 5 most dangerous occupations. Falls, heat exhaustion, burns from hot-applied materials. If a worker gets hurt on your roof and the contractor doesn't carry Workers Comp, that injured worker's attorney is coming after your building's insurance policy. Your commercial property policy was not designed for this, and your premiums will reflect it for years.",
+    "In Texas, Workers Comp is not mandatory. That's worth repeating. Texas is one of the few states where employers can opt out of Workers Comp coverage entirely. Some roofing companies do exactly that to lower their overhead. They'll give you a lower bid because their costs are lower. The risk transfers directly to you.",
+    "Before you sign any roofing contract, ask for a current Certificate of Insurance showing both GL and Workers Comp coverage. Verify the certificate is active by calling the insurance company listed on it. Make sure the coverage amounts are adequate for your building's value. $1M/$2M GL is standard. Anything less should be a red flag.",
+    "At Coons Roofing, we carry both GL and Workers Comp and provide certificates before work starts. Not because someone made us. Because it's the right way to run a commercial roofing company."
+  ]},
+  { slug: "flat-roof-drainage-problems-houston", title: "Flat Roof Drainage Problems: Causes, Signs, and Fixes for Houston Buildings", date: "March 2026", read: "5 min", img: "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=800&q=75", body: [
+    "Houston gets an average of 50 inches of rain per year. Some years, we get that in three months. If your commercial flat roof can't move water off fast enough, every storm becomes a structural event.",
+    "The most common drainage failure we see is clogged internal drains. Leaves, roofing granules, HVAC debris, and general dirt accumulate around drain baskets over time. In a slow rain, the drain handles it. In a Houston downpour, the clog creates a dam. Water backs up, spreads across the membrane, and adds hundreds or thousands of pounds of load that the structure wasn't designed to hold.",
+    "Scupper blockage is the second most common issue. Scuppers are the openings in parapet walls that let water flow off the edge of the roof. They work great when they're clear. But debris piles up against the parapet wall during storms and blocks the opening. Regular clearing is the fix, and it takes about 10 minutes per scupper during a maintenance visit.",
+    "The trickier problem is inadequate slope. Building code requires a minimum 1/4 inch per foot slope toward drains on flat roofs. But over time, insulation compresses, decking settles, and the slope diminishes. Areas that used to drain start holding water. Re-sloping with tapered insulation during the next re-roof is the permanent fix. In the meantime, adding crickets (small sloped diversions) around problem areas can redirect water toward functioning drains.",
+    "Signs you have a drainage problem: visible ponding water 48+ hours after rain, algae or vegetation growing on the membrane surface, water stains on the underside of the deck inside the building, or sagging visible from the ground. Any of these warrant a professional inspection.",
+    "For Houston buildings specifically, we recommend drain maintenance every 6 months. Before and after storm season. It's the single cheapest maintenance task with the highest return on investment."
+  ]},
+  { slug: "roof-maintenance-protects-warranty", title: "How Roof Maintenance Protects Your Manufacturer Warranty", date: "March 2026", read: "4 min", img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=75", body: [
+    "You paid extra for a manufacturer-backed warranty when your commercial roof was installed. 15 years. 20 years. Maybe even 25 years of coverage with no dollar limit on repairs. That warranty is one of the most valuable assets on your building. And you might be voiding it without knowing.",
+    "Most manufacturer warranties from Versico, GAF, Carlisle, Duro-Last, and FiberTite include a maintenance requirement. The specific language varies, but the gist is the same: the building owner must perform regular roof maintenance and keep documentation of that maintenance. Fail to do so, and the manufacturer can deny your warranty claim.",
+    "We've seen this happen. A building owner files a claim for a membrane failure on a 10-year-old TPO roof with a 20-year NDL warranty. Manufacturer sends an inspector. Inspector asks for maintenance records. Owner has none. Claim denied. The owner is now paying out of pocket for a repair that the warranty was designed to cover.",
+    "What counts as maintenance? At minimum: semi-annual inspections by a qualified roofing professional, documented drain clearing, prompt repair of any identified issues, and written reports with photos stored for the life of the warranty. Some manufacturers also require that maintenance be performed by a contractor who holds their specific certification.",
+    "The good news: setting up a maintenance program is simple and cheap relative to the warranty value it protects. Two inspections per year at $300-$500 each. Minor repairs caught during inspections. Reports filed with your property records. Total annual cost: $1,000-$2,000. Value of the warranty it protects: $100,000+.",
+    "If you're not sure whether your current warranty requires maintenance, pull out the warranty document and read the exclusions section. Or call us. We can review it with you and set up a maintenance schedule that keeps you covered."
+  ]},
+  { slug: "commercial-roof-replacement-what-to-expect", title: "Commercial Roof Replacement: What to Expect from Start to Finish", date: "March 2026", read: "6 min", img: "https://images.unsplash.com/photo-1429497419816-9ca5cfb4571a?w=800&q=75", body: [
+    "If you've been told your commercial roof needs replacement, the first question in your head is probably \"how much.\" The second is \"how long.\" The third is \"how bad is this going to disrupt my tenants.\" Let's walk through the whole process so there are no surprises.",
+    "Step one is the assessment. A qualified commercial roofer inspects the existing roof, takes core samples to evaluate insulation condition, checks the structural deck, and documents everything. This determines whether you actually need a full replacement or whether a partial replacement or coating restoration could work. Insist on core samples. Without them, nobody really knows what's happening under the membrane.",
+    "Step two is system selection. For most Houston commercial buildings, the options are TPO, PVC, or a coating system over the existing roof. Your roofer should present options with cost comparisons, warranty differences, and expected service life. Metal and modified bitumen are also possibilities depending on the building. This is where certified installer status matters. A contractor certified by Versico or GAF can offer manufacturer-backed warranties that an uncertified installer cannot.",
+    "Step three is the proposal. A good commercial roofing proposal includes: the scope of work in plain language, the specific system being installed with manufacturer and product names, the timeline with start and expected completion dates, the total cost with payment terms, and the warranty details including what's covered, what's not, and for how long.",
+    "Step four is the actual work. A typical 15,000-20,000 square foot commercial re-roof takes 5-10 working days depending on complexity. Your tenants will hear noise. There will be trucks and materials in the parking lot. A good contractor communicates daily about what's happening and keeps the job site clean at the end of each day. If your building is occupied, weekend and off-hours work might make sense for noise-sensitive tenants.",
+    "Step five is closeout. Final walkthrough with the contractor to review the installation. A punch list for any items that need attention. Warranty documents delivered to you with all registration information. Before and after photos for your records. And a maintenance schedule to protect the investment you just made."
+  ]},
+  { slug: "hoa-multifamily-roofing-guide", title: "HOA and Multi-Family Roofing: What Board Members Should Know Before Hiring a Contractor", date: "March 2026", read: "5 min", img: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&q=75", body: [
+    "If you sit on an HOA board or manage a multi-family property, roofing decisions come with an extra layer of complexity. You're spending other people's money. You need multiple bids. You need board approval. And you need a contractor who understands that dynamic.",
+    "Start by getting three bids minimum. Not because the lowest bid wins, but because three bids give you a sense of the real market price. If two bids come in at $85,000 and one comes in at $45,000, the low bid is either cutting corners on materials, skipping insurance coverage, or planning to hit you with change orders. Boards that chase the cheapest number usually end up paying more in the long run.",
+    "Check insurance before you check references. Ask for a Certificate of Insurance showing General Liability and Workers Compensation coverage. Verify it's current by calling the insurance company. An uninsured contractor working on HOA property exposes every homeowner in the association to personal liability. That's not an exaggeration. It's case law.",
+    "Ask about scheduling flexibility. Multi-family roofing projects affect residents directly. Noise, debris, parking disruptions. A contractor who can phase the work building by building, schedule the loudest work during business hours when most residents are out, and communicate the schedule to residents in advance is worth more than a contractor who's $5,000 cheaper but shows up at 6am with no notice.",
+    "Understand the warranty you're getting. A \"contractor warranty\" means the roofing company promises to fix their work for a period. A \"manufacturer warranty\" means the material manufacturer backs the installation with their own coverage. If the contractor goes out of business in 3 years, the contractor warranty goes with them. The manufacturer warranty survives. For an HOA spending six figures, insist on manufacturer-backed coverage.",
+    "Finally, ask for documentation that you can file with your association records. A good commercial roofer provides before and after photos, a written scope of completed work, material specifications, warranty registration, and a recommended maintenance schedule. Your successor on the board needs to find this file five years from now and understand exactly what was done."
+  ]},
+];
+
+/* ── Blog Components ── */
+function BlogList() {
+  return (
+    <>
+      <PageHero tag="Blog" title="Roofing Insights for" highlight="Building Owners" desc="Practical advice for property managers, facility directors, and building owners managing commercial roofs in Houston." />
+      <section style={{ background: "#fff", padding: "64px 16px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24 }}>
+            {BLOG.map((post, i) => (
+              <Fade key={post.slug} delay={i * 0.04}>
+                <Link to={"blog/" + post.slug} style={{ display: "block", background: C.light, overflow: "hidden", transition: "transform 0.3s", height: "100%" }} onMouseOver={e=>e.currentTarget.style.transform="translateY(-4px)"} onMouseOut={e=>e.currentTarget.style.transform="translateY(0)"}>
+                  <img src={post.img} alt={post.title} style={{ width: "100%", height: 180, objectFit: "cover", display: "block" }} loading="lazy" />
+                  <div style={{ padding: 20 }}>
+                    <div style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: C.red, letterSpacing: 1, textTransform: "uppercase", marginBottom: 8 }}>{post.date} · {post.read} read</div>
+                    <div style={{ fontFamily: F, fontSize: 15, fontWeight: 800, color: C.black, lineHeight: 1.3 }}>{post.title}</div>
+                  </div>
+                </Link>
+              </Fade>
+            ))}
+          </div>
+        </div>
+      </section>
+      <CTA />
+    </>
+  );
+}
+
+function BlogPost({ slug }) {
+  const post = BLOG.find(p => p.slug === slug);
+  if (!post) return <PageHero tag="404" title="Post" highlight="Not Found" desc="This blog post doesn't exist." />;
+  return (
+    <div key={slug}>
+      <section style={{ background: `linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85)), url(${post.img}) center/cover`, padding: "120px 24px 60px", textAlign: "center" }}>
+        <div style={{ maxWidth: 600, margin: "0 auto" }}>
+          <Fade><p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 10 }}>{post.date} · {post.read} read</p></Fade>
+          <Fade delay={0.05}><h1 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(24px,6vw,40px)", color: "#fff", lineHeight: 1.15, marginBottom: 20 }}>{post.title}</h1></Fade>
+          <Fade delay={0.1}><Link to="blog" style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.6)", letterSpacing: 1 }}>← Back to all posts</Link></Fade>
+        </div>
+      </section>
+      <TrustBar />
+      <section style={{ background: "#fff", padding: "48px 16px" }}>
+        <div style={{ maxWidth: 680, margin: "0 auto" }}>
+          {post.body.map((para, i) => (
+            <Fade key={i} delay={i * 0.03}>
+              <p style={{ fontFamily: F, fontSize: 16, color: C.slate, lineHeight: 1.85, marginBottom: 24 }}>{para}</p>
+            </Fade>
+          ))}
+          <Fade delay={0.2}>
+            <div style={{ background: C.light, padding: 28, marginTop: 32, textAlign: "center" }}>
+              <p style={{ fontFamily: F, fontSize: 15, fontWeight: 700, color: C.black, marginBottom: 8 }}>Need help with your commercial roof?</p>
+              <p style={{ fontFamily: F, fontSize: 13, color: C.slate, marginBottom: 16 }}>We'll walk your roof, take photos, and give you straight answers.</p>
+              <a href="tel:713-367-1495" style={{ background: C.red, color: "#fff", padding: "12px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, textDecoration: "none", textTransform: "uppercase", letterSpacing: 1, display: "inline-block" }}>Call 713-367-1495</a>
+            </div>
+          </Fade>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 function ServicePage({ slug }) {
   const p = PAGES[slug];
   if (!p) return <PageHero tag="404" title="Page" highlight="Not Found" desc="This page doesn't exist yet." />;
@@ -761,7 +922,12 @@ export default function CoonsHomepage() {
   return (
     <div style={{ background: C.black, minHeight: "100vh", overflowX: "hidden" }}>
       <Nav />
-      <main>{page === "home" ? <HomePage /> : <ServicePage slug={page} />}</main>
+      <main>{
+        page === "home" ? <HomePage /> :
+        page === "blog" ? <BlogList /> :
+        page.startsWith("blog/") ? <BlogPost slug={page.slice(5)} /> :
+        <ServicePage slug={page} />
+      }</main>
       <Footer /><StickyCallBar page={page} />
     </div>
   );
