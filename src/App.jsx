@@ -416,7 +416,7 @@ function Reviews() {
   const revs = [
     { name: "Stephen W.", text: "Coons Roofing handled multiple repairs on my building to get insurance squared away. Always on time, always clean, and they kept their word every step of the way. Couldn't have asked for a better roofing company." },
     { name: "Patrick S.", text: "Great job start to finish. The guys were on time and finished the job on schedule. They cleaned up the property and left it looking better than they found it. Highly recommend." },
-    { name: "Mason A.", text: "We recently replaced our roof with Coons Roofing and couldn't be happier. The owner came out personally to inspect after a storm — punctual, professional, knowledgeable. Communication was top notch and integrity was clearly a priority." },
+    { name: "Mason A.", text: "We recently replaced our roof with Coons Roofing and couldn't be happier. The owner came out personally to inspect after a storm. Punctual, professional, knowledgeable. Communication was top notch and integrity was clearly a priority." },
     { name: "Matthew H.", text: "Called Wade on a recommendation from a friend. He met me within two days, used drone footage to identify the problem, and returned the next day with his crew to patch the roof before Houston's rain storms hit. Timely, professional, and easy to work with." },
   ];
   return (
@@ -457,7 +457,7 @@ function FAQ() {
   const faqs = [
     { q: "How quickly can you respond to a roof leak?", a: "We respond to emergency leak calls within 24 hours across the Houston metro. For active leaks during business hours, we can often have someone on-site the same day. We'll get a temporary fix in place immediately and follow up with a permanent repair." },
     { q: "Do you provide photo reports after inspections?", a: "Every inspection includes a detailed photo report documenting current conditions, problem areas, and recommended next steps. Reports are formatted so you can forward them directly to ownership, insurance, or your maintenance files with no extra work on your end." },
-    { q: "How do I know if my roof needs repair or full replacement?", a: "That's exactly what our free assessment answers. We evaluate membrane condition, flashing integrity, drainage, and remaining service life. Our approach is always to repair, maintain, and restore first — we only recommend replacement when the numbers genuinely support it." },
+    { q: "How do I know if my roof needs repair or full replacement?", a: "That's exactly what our free assessment answers. We evaluate membrane condition, flashing integrity, drainage, and remaining service life. Our approach is always to repair, maintain, and restore first. We only recommend replacement when the numbers genuinely support it." },
     { q: "What types of commercial roofs do you work on?", a: "We service all major flat and low-slope systems including TPO, PVC, modified bitumen, metal, built-up roofing, and coating systems. We're certified installers for Versico, FiberTite, Duro-Last, GAF, Western Colloid, and several other manufacturers." },
     { q: "Do you handle insurance documentation?", a: "Yes. We provide the inspection reports, repair documentation, and photo evidence that insurance carriers need. We've helped many building owners get claims approved by providing clear, professional documentation of storm damage and pre-existing conditions." },
     { q: "Can you manage roofing across multiple properties?", a: "Absolutely. We work with property managers who oversee multiple buildings across the Houston metro. One point of contact, consistent quality standards, and documented history for every property in your portfolio." },
@@ -531,7 +531,8 @@ function CTA() {
           <Fade><div style={{ background: "rgba(255,255,255,0.15)", padding: 32, borderRadius: 4 }}>
             <div style={{ fontSize: 36, marginBottom: 12 }}>✓</div>
             <div style={{ fontFamily: F, fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 8 }}>Request Received</div>
-            <div style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.85)" }}>We'll be in touch within 24 hours. Need it sooner? Call us at <a href="tel:713-367-1495" style={{ color: "#fff", fontWeight: 800, textDecoration: "none" }}>713-367-1495</a>.</div>
+            <div style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.85)", marginBottom: 16 }}>We'll be in touch within 24 hours. Need it sooner? Call us at <a href="tel:713-367-1495" style={{ color: "#fff", fontWeight: 800, textDecoration: "none" }}>713-367-1495</a>.</div>
+            <button onClick={()=>{setSent(false);setForm({name:"",phone:"",address:"",message:""});}} style={{ background: "none", border: "1px solid rgba(255,255,255,0.4)", color: "#fff", padding: "8px 20px", fontFamily: F, fontSize: 12, fontWeight: 600, cursor: "pointer", letterSpacing: 0.5 }}>Submit Another Request</button>
           </div></Fade>
         ) : (
           <Fade delay={0.1}>
@@ -684,12 +685,12 @@ function PageSection({ title, children, bg = "#fff" }) {
 /* ── Page Data ── */
 const PAGES = {
   repair: { tag: "Roof Repair", title: "Commercial Roof Repair in", highlight: "Houston", desc: "Membrane deterioration, failed flashings, storm damage, and ponding water all need targeted repair before they escalate. We respond within 24 hours and deliver clear proposals before any work begins.", sections: [
-    { t: "How We Handle Repairs", c: "Every repair starts with a full diagnostic — not a guess. We identify the root cause, document it with photos, and present you with options ranked by cost and longevity. No work begins until you approve the scope and price in writing." },
+    { t: "How We Handle Repairs", c: "Every repair starts with a full diagnostic, not a guess. We identify the root cause, document it with photos, and present you with options ranked by cost and longevity. No work begins until you approve the scope and price in writing." },
     { t: "What We Repair", c: "Punctured or deteriorated membranes, failed pipe boot flashings, cracked or separated seams, ponding water issues, damaged drains and scuppers, storm and wind damage, HVAC curb leaks, and parapet wall flashing failures. We work on TPO, PVC, modified bitumen, metal, built-up, and coated systems." },
-    { t: "Documentation You Can Use", c: "Every completed repair includes before and after photos, a written summary of work performed, and warranty information — formatted so you can forward it directly to ownership, insurance, or your maintenance files." },
+    { t: "Documentation You Can Use", c: "Every completed repair includes before and after photos, a written summary of work performed, and warranty information. Formatted so you can forward it directly to ownership, insurance, or your maintenance files." },
   ]},
   maintenance: { tag: "Roof Maintenance", title: "Commercial Roof Maintenance in", highlight: "Houston", desc: "A well-maintained commercial roof lasts years beyond its expected lifespan. Our maintenance program provides scheduled inspections, documented condition reports, and early-intervention repairs.", sections: [
-    { t: "Preventative Maintenance Program", c: "Scheduled semi-annual inspections with full photo reports. We check every drain, seam, flashing, penetration, and membrane section — then rank findings by urgency so you know exactly what to budget for." },
+    { t: "Preventative Maintenance Program", c: "Scheduled semi-annual inspections with full photo reports. We check every drain, seam, flashing, penetration, and membrane section. We rank findings by urgency so you know exactly what to budget for." },
     { t: "Why Maintenance Pays for Itself", c: "A $500 maintenance visit that catches a failing flashing saves a $15,000 interior damage claim. Documented maintenance also keeps manufacturer warranties valid and gives you leverage with insurance carriers." },
     { t: "What's Included", c: "Drain clearing, seam and flashing inspection, membrane condition assessment, photo-documented report with findings ranked by priority, minor repairs completed same-visit, and a recommended 12-month action plan." },
   ]},
@@ -698,28 +699,28 @@ const PAGES = {
     { t: "Coating Systems We Install", c: "Silicone coatings for ponding water areas and maximum UV resistance. Acrylic coatings for sloped applications and reflective energy savings. Both available with manufacturer-backed warranties through Western Colloid, Karnak, and Everest Systems." },
     { t: "The Business Case", c: "A coating restoration on a 20,000 sq ft roof typically costs $60,000-$90,000 vs $150,000+ for full replacement. No tear-off means no business disruption, no dumpsters, and a fraction of the timeline." },
   ]},
-  replacement: { tag: "Roof Replacement", title: "Commercial Roof Replacement in", highlight: "Houston", desc: "When it's truly time for a new roof, we walk you through every step — system selection, budgeting, scheduling, and installation — with full documentation throughout.", sections: [
+  replacement: { tag: "Roof Replacement", title: "Commercial Roof Replacement in", highlight: "Houston", desc: "When it's truly time for a new roof, we walk you through every step. System selection, budgeting, scheduling, and installation. Full documentation throughout.", sections: [
     { t: "When Replacement Makes Sense", c: "We only recommend replacement when repair costs exceed 30% of a new roof, the membrane has reached end-of-life, or building code requirements mandate a new system. We'll show you the math." },
     { t: "Systems We Install", c: "TPO single-ply for cost-effective performance. PVC for chemical resistance and longevity. Modified bitumen for heavy-traffic roofs. Metal retrofits. All installed under manufacturer warranty through Versico, FiberTite, Duro-Last, and GAF." },
     { t: "What to Expect", c: "Detailed proposal with system specs, timeline, and total cost. Weekly progress updates with photos. Clean job site daily. Final walkthrough with punch list. Complete warranty documentation delivered to your office." },
   ]},
-  inspections: { tag: "Roof Inspections", title: "Commercial Roof Inspections in", highlight: "Houston", desc: "Whether you're evaluating an acquisition, assessing storm damage, or planning maintenance — our inspections give you the documentation and clarity you need.", sections: [
+  inspections: { tag: "Roof Inspections", title: "Commercial Roof Inspections in", highlight: "Houston", desc: "Whether you're evaluating an acquisition, assessing storm damage, or planning maintenance, our inspections give you the documentation and clarity you need.", sections: [
     { t: "What We Inspect", c: "Every membrane section, seam, and flashing. All penetrations including HVAC curbs, pipes, and vents. Drainage systems, scuppers, and gutters. Parapet walls and coping. Edge metal and terminations. Interior leak evidence when accessible." },
     { t: "The Report", c: "Photo-documented findings organized by urgency: immediate action, plan within 6 months, and monitor. Budget estimates for recommended repairs. Remaining useful life assessment. Formatted for forwarding to ownership or insurance." },
     { t: "When You Need One", c: "Before purchasing or selling commercial property. After any major storm. Annual maintenance planning. Before warranty expiration. When tenants report leaks. When budgeting capital expenditures." },
   ]},
-  emergency: { tag: "Emergency Roofing", title: "Storm & Emergency Repair in", highlight: "Houston", desc: "Water coming through the ceiling can't wait. We respond to emergency calls across the Houston metro the same day — temporary protection first, permanent repair second.", sections: [
+  emergency: { tag: "Emergency Roofing", title: "Storm & Emergency Repair in", highlight: "Houston", desc: "Water coming through the ceiling can't wait. We respond to emergency calls across the Houston metro the same day. Temporary protection first, permanent repair second.", sections: [
     { t: "Our Emergency Process", c: "Call or text 713-367-1495. We dispatch a crew to stop active water intrusion with temporary weatherproofing. Within 48 hours we deliver a full damage assessment with photos and a permanent repair proposal." },
-    { t: "Storm Damage Response", c: "When hail, wind, or heavy rain damages your roof, we assess the full scope — not just the visible leak. We check the entire membrane for hidden damage that could surface weeks later and document everything for insurance." },
+    { t: "Storm Damage Response", c: "When hail, wind, or heavy rain damages your roof, we assess the full scope, not just the visible leak. We check the entire membrane for hidden damage that could surface weeks later and document everything for insurance." },
     { t: "After-Hours Availability", c: "Our emergency line is monitored after hours and weekends. We prioritize active water intrusion calls and can typically have a crew on-site within hours, not days." },
   ]},
   about: { tag: "About Us", title: "Meet", highlight: "Coons Roofing", desc: "Wade Coons built a commercial roofing company that property managers and building owners across Houston trust with their most important assets.", sections: [
-    { t: "Owner on Every Project", c: "You deal with the decision-maker, not a salesperson. Wade is directly involved on every project — from initial inspection through final walkthrough. That's how we maintain the quality and communication commercial clients require." },
-    { t: "Our Approach", c: "Repair. Maintain. Restore. Replace only when necessary. Every recommendation is backed by documentation and the math to support it. We don't sell roofs — we solve roofing problems in the most cost-effective way possible." },
+    { t: "Owner on Every Project", c: "You deal with the decision-maker, not a salesperson. Wade is directly involved on every project, from initial inspection through final walkthrough. That's how we maintain the quality and communication commercial clients require." },
+    { t: "Our Approach", c: "Repair. Maintain. Restore. Replace only when necessary. Every recommendation is backed by documentation and the math to support it. We don't sell roofs. We solve roofing problems in the most cost-effective way possible." },
     { t: "Certifications", c: "Certified installer for Versico, FiberTite, Duro-Last, Karnak, Everest Systems, IPC, Western Colloid, Elevate, and GAF. Fully insured with General Liability and Workers Compensation coverage." },
   ]},
   projects: { tag: "Our Work", title: "Recent", highlight: "Projects", desc: "Detailed case studies from commercial roofing projects across the Houston metro.", sections: [
-    { t: "Project Gallery Coming Soon", c: "We're building out our gallery with before/after photos, scope details, and system specs from recent jobs. Call 713-367-1495 to discuss your building type — we can share relevant examples directly." },
+    { t: "Project Gallery Coming Soon", c: "We're building out our gallery with before/after photos, scope details, and system specs from recent jobs. Call 713-367-1495 to discuss your building type, and we can share relevant examples directly." },
   ]},
 };
 
