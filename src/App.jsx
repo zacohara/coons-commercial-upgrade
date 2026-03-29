@@ -530,7 +530,7 @@ function CTA() {
           <Fade><div style={{ background: "rgba(255,255,255,0.15)", padding: 32, borderRadius: 4 }}>
             <div style={{ fontSize: 36, marginBottom: 12 }}>✓</div>
             <div style={{ fontFamily: F, fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 8 }}>Request Received</div>
-            <div style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.85)" }}>We'll be in touch within 24 hours. Need it sooner? Call us at 713-367-1495.</div>
+            <div style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.85)" }}>We'll be in touch within 24 hours. Need it sooner? Call us at <a href="tel:713-367-1495" style={{ color: "#fff", fontWeight: 800, textDecoration: "none" }}>713-367-1495</a>.</div>
           </div></Fade>
         ) : (
           <Fade delay={0.1}>
