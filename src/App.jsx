@@ -77,7 +77,7 @@ function Nav() {
       <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
         <Link to="home" style={{ display: "flex", alignItems: "center" }}><img src={COONS_LOGO_W} alt="Coons Roofing" style={{ height: 30 }} /></Link>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <a href="tel:713-367-1495" style={{ background: C.red, color: "#fff", padding: "8px 16px", fontFamily: F, fontSize: 11, fontWeight: 700, textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }} onFocus={e=>Object.assign(e.target.style,focusRing)} onBlur={e=>{e.target.style.outline="none"}}>
+          <a href="tel:713-367-1495" style={{ background: C.red, color: "#fff", padding: "10px 16px", fontFamily: F, fontSize: 11, fontWeight: 700, textDecoration: "none", display: "flex", alignItems: "center", gap: 6, minHeight: 40 }} onFocus={e=>Object.assign(e.target.style,focusRing)} onBlur={e=>{e.target.style.outline="none"}}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
             Call
           </a>
@@ -540,7 +540,7 @@ function CTA() {
             <div style={{ fontSize: 36, marginBottom: 12 }}>✓</div>
             <div style={{ fontFamily: F, fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 8 }}>Request Received</div>
             <div style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.85)", marginBottom: 16 }}>We'll be in touch within 24 hours. Need it sooner? Call us at <a href="tel:713-367-1495" style={{ color: "#fff", fontWeight: 800, textDecoration: "none" }}>713-367-1495</a>.</div>
-            <button onClick={()=>{setSent(false);setForm({name:"",phone:"",address:"",message:""});}} style={{ background: "none", border: "1px solid rgba(255,255,255,0.4)", color: "#fff", padding: "8px 20px", fontFamily: F, fontSize: 12, fontWeight: 600, cursor: "pointer", letterSpacing: 0.5 }}>Submit Another Request</button>
+            <button onClick={()=>{setSent(false);setForm({name:"",phone:"",address:"",message:""});}} style={{ background: "none", border: "1px solid rgba(255,255,255,0.4)", color: "#fff", padding: "12px 24px", fontFamily: F, fontSize: 12, fontWeight: 600, cursor: "pointer", letterSpacing: 0.5, minHeight: 44 }}>Submit Another Request</button>
           </div></Fade>
         ) : (
           <Fade delay={0.1}>
@@ -610,7 +610,7 @@ function Footer() {
             ) : (
               <div style={{ display: "flex", gap: 0 }}>
                 <input aria-label="Email for newsletter" type="email" placeholder="Email address" value={email} onChange={e=>setEmail(e.target.value)} style={{ flex: 1, padding: "8px 10px", fontFamily: F, fontSize: 12, border: "1px solid #333", borderRight: "none", background: "#111", color: "#ccc", outline: "none", minWidth: 0 }}/>
-                <button onClick={handleSub} style={{ padding: "8px 14px", fontFamily: F, fontSize: 11, fontWeight: 800, background: C.red, color: "#fff", border: "none", cursor: "pointer", whiteSpace: "nowrap" }}>Join</button>
+                <button onClick={handleSub} style={{ padding: "10px 16px", fontFamily: F, fontSize: 11, fontWeight: 800, background: C.red, color: "#fff", border: "none", cursor: "pointer", whiteSpace: "nowrap", minHeight: 40 }}>Join</button>
               </div>
             )}
           </div>
@@ -646,14 +646,14 @@ function StickyCallBar({ page }) {
   }, [page]);
   if (!show || contactVisible) return null;
   return (
-    <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 98, background: "rgba(10,10,10,0.95)", backdropFilter: "blur(8px)", padding: "10px 16px", borderTop: "1px solid rgba(230,34,54,0.3)" }}>
+    <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 98, background: "rgba(10,10,10,0.95)", backdropFilter: "blur(8px)", padding: "8px 16px", borderTop: "1px solid rgba(230,34,54,0.3)" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, maxWidth: 500, margin: "0 auto" }}>
-        <a href="tel:713-367-1495" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none", flex: 1, padding: "6px 0" }}>
+        <a href="tel:713-367-1495" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none", flex: 1, padding: "12px 0", minHeight: 44 }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C.red} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           <span style={{ fontFamily: F, fontSize: 13, fontWeight: 800, color: "#fff", letterSpacing: 0.3 }}>Call Now</span>
         </a>
         <div style={{ width: 1, height: 20, background: "rgba(255,255,255,0.15)" }} />
-        <a href="sms:713-367-1495" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none", flex: 1, padding: "6px 0" }}>
+        <a href="sms:713-367-1495" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none", flex: 1, padding: "12px 0", minHeight: 44 }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C.red} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
           <span style={{ fontFamily: F, fontSize: 13, fontWeight: 800, color: "#fff", letterSpacing: 0.3 }}>Text Us</span>
         </a>
@@ -887,10 +887,13 @@ function BlogPost({ slug }) {
             </Fade>
           ))}
           <Fade delay={0.2}>
-            <div style={{ background: C.light, padding: 28, marginTop: 32, textAlign: "center" }}>
+            <div style={{ background: C.light, padding: 32, marginTop: 32, textAlign: "center" }}>
               <p style={{ fontFamily: F, fontSize: 15, fontWeight: 700, color: C.black, marginBottom: 8 }}>Need help with your commercial roof?</p>
-              <p style={{ fontFamily: F, fontSize: 13, color: C.slate, marginBottom: 16 }}>We'll walk your roof, take photos, and give you straight answers.</p>
-              <a href="tel:713-367-1495" style={{ background: C.red, color: "#fff", padding: "12px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, textDecoration: "none", textTransform: "uppercase", letterSpacing: 1, display: "inline-block" }}>Call 713-367-1495</a>
+              <p style={{ fontFamily: F, fontSize: 13, color: C.slate, marginBottom: 20 }}>We'll walk your roof, take photos, and give you straight answers.</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 300, margin: "0 auto" }}>
+                <a href="tel:713-367-1495" style={{ background: C.red, color: "#fff", padding: "14px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, textDecoration: "none", textTransform: "uppercase", letterSpacing: 1, textAlign: "center", minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>Call 713-367-1495</a>
+                <Link to="home" onClick={()=>setTimeout(()=>document.getElementById("contact")?.scrollIntoView({behavior:"smooth"}),300)} style={{ border: `2px solid ${C.red}`, color: C.red, padding: "12px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, textAlign: "center", minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>Schedule Free Assessment</Link>
+              </div>
             </div>
           </Fade>
         </div>
