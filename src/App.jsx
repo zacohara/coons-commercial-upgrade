@@ -183,8 +183,8 @@ function LogoBar() {
     <section style={{ background: "#fff", padding: "24px 0", borderBottom: "1px solid #eee", overflow: "hidden" }}>
       <p style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: "#bbb", letterSpacing: 2, textTransform: "uppercase", textAlign: "center", marginBottom: 14 }}>Certified By</p>
       <div style={{ overflow: "hidden", width: "100%", maskImage: "linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 48, width: "max-content", animation: `${id.current} 25s linear infinite` }}>
-          {doubled.map((l, i) => <img key={l.n + i} src={l.s} alt={l.n} style={{ height: 26, opacity: 0.8, flexShrink: 0 }} />)}
+        <div style={{ display: "flex", alignItems: "center", gap: 72, width: "max-content", animation: `${id.current} 35s linear infinite` }}>
+          {doubled.map((l, i) => <img key={l.n + i} src={l.s} alt={l.n} style={{ height: 39, opacity: 0.8, flexShrink: 0 }} />)}
         </div>
       </div>
     </section>
