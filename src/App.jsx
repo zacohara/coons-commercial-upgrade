@@ -279,11 +279,11 @@ function ServiceAreas() {
 function Services() {
   const svcs = [
     {t:"Proactive Inspections",d:"We catch problems before your tenants do. Every inspection includes photos and a clear action plan.",p:PH_INSPECTION,i:"🔍",slug:"inspections"},
-    {t:"Preventative Maintenance",d:"Scheduled visits that keep small issues from becoming big ones. Full photo report every time.",p:PH_MAINTENANCE,i:"🛡️",slug:"maintenance"},
+    {t:"Proactive Maintenance",d:"Bi-annual inspections with photo reports. We catch small issues before they become emergency calls at 2am. Keeps your buildings protected and your phone quiet.",p:PH_MAINTENANCE,i:"🛡️",slug:"maintenance"},
     {t:"Roof Repair",d:"When something needs fixing, we diagnose it right and get it done. No callbacks, no excuses.",p:PH_REPAIR,i:"🔧",slug:"repair"},
     {t:"Roof Replacement",d:"When it's truly time for a new roof, we'll walk you through every step and keep you in the loop the whole way.",p:PH_REPLACEMENT,i:"🏗️",slug:"replacement"},
     {t:"Storm & Emergency",d:"Got water coming in? Call us first. We respond fast and get you a permanent fix, not a band-aid.",p:PH_EMERGENCY,i:"⚡",slug:"emergency"},
-    {t:"Coatings & Restoration",d:"Why replace when you can restore? Coatings can add 10 to 20 years to your roof at a fraction of the cost.",p:PH_COATINGS,i:"🎨",slug:"coatings"},
+    {t:"Coating & Restoration",d:"Extend roof life 15-20 years and push out major capital expenses. We coordinate with tenants, provide detailed documentation for your board, and complete work with minimal disruption.",p:PH_COATINGS,i:"🎨",slug:"coatings"},
   ];
   return (
     <section id="services" style={{background:C.light,padding:"64px 16px",scrollMarginTop:80}}>
