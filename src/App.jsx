@@ -432,11 +432,11 @@ function Reviews() {
         </Fade>
         <Fade delay={0.05}>
           <div style={{ textAlign: "center", marginBottom: 36 }}>
-            <a href="https://g.page/coonsroofing" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: C.light, padding: "10px 16px", borderRadius: 40, textDecoration: "none", flexWrap: "wrap", justifyContent: "center" }}>
+            <a href="https://g.page/r/CUZitDSZo8KcEBM" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: C.light, padding: "10px 16px", borderRadius: 40, textDecoration: "none", flexWrap: "wrap", justifyContent: "center" }}>
               <svg width="20" height="20" viewBox="0 0 48 48"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#4285F4"/><path d="M3 12.4l7.1 5.2C12.2 13.3 17.6 10 24 10c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 3.1 29.6 1 24 1 14.8 1 6.9 5.8 3 12.4z" fill="#EA4335"/><path d="M24 47c5.4 0 10.4-1.8 14.3-5l-6.6-5.6c-2 1.5-4.6 2.4-7.7 2.4-5.9 0-10.9-4-12.7-9.4L3.5 34.5C7.4 41.7 15.1 47 24 47z" fill="#34A853"/><path d="M46 24c0-1.3-.2-2.7-.5-4H24v8.5h11.8c-.9 3-2.8 5.4-5.2 7.1l6.6 5.6C41 38 46 31.8 46 24z" fill="#FBBC05"/></svg>
               <span style={{ fontFamily: F, fontSize: 18, fontWeight: 900, color: "#333" }}>5.0</span>
               <span style={{ display: "flex", gap: 1 }}>{[1,2,3,4,5].map(s=><span key={s} style={{ color: "#FFB800", fontSize: 14 }}>★</span>)}</span>
-              <span style={{ fontFamily: F, fontSize: 12, color: "#888" }}>from 20 reviews on Google</span>
+              <span style={{ fontFamily: F, fontSize: 12, color: "#888" }}>from 21 reviews on Google</span>
             </a>
           </div>
         </Fade>
@@ -454,7 +454,7 @@ function Reviews() {
         </div>
         <Fade delay={0.3}>
           <div style={{ textAlign: "center", marginTop: 32 }}>
-            <a href="https://g.page/coonsroofing/review" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: C.light, padding: "12px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, color: C.black, textDecoration: "none", transition: "background 0.3s" }} onMouseOver={e=>e.currentTarget.style.background="#e8e8e8"} onMouseOut={e=>e.currentTarget.style.background=C.light}>
+            <a href="https://g.page/r/CUZitDSZo8KcEBM/review" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: C.light, padding: "12px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, color: C.black, textDecoration: "none", transition: "background 0.3s" }} onMouseOver={e=>e.currentTarget.style.background="#e8e8e8"} onMouseOut={e=>e.currentTarget.style.background=C.light}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C.red} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               Had a good experience? Leave us a review on Google
             </a>
@@ -591,8 +591,8 @@ function Footer() {
             <div style={{ display: "flex", gap: 8 }}>
               {socialIcon("M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z", "https://www.linkedin.com/company/coons-roofing", "LinkedIn")}
               {socialIcon("M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7h-2.54v-2.9h2.54v-2.2c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.86h2.78l-.45 2.9h-2.33v7c4.78-.75 8.44-4.9 8.44-9.9 0-5.53-4.5-10.02-10-10.02z", "https://www.facebook.com/coonsroofing", "Facebook")}
-              {socialIcon("M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm5.46 7.12c-.01.14-.01.29-.01.43 0 4.38-3.33 9.42-9.42 9.42-1.87 0-3.61-.55-5.07-1.49.26.03.52.04.79.04 1.55 0 2.98-.53 4.11-1.42-1.45-.03-2.67-.98-3.09-2.3.2.04.41.06.63.06.3 0 .6-.04.88-.11-1.51-.31-2.65-1.64-2.65-3.24v-.04c.45.25.96.4 1.5.42-.89-.59-1.47-1.6-1.47-2.74 0-.6.16-1.17.45-1.66 1.63 2 4.07 3.31 6.82 3.45-.06-.24-.08-.49-.08-.75 0-1.82 1.47-3.3 3.3-3.3.95 0 1.81.4 2.41 1.04.75-.15 1.46-.42 2.1-.8-.25.77-.77 1.42-1.46 1.83.67-.08 1.3-.26 1.9-.52-.44.66-1 1.24-1.65 1.7z", "https://g.page/coonsroofing", "Google")}
-              {socialIcon("M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z", "https://www.youtube.com/@coonsroofing", "YouTube")}
+              {socialIcon("M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm5.46 7.12c-.01.14-.01.29-.01.43 0 4.38-3.33 9.42-9.42 9.42-1.87 0-3.61-.55-5.07-1.49.26.03.52.04.79.04 1.55 0 2.98-.53 4.11-1.42-1.45-.03-2.67-.98-3.09-2.3.2.04.41.06.63.06.3 0 .6-.04.88-.11-1.51-.31-2.65-1.64-2.65-3.24v-.04c.45.25.96.4 1.5.42-.89-.59-1.47-1.6-1.47-2.74 0-.6.16-1.17.45-1.66 1.63 2 4.07 3.31 6.82 3.45-.06-.24-.08-.49-.08-.75 0-1.82 1.47-3.3 3.3-3.3.95 0 1.81.4 2.41 1.04.75-.15 1.46-.42 2.1-.8-.25.77-.77 1.42-1.46 1.83.67-.08 1.3-.26 1.9-.52-.44.66-1 1.24-1.65 1.7z", "https://g.page/r/CUZitDSZo8KcEBM", "Google")}
+
             </div>
           </div>
           {[{t:"Services",items:[{n:"Repair",s:"repair"},{n:"Maintenance",s:"maintenance"},{n:"Coatings",s:"coatings"},{n:"Replacement",s:"replacement"},{n:"Inspections",s:"inspections"},{n:"Emergency",s:"emergency"}]},{t:"Areas",items:[{n:"Houston"},{n:"Harris County"},{n:"Montgomery County"},{n:"Galveston County"},{n:"Tomball"},{n:"Katy"}]},{t:"Contact",items:[{n:"713-367-1495",h:"tel:713-367-1495"},{n:"wade@coonsroofing.com",h:"mailto:wade@coonsroofing.com"},{n:"10607 Lynbrook Dr"},{n:"Houston, TX 77042"}]}].map(col=>(
