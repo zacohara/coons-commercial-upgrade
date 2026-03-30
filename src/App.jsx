@@ -174,17 +174,17 @@ function LogoBar() {
   const id = useRef("marquee-" + Math.random().toString(36).slice(2, 8));
   useEffect(() => {
     const style = document.createElement("style");
-    style.textContent = `@keyframes ${id.current}{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}`;
+    style.textContent = `@keyframes ${id.current}{0%{transform:translateX(0)}100%{transform:translateX(calc(-100% / 3))}}`;
     document.head.appendChild(style);
     return () => style.remove();
   }, []);
-  const doubled = [...LOGOS, ...LOGOS];
+  const tripled = [...LOGOS, ...LOGOS, ...LOGOS];
   return (
-    <section style={{ background: "#fff", padding: "24px 0", borderBottom: "1px solid #eee", overflow: "hidden" }}>
-      <p style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: "#bbb", letterSpacing: 2, textTransform: "uppercase", textAlign: "center", marginBottom: 14 }}>Certified By</p>
-      <div style={{ overflow: "hidden", width: "100%", maskImage: "linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 72, width: "max-content", animation: `${id.current} 35s linear infinite` }}>
-          {doubled.map((l, i) => <img key={l.n + i} src={l.s} alt={l.n} style={{ height: 39, opacity: 0.8, flexShrink: 0 }} />)}
+    <section style={{ background: "#fff", padding: "28px 0", borderBottom: "1px solid #eee", overflow: "hidden" }}>
+      <p style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: "#bbb", letterSpacing: 2, textTransform: "uppercase", textAlign: "center", marginBottom: 18 }}>Certified By</p>
+      <div style={{ overflow: "hidden", width: "100%", maskImage: "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 72, width: "max-content", animation: `${id.current} 40s linear infinite` }}>
+          {tripled.map((l, i) => <img key={l.n + i} src={l.s} alt={l.n} style={{ height: 39, opacity: 0.75, flexShrink: 0 }} />)}
         </div>
       </div>
     </section>
