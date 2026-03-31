@@ -130,14 +130,14 @@ function Hero() {
           </h1>
         </Fade>
         <Fade delay={0.2}>
-          <p style={{ fontFamily: F, fontSize: "clamp(14px,3.5vw,17px)", color: "rgba(255,255,255,0.78)", fontWeight: 400, marginBottom: 36, maxWidth: 480, margin: "0 auto 36px", lineHeight: 1.7 }}>
+          <p style={{ fontFamily: F, fontSize: "clamp(14px,3.5vw,17px)", color: "rgba(255,255,255,0.78)", fontWeight: 400, marginBottom: 36, maxWidth: 560, margin: "0 auto 36px", lineHeight: 1.7 }}>
             We help property managers and building owners protect what matters most. Real evaluations. Honest answers. No runarounds.
           </p>
         </Fade>
         <Fade delay={0.3}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 400, margin: "0 auto" }}>
-            <a href="#contact" onClick={(e)=>{e.preventDefault();document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}} style={{ background: C.red, color: "#fff", padding: "16px clamp(16px,4vw,32px)", fontFamily: F, fontSize: "clamp(12px,3.5vw,14px)", fontWeight: 700, textDecoration: "none", letterSpacing: 1, textTransform: "uppercase", textAlign: "center", boxShadow: "0 4px 20px rgba(230,34,54,0.3)" }}>Schedule Complimentary Roof Assessment</a>
-            <a href="tel:713-367-1495" style={{ background: "transparent", color: "#fff", padding: "16px clamp(16px,4vw,32px)", fontFamily: F, fontSize: "clamp(12px,3.5vw,14px)", fontWeight: 700, textDecoration: "none", letterSpacing: 1, textTransform: "uppercase", textAlign: "center", border: "2px solid rgba(255,255,255,0.3)" }}>Call 713-367-1495</a>
+          <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 12, maxWidth: 520, margin: "0 auto", justifyContent: "center" }}>
+            <a href="#contact" onClick={(e)=>{e.preventDefault();document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}} style={{ background: C.red, color: "#fff", padding: "16px clamp(16px,4vw,32px)", fontFamily: F, fontSize: "clamp(12px,3.5vw,14px)", fontWeight: 700, textDecoration: "none", letterSpacing: 1, textTransform: "uppercase", textAlign: "center", boxShadow: "0 4px 20px rgba(230,34,54,0.3)", flex: "1 1 200px" }}>Schedule Complimentary Roof Assessment</a>
+            <a href="tel:713-367-1495" style={{ background: "transparent", color: "#fff", padding: "16px clamp(16px,4vw,32px)", fontFamily: F, fontSize: "clamp(12px,3.5vw,14px)", fontWeight: 700, textDecoration: "none", letterSpacing: 1, textTransform: "uppercase", textAlign: "center", border: "2px solid rgba(255,255,255,0.3)", flex: "1 1 200px" }}>Call 713-367-1495</a>
           </div>
         </Fade>
         <Fade delay={0.4}>
@@ -210,10 +210,10 @@ function Difference() {
             Repair. Maintain. Restore.<br/><span style={{ color: C.red }}>Replace Only When Necessary.</span>
           </h2>
         </Fade>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16, maxWidth: 560, margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16, maxWidth: 740, margin: "0 auto" }}>
           {items.map((it, i) => (
             i === 4 ? (
-              <div key={it.title} style={{ gridColumn: "1 / -1", maxWidth: 272, margin: "0 auto", width: "100%" }}>
+              <div key={it.title} style={{ gridColumn: "1 / -1", maxWidth: 340, margin: "0 auto", width: "100%" }}>
                 <Fade delay={i * 0.06}>
                   <div style={{ background: "#fff", padding: 24, textAlign: "center", borderTop: `3px solid ${C.red}`, height: "100%", transition: "transform 0.3s" }} onMouseOver={e=>e.currentTarget.style.transform="translateY(-4px)"} onMouseOut={e=>e.currentTarget.style.transform="translateY(0)"}>
                     <div style={{ fontSize: 28, marginBottom: 12 }}>{it.icon}</div>
@@ -248,7 +248,7 @@ function ServiceAreas() {
           Harris County, Montgomery County, Galveston County, and surrounding communities.
         </p></Fade>
         <Fade delay={0.15}>
-        <div style={{maxWidth:520,margin:"0 auto",borderRadius:8,overflow:"hidden",boxShadow:"0 4px 24px rgba(0,0,0,0.08)",position:"relative"}}>
+        <div style={{maxWidth:640,margin:"0 auto",borderRadius:8,overflow:"hidden",boxShadow:"0 4px 24px rgba(0,0,0,0.08)",position:"relative"}}>
           <img src={MAP_IMG} alt="Houston metro service area map" style={{width:"100%",display:"block"}} />
           <svg viewBox="0 0 520 494" style={{position:"absolute",top:0,left:0,width:"100%",height:"100%",pointerEvents:"none"}}>
             <defs>
@@ -294,7 +294,7 @@ function Services() {
           Roofing Services That Serve <span style={{color:C.red}}>the Building Owner</span>
         </h2></Fade>
         <Fade delay={0.05}><p style={{fontFamily:F,fontSize:14,color:C.slate,marginBottom:32}}>Not just the roof.</p></Fade>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:14}}>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:14,maxWidth:900,margin:"0 auto"}}>
           {svcs.map((s,i)=>(
             <Fade key={s.t} delay={i*0.06}>
               <Link to={s.slug} style={{
@@ -334,7 +334,7 @@ function Process() {
           <p style={{ fontFamily: F, fontSize: 15, color: C.slate, textAlign: "center", maxWidth: 500, margin: "0 auto 24px", lineHeight: 1.6 }}>Managing property is firefighting. Let us handle the roofing so you can focus on everything else.</p>
         </Fade>
         <Fade>
-          <div style={{ maxWidth: 640, margin: "0 auto 28px", borderRadius: 8, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.12)", position: "relative", cursor: "pointer" }}
+          <div style={{ maxWidth: 740, margin: "0 auto 28px", borderRadius: 8, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.12)", position: "relative", cursor: "pointer" }}
             onClick={(e) => {
               const container = e.currentTarget;
               container.innerHTML = '<div style="position:relative;padding-bottom:56.25%;height:0"><iframe src="https://player.vimeo.com/video/1008586531?h=15d792bdc8&autoplay=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen title="Coons Roofing"></iframe></div>';
@@ -370,7 +370,7 @@ function Process() {
 function About() {
   return (
     <section id="about" style={{ background: C.black, padding: "64px 16px", scrollMarginTop: 80 }}>
-      <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center" }}>
+      <div style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
         <Fade>
           <p style={{ fontFamily: F, fontSize: 12, fontWeight: 700, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 12 }}>About Coons Roofing</p>
           <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(28px,7vw,42px)", color: "#fff", lineHeight: 1.1, marginBottom: 24, textShadow: "0 3px 10px rgba(0,0,0,0.4)" }}>Owner on <span style={{ color: C.red, textShadow: "0 3px 12px rgba(230,34,54,0.3)" }}>Every Project</span></h2>
@@ -381,7 +381,7 @@ function About() {
           <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.8, marginBottom: 32 }}>You deal with the decision-maker, not a salesperson. That's how we maintain the documentation standards, communication, and quality that commercial clients require.</p>
         </Fade>
         <Fade delay={0.15}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 24 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 24 }}>
             {[["9","Manufacturer Certs"],["100s","Projects Done"],["3+","Years in Business"],["5.0★","Google Rating"]].map(([n,l])=>(
               <div key={n} style={{ background: C.card, padding: "20px 12px", borderRadius: 4 }}>
                 <div style={{ fontFamily: F, fontSize: 32, fontWeight: 900, color: C.red, textShadow: "0 2px 8px rgba(230,34,54,0.25)" }}>{n}</div>
@@ -538,7 +538,7 @@ function CTA() {
   return (
     <section id="contact" style={{ background: C.red, padding: "64px 16px", position: "relative", overflow: "hidden", scrollMarginTop: 80 }}>
       <div style={{ position: "absolute", inset: 0, opacity: 0.05, background: "repeating-linear-gradient(135deg,#000 0px,#000 1px,transparent 1px,transparent 30px)" }} />
-      <div style={{ maxWidth: 520, margin: "0 auto", textAlign: "center", position: "relative" }}>
+      <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center", position: "relative" }}>
         <Fade>
           <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(24px,6vw,38px)", color: "#fff", lineHeight: 1.1, marginBottom: 10 }}>Schedule Your Complimentary Roof Assessment</h2>
           <p style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.85)", marginBottom: 28, lineHeight: 1.6 }}>We'll walk your roof, take photos, and give you straight answers. No pressure, no gimmicks.</p>
