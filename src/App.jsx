@@ -422,10 +422,10 @@ function BeforeAfter() {
 }
 function Reviews() {
   const revs = [
-    { name: "Stephen W.", text: "Coons Roofing handled multiple repairs on my building to get insurance squared away. Always on time, always clean, and they kept their word every step of the way. Couldn't have asked for a better roofing company." },
-    { name: "Patrick S.", text: "Great job start to finish. The guys were on time and finished the job on schedule. They cleaned up the property and left it looking better than they found it. Highly recommend." },
-    { name: "Mason A.", text: "We recently replaced our roof with Coons Roofing and couldn't be happier. The owner came out personally to inspect after a storm. Punctual, professional, knowledgeable. Communication was top notch and integrity was clearly a priority." },
-    { name: "Matthew H.", text: "Called Wade on a recommendation from a friend. He met me within two days, used drone footage to identify the problem, and returned the next day with his crew to patch the roof before Houston's rain storms hit. Timely, professional, and easy to work with." },
+    { name: "Zac O.", text: "Wade is a true professional. Saved us a ton of money by repairing what was wrong instead of forcing us into a full re-roof like other providers were suggesting. If you're in the greater Houston area, it's nice to work direct with owner nowadays!" },
+    { name: "Melanie C.", text: "FINALLY! Fixed a leak I'd been trying to sort out for several months with other providers who didn't fix the problem, and did it quickly. Great communication too. Highly recommend." },
+    { name: "Reagan S.", text: "Coons Roofing is very good. Excellent documentation and follow through regarding roof repairs and roof replacements. Projects big and small." },
+    { name: "Jennifer A.", text: "We recently replaced our roof with Coons Roofing and couldn't be happier with the result. Wade was great to work with, very professional, and thorough in his communications. The work itself is top notch. The process of the roof replacement was very efficient and quality was great. I would highly recommend Coons Roofing!" },
   ];
   return (
     <section style={{ background: "#fff", padding: "80px clamp(16px,4vw,48px)" }}>
@@ -461,6 +461,7 @@ function Reviews() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C.red} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               Had a good experience? Leave us a review on Google
             </a>
+            <p style={{ fontFamily: F, fontSize: 13, color: C.slate, marginTop: 10 }}>...and many more on Google</p>
           </div>
         </Fade>
       </div>
