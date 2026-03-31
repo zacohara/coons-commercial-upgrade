@@ -134,7 +134,7 @@ function Hero() {
         </Fade>
         <Fade delay={0.3}>
           <div style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 400, margin: "0 auto" }}>
-            <a href="#contact" onClick={(e)=>{e.preventDefault();document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}} style={{ background: C.red, color: "#fff", padding: "16px clamp(16px,4vw,32px)", fontFamily: F, fontSize: "clamp(12px,3.5vw,14px)", fontWeight: 700, textDecoration: "none", letterSpacing: 1, textTransform: "uppercase", textAlign: "center", boxShadow: "0 4px 20px rgba(230,34,54,0.3)" }}>Schedule Free Roof Assessment</a>
+            <a href="#contact" onClick={(e)=>{e.preventDefault();document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}} style={{ background: C.red, color: "#fff", padding: "16px clamp(16px,4vw,32px)", fontFamily: F, fontSize: "clamp(12px,3.5vw,14px)", fontWeight: 700, textDecoration: "none", letterSpacing: 1, textTransform: "uppercase", textAlign: "center", boxShadow: "0 4px 20px rgba(230,34,54,0.3)" }}>Schedule Complimentary Roof Assessment</a>
             <a href="tel:713-367-1495" style={{ background: "transparent", color: "#fff", padding: "16px clamp(16px,4vw,32px)", fontFamily: F, fontSize: "clamp(12px,3.5vw,14px)", fontWeight: 700, textDecoration: "none", letterSpacing: 1, textTransform: "uppercase", textAlign: "center", border: "2px solid rgba(255,255,255,0.3)" }}>Call 713-367-1495</a>
           </div>
         </Fade>
@@ -151,7 +151,7 @@ function Hero() {
 
 function TrustBar() {
   const items = [
-    { icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.red} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>, text: "Licensed & Insured" },
+    { icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.red} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>, text: "Fully Insured" },
     { icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.red} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>, text: "GL + Workers Comp" },
     { icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.red} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>, text: "Manufacturer Warranties" },
     { icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.red} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>, text: "Owner on Every Job" },
@@ -470,7 +470,7 @@ function FAQ() {
   const faqs = [
     { q: "How quickly can you respond to a roof leak?", a: "We respond to emergency leak calls within 24 hours across the Houston metro. For active leaks during business hours, we can often have someone on-site the same day. We'll get a temporary fix in place immediately and follow up with a permanent repair." },
     { q: "Do you provide photo reports after inspections?", a: "Every inspection includes a detailed photo report documenting current conditions, problem areas, and recommended next steps. Reports are formatted so you can forward them directly to ownership, insurance, or your maintenance files with no extra work on your end." },
-    { q: "How do I know if my roof needs repair or full replacement?", a: "That's exactly what our free assessment answers. We evaluate membrane condition, flashing integrity, drainage, and remaining service life. Our approach is always to repair, maintain, and restore first. We only recommend replacement when the numbers genuinely support it." },
+    { q: "How do I know if my roof needs repair or full replacement?", a: "That's exactly what our complimentary assessment answers. We evaluate membrane condition, flashing integrity, drainage, and remaining service life. Our approach is always to repair, maintain, and restore first. We only recommend replacement when the numbers genuinely support it." },
     { q: "What types of commercial roofs do you work on?", a: "We service all major flat and low-slope systems including TPO, PVC, modified bitumen, metal, built-up roofing, and coating systems. We're certified installers for Versico, FiberTite, Duro-Last, GAF, Western Colloid, and several other manufacturers." },
     { q: "Do you handle insurance documentation?", a: "Yes. We provide the inspection reports, repair documentation, and photo evidence that insurance carriers need. We've helped many building owners get claims approved by providing clear, professional documentation of storm damage and pre-existing conditions." },
     { q: "Can you manage roofing across multiple properties?", a: "Absolutely. We work with property managers who oversee multiple buildings across the Houston metro. One point of contact, consistent quality standards, and documented history for every property in your portfolio." },
@@ -537,7 +537,7 @@ function CTA() {
       <div style={{ position: "absolute", inset: 0, opacity: 0.05, background: "repeating-linear-gradient(135deg,#000 0px,#000 1px,transparent 1px,transparent 30px)" }} />
       <div style={{ maxWidth: 520, margin: "0 auto", textAlign: "center", position: "relative" }}>
         <Fade>
-          <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(24px,6vw,38px)", color: "#fff", lineHeight: 1.1, marginBottom: 10 }}>Schedule Your Free Roof Assessment</h2>
+          <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(24px,6vw,38px)", color: "#fff", lineHeight: 1.1, marginBottom: 10 }}>Schedule Your Complimentary Roof Assessment</h2>
           <p style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.85)", marginBottom: 28, lineHeight: 1.6 }}>We'll walk your roof, take photos, and give you straight answers. No pressure, no gimmicks.</p>
         </Fade>
         {sent ? (
@@ -676,7 +676,7 @@ function PageHero({ tag, title, highlight, desc }) {
         <Fade delay={0.05}><h1 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(28px,7vw,48px)", color: "#fff", lineHeight: 1.1, marginBottom: 16 }}>{title} <span style={{ color: C.red }}>{highlight}</span></h1></Fade>
         <Fade delay={0.1}><p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.7, marginBottom: 24 }}>{desc}</p></Fade>
         <Fade delay={0.15}><div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 360, margin: "0 auto" }}>
-          <a href="#contact" onClick={(e)=>{e.preventDefault();document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}} style={{ background: C.red, color: "#fff", padding: "14px 28px", fontFamily: F, fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, textAlign: "center", textDecoration: "none", cursor: "pointer" }}>Get a Free Assessment</a>
+          <a href="#contact" onClick={(e)=>{e.preventDefault();document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}} style={{ background: C.red, color: "#fff", padding: "14px 28px", fontFamily: F, fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, textAlign: "center", textDecoration: "none", cursor: "pointer" }}>Get a Complimentary Assessment</a>
           <a href="tel:713-367-1495" style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.7)", textDecoration: "none", textAlign: "center" }}>or call 713-367-1495</a>
         </div></Fade>
       </div>
@@ -931,7 +931,7 @@ function BlogPost({ slug }) {
               <p style={{ fontFamily: F, fontSize: 13, color: C.slate, marginBottom: 20 }}>We'll walk your roof, take photos, and give you straight answers.</p>
               <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 300, margin: "0 auto" }}>
                 <a href="tel:713-367-1495" style={{ background: C.red, color: "#fff", padding: "14px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, textDecoration: "none", textTransform: "uppercase", letterSpacing: 1, textAlign: "center", minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>Call 713-367-1495</a>
-                <Link to="home" onClick={()=>setTimeout(()=>document.getElementById("contact")?.scrollIntoView({behavior:"smooth"}),300)} style={{ border: `2px solid ${C.red}`, color: C.red, padding: "12px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, textAlign: "center", minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>Schedule Free Assessment</Link>
+                <Link to="home" onClick={()=>setTimeout(()=>document.getElementById("contact")?.scrollIntoView({behavior:"smooth"}),300)} style={{ border: `2px solid ${C.red}`, color: C.red, padding: "12px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, textAlign: "center", minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>Schedule Complimentary Assessment</Link>
               </div>
             </div>
           </Fade>
