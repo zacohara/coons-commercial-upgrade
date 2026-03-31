@@ -194,12 +194,13 @@ function LogoBar() {
 }
 
 function Difference() {
+  const iconStyle = { width: 32, height: 32, stroke: C.red, strokeWidth: 1.5, fill: "none", strokeLinecap: "round", strokeLinejoin: "round" };
   const items = [
-    { icon: "🔧", title: "Value-Engineered Repairs", desc: "Solutions that fix it right, not just patch and pray." },
-    { icon: "📋", title: "Photo-Documented Reports", desc: "Clear photo reports you can forward straight to your boss or ownership group. No extra work on your end." },
-    { icon: "🛡️", title: "Proactive Maintenance", desc: "Regular checkups and clear plans so you're never caught off guard." },
-    { icon: "📞", title: "No-Surprise Communication", desc: "You'll always know where things stand, what it costs, and when we'll be done." },
-    { icon: "👷", title: "Professional Crews", desc: "Our guys show up professional, keep your site clean, and respect your tenants." },
+    { icon: <svg viewBox="0 0 24 24" style={iconStyle}><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>, title: "Value-Engineered Repairs", desc: "Solutions that fix it right, not just patch and pray." },
+    { icon: <svg viewBox="0 0 24 24" style={iconStyle}><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>, title: "Photo-Documented Reports", desc: "Clear photo reports you can forward straight to your boss or ownership group. No extra work on your end." },
+    { icon: <svg viewBox="0 0 24 24" style={iconStyle}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>, title: "Proactive Maintenance", desc: "Regular checkups and clear plans so you're never caught off guard." },
+    { icon: <svg viewBox="0 0 24 24" style={iconStyle}><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>, title: "No-Surprise Communication", desc: "You'll always know where things stand, what it costs, and when we'll be done." },
+    { icon: <svg viewBox="0 0 24 24" style={iconStyle}><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>, title: "Professional Crews", desc: "Our guys show up professional, keep your site clean, and respect your tenants." },
   ];
   return (
     <section style={{ background: C.light, padding: "80px clamp(16px,4vw,48px)" }}>
@@ -216,7 +217,7 @@ function Difference() {
               <div key={it.title} style={{ gridColumn: "1 / -1", maxWidth: 340, margin: "0 auto", width: "100%" }}>
                 <Fade delay={i * 0.06}>
                   <div style={{ background: "#fff", padding: 24, textAlign: "center", borderTop: `3px solid ${C.red}`, height: "100%", transition: "transform 0.3s" }} onMouseOver={e=>e.currentTarget.style.transform="translateY(-4px)"} onMouseOut={e=>e.currentTarget.style.transform="translateY(0)"}>
-                    <div style={{ fontSize: 28, marginBottom: 12 }}>{it.icon}</div>
+                    <div style={{ marginBottom: 12 }}>{it.icon}</div>
                     <div style={{ fontFamily: F, fontSize: 14, fontWeight: 800, color: C.black, marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.3 }}>{it.title}</div>
                     <div style={{ fontFamily: F, fontSize: 13, color: C.slate, lineHeight: 1.5 }}>{it.desc}</div>
                   </div>
@@ -225,7 +226,7 @@ function Difference() {
             ) : (
               <Fade key={it.title} delay={i * 0.06}>
                 <div style={{ background: "#fff", padding: 24, textAlign: "center", borderTop: `3px solid ${C.red}`, height: "100%", transition: "transform 0.3s" }} onMouseOver={e=>e.currentTarget.style.transform="translateY(-4px)"} onMouseOut={e=>e.currentTarget.style.transform="translateY(0)"}>
-                  <div style={{ fontSize: 28, marginBottom: 12 }}>{it.icon}</div>
+                  <div style={{ marginBottom: 12 }}>{it.icon}</div>
                   <div style={{ fontFamily: F, fontSize: 14, fontWeight: 800, color: C.black, marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.3 }}>{it.title}</div>
                   <div style={{ fontFamily: F, fontSize: 13, color: C.slate, lineHeight: 1.5 }}>{it.desc}</div>
                 </div>
@@ -282,9 +283,9 @@ function Services() {
   const svcs = [
     {t:"Proactive Inspections",d:"We catch problems before your tenants do. Every inspection includes photos and a clear action plan.",p:PH_INSPECTION,i:"🔍",slug:"inspections"},
     {t:"Proactive Maintenance",d:"Bi-annual inspections with photo reports. We catch small issues before they become emergency calls at 2am. Keeps your buildings protected and your phone quiet.",p:PH_MAINTENANCE,i:"🛡️",slug:"maintenance"},
-    {t:"Roof Repair",d:"When something needs fixing, we diagnose it right and get it done. No callbacks, no excuses.",p:PH_REPAIR,i:"🔧",slug:"repair"},
-    {t:"Roof Replacement",d:"When it's truly time for a new roof, we'll walk you through every step and keep you in the loop the whole way.",p:PH_ROOF_PROJECT,i:"🏗️",slug:"replacement"},
-    {t:"Storm & Emergency",d:"Got water coming in? Call us first. We respond fast and get you a permanent fix, not a band-aid.",p:PH_EMERGENCY,i:"⚡",slug:"emergency"},
+    {t:"Roof Repair",d:"When something needs fixing, we diagnose it right and get it done. No callbacks, no excuses. Clear proposals before any work starts.",p:PH_REPAIR,i:"🔧",slug:"repair"},
+    {t:"Roof Replacement",d:"When it's truly time for a new roof, we'll walk you through every step and keep you in the loop the whole way. Full documentation throughout.",p:PH_ROOF_PROJECT,i:"🏗️",slug:"replacement"},
+    {t:"Storm & Emergency",d:"Got water coming in? Call us first. We respond fast and get you a permanent fix, not a band-aid. Same-day response across the Houston metro.",p:PH_EMERGENCY,i:"⚡",slug:"emergency"},
     {t:"Coating & Restoration",d:"Extend roof life 15-20 years and push out major capital expenses. We coordinate with tenants, provide detailed documentation for your board, and complete work with minimal disruption.",p:PH_COATINGS,i:"🎨",slug:"coatings"},
   ];
   return (
@@ -318,11 +319,12 @@ function Services() {
   );
 }
 function Process() {
+  const pIconStyle = { width: 36, height: 36, stroke: C.red, strokeWidth: 1.5, fill: "none", strokeLinecap: "round", strokeLinejoin: "round" };
   const steps = [
-    { icon: "📍", title: "Always Know What's Happening", desc: "Real-time updates, not vague check-ins. You'll never wonder where things stand." },
-    { icon: "📸", title: "Proof in Your Inbox", desc: "Every repair comes with after-photos and a summary you can forward straight to ownership." },
-    { icon: "✅", title: "Zero Surprises", desc: "Clear scope, clear pricing, clear timeline. Built for how property managers actually work." },
-    { icon: "⚡", title: "Fast, Human Response", desc: "Need an update now? Call or text. No chasing, no waiting, no voicemail loops." },
+    { icon: <svg viewBox="0 0 24 24" style={pIconStyle}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>, title: "Always Know What's Happening", desc: "Real-time updates, not vague check-ins. You'll never wonder where things stand." },
+    { icon: <svg viewBox="0 0 24 24" style={pIconStyle}><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>, title: "Proof in Your Inbox", desc: "Every repair comes with after-photos and a summary you can forward straight to ownership." },
+    { icon: <svg viewBox="0 0 24 24" style={pIconStyle}><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>, title: "Zero Surprises", desc: "Clear scope, clear pricing, clear timeline. Built for how property managers actually work." },
+    { icon: <svg viewBox="0 0 24 24" style={pIconStyle}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>, title: "Fast, Human Response", desc: "Need an update now? Call or text. No chasing, no waiting, no voicemail loops." },
   ];
   return (
     <section style={{ background: "#fff", padding: "64px 16px" }}>
@@ -355,7 +357,7 @@ function Process() {
           {steps.map((st, i) => (
             <Fade key={st.title} delay={i * 0.08}>
               <div style={{ background: C.light, padding: 28, textAlign: "center", borderBottom: `3px solid ${C.red}`, height: "100%" }}>
-                <div style={{ fontSize: 32, marginBottom: 16 }}>{st.icon}</div>
+                <div style={{ marginBottom: 16 }}>{st.icon}</div>
                 <div style={{ fontFamily: F, fontSize: 15, fontWeight: 800, color: C.black, marginBottom: 8 }}>{st.title}</div>
                 <div style={{ fontFamily: F, fontSize: 13, color: C.slate, lineHeight: 1.6 }}>{st.desc}</div>
               </div>
@@ -381,7 +383,7 @@ function About() {
           <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.8, marginBottom: 32 }}>You deal with the decision-maker, not a salesperson. That's how we maintain the documentation standards, communication, and quality that commercial clients require.</p>
         </Fade>
         <Fade delay={0.15}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 24 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginBottom: 24 }}>
             {[["9","Manufacturer Certs"],["100s","Projects Done"],["3+","Years in Business"],["5.0★","Google Rating"]].map(([n,l])=>(
               <div key={n} style={{ background: C.card, padding: "20px 12px", borderRadius: 4 }}>
                 <div style={{ fontFamily: F, fontSize: 32, fontWeight: 900, color: C.red, textShadow: "0 2px 8px rgba(230,34,54,0.25)" }}>{n}</div>
@@ -405,7 +407,7 @@ function About() {
 function BeforeAfter() {
   return (
     <section style={{ background: C.light, padding: "64px 16px" }}>
-      <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center" }}>
+      <div style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
         <Fade>
           <p style={{ fontFamily: F, fontSize: 12, fontWeight: 700, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>Real Results</p>
           <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(24px,6vw,38px)", color: C.black, lineHeight: 1.1, marginBottom: 24 }}>See the <span style={{ color: C.red }}>Difference</span></h2>
@@ -587,7 +589,7 @@ function Footer() {
     <footer style={{ background: "#000", padding: "48px clamp(16px,4vw,48px) 24px", borderTop: "1px solid #1a1a1a" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 32, marginBottom: 40 }}>
-          <div style={{ gridColumn: "1 / -1" }}>
+          <div>
             <div style={{ marginBottom: 12 }}>
               <img src={COONS_LOGO_W} alt="Coons Roofing" style={{ height: 22 }} />
             </div>
