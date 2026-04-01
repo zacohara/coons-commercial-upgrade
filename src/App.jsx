@@ -211,7 +211,7 @@ function Difference() {
             Repair. Maintain. Restore.<br/><span style={{ color: C.red }}>Replace Only When Necessary.</span>
           </h2>
         </Fade>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16, maxWidth: 740, margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16, maxWidth: 580, margin: "0 auto" }}>
           {items.map((it, i) => (
             i === 4 ? (
               <div key={it.title} style={{ gridColumn: "1 / -1", maxWidth: 340, margin: "0 auto", width: "100%" }}>
