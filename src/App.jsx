@@ -256,7 +256,7 @@ function ServiceAreas() {
         </p></Fade>
         <Fade delay={0.15}>
         <div style={{maxWidth:640,margin:"0 auto",borderRadius:8,overflow:"hidden",boxShadow:"0 4px 24px rgba(0,0,0,0.08)",position:"relative"}}>
-          <img src={MAP_IMG} alt="Houston metro service area map" style={{width:"100%",display:"block"}} />
+          <img src={MAP_IMG} alt="Houston metro service area map" width="520" height="508" loading="lazy" style={{width:"100%",height:"auto",display:"block"}} />
           <svg viewBox="0 0 520 494" style={{position:"absolute",top:0,left:0,width:"100%",height:"100%",pointerEvents:"none"}}>
             <defs>
               <radialGradient id="sr" cx="50%" cy="50%"><stop offset="0%" stopColor={C.red} stopOpacity="0.18"/><stop offset="50%" stopColor={C.red} stopOpacity="0.08"/><stop offset="100%" stopColor={C.red} stopOpacity="0"/></radialGradient>
@@ -384,7 +384,7 @@ function About() {
           <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(28px,7vw,42px)", color: "#fff", lineHeight: 1.1, marginBottom: 24, textShadow: "0 3px 10px rgba(0,0,0,0.4)" }}>Owner on <span style={{ color: C.red, textShadow: "0 3px 12px rgba(230,34,54,0.3)" }}>Every Project</span></h2>
         </Fade>
         <Fade delay={0.1}>
-          <div style={{ marginBottom: 24, borderRadius: 8, overflow: "hidden", maxWidth: 280, margin: "0 auto 24px" }}><img src={PH_FAMILY} alt="Wade Coons and family" style={{ width: "100%", display: "block" }} /></div>
+          <div style={{ marginBottom: 24, borderRadius: 8, overflow: "hidden", maxWidth: 280, margin: "0 auto 24px" }}><img src={PH_FAMILY} alt="Wade Coons and family" width="600" height="770" loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} /></div>
           <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.8, marginBottom: 12 }}>Wade Coons learned the construction business from his dad and turned that foundation into a commercial roofing company that property managers and building owners across Houston trust with their most important assets.</p>
           <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.8, marginBottom: 32 }}>You deal with the decision-maker, not a salesperson. That's how we maintain the documentation standards, communication, and quality that commercial clients require.</p>
         </Fade>
@@ -420,7 +420,7 @@ function BeforeAfter() {
         </Fade>
         <Fade delay={0.1}>
           <div style={{ borderRadius: 6, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.1)" }}>
-            <img src={PH_BEFOREAFTER} alt="Before and after roof drain cleaning and coating" style={{ width: "100%", display: "block" }} />
+            <img src={PH_BEFOREAFTER} alt="Before and after roof drain cleaning and coating" width="750" height="510" loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
           </div>
           <p style={{ fontFamily: F, fontSize: 13, color: C.slate, marginTop: 16, lineHeight: 1.6 }}>Roof drain cleaning and coating at a Houston retail center. Debris removed, drains cleared, penetrations sealed.</p>
         </Fade>
