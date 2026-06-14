@@ -827,6 +827,80 @@ export const CITIES = [
   { slug: "conroe", name: "Conroe", county: "Montgomery County", desc: "Commercial roofing for Conroe and Montgomery County businesses, churches, and property management companies.", pop: "County seat, growing fast", detail: "Conroe and greater Montgomery County are experiencing rapid commercial development along I-45 and the Grand Parkway. New medical facilities, retail centers, and mixed-use developments need roofing contractors who can handle both new construction warranty work and ongoing maintenance. We service the entire Montgomery County corridor from Willis to Shenandoah." },
 ];
 
+// Unique, locally-specific content per city to avoid thin/duplicate pages.
+export const CITY_EXTRA = {
+  katy: {
+    local: "Katy's commercial inventory skews new: TPO and modified-bitumen roofs going up across Cinco Ranch, LaCenterra, and the Energy Corridor spillover along I-10. New construction is exactly when a maintenance program pays off most, protecting the manufacturer warranty from day one. We also handle the aging metal and built-up roofs on older retail along Highway Blvd and Mason Road.",
+    faqs: [
+      { q: "How fast can you respond to a roof leak in Katy?", a: "We provide same-day emergency response across Katy and Fort Bend County for active water intrusion, and we can typically have someone on a roof the same day during business hours." },
+      { q: "Do you work with Katy HOAs and retail property managers?", a: "Yes. A large share of our Katy work is HOA-governed commercial buildings and retail centers, where we provide the photo-documented reports boards and ownership groups expect." },
+    ],
+  },
+  "the-woodlands": {
+    local: "The Woodlands is corporate-campus country: Town Center, Hughes Landing, and the Research Forest office parks carry some of the largest single-building roof footprints north of Houston. These owners expect institutional-grade documentation, and the master-planned community's design requirements mean approvals and aesthetics matter. We coordinate around tenant operations and deliver reporting that satisfies corporate asset managers.",
+    faqs: [
+      { q: "Can you manage roofing across multiple Woodlands properties?", a: "Yes. We offer portfolio maintenance plans with one point of contact, consistent reporting standards, and a documented history for every building in your portfolio." },
+      { q: "Do you meet The Woodlands' design and HOA requirements?", a: "We're familiar with the community's commercial design standards and provide the documentation and coordination needed for approvals before work begins." },
+    ],
+  },
+  tomball: {
+    local: "Tomball is a study in contrasts: historic downtown buildings with older metal and built-up roofs sitting beside brand-new TPO installations along the Tomball Tollway and the 249/2920 corridor. We handle both, from emergency leak repair on a decades-old roof to warranty-backed single-ply on new medical and retail construction.",
+    faqs: [
+      { q: "Do you repair older metal roofs in downtown Tomball?", a: "Yes. We diagnose and permanently repair aging metal and built-up systems, and we'll tell you honestly whether a targeted repair or a coating restoration makes more financial sense than replacement." },
+      { q: "Do you handle new commercial construction in Tomball?", a: "We install warranty-backed systems on new retail, medical, and industrial buildings and can start a maintenance program immediately to protect the warranty." },
+    ],
+  },
+  pearland: {
+    local: "Pearland's commercial growth runs along 288 and the Sam Houston Tollway, through Shadow Creek Ranch and the Town Center district. Proximity to the coast makes drainage and storm preparedness critical here, ponding water and undersized drains are among the most common problems we find on Pearland flat roofs.",
+    faqs: [
+      { q: "Why does drainage matter so much for Pearland commercial roofs?", a: "Pearland's heavy rainfall and flat-roof construction mean poor drainage leads to ponding, accelerated membrane failure, and leaks. We assess and correct drainage as part of every inspection." },
+      { q: "Do you serve the Shadow Creek and Town Center areas?", a: "Yes, we service commercial properties throughout Pearland including the Shadow Creek Ranch commercial district, Town Center, and the 288 corridor." },
+    ],
+  },
+  "league-city": {
+    local: "League City and the Clear Lake area sit closer to the Gulf, which changes everything: higher wind loads, salt-air corrosion, and a more aggressive storm season. We spec corrosion-resistant fasteners and detailing built for coastal exposure, and we prioritize storm preparedness for buildings from NASA Parkway to the I-45 corridor.",
+    faqs: [
+      { q: "How does coastal exposure affect commercial roofs in League City?", a: "Salt air corrodes fasteners and metal detailing faster, and higher wind loads stress seams and edges. We use coastal-appropriate materials and detailing to hold up in this environment." },
+      { q: "Do you handle storm and hurricane damage in the Clear Lake area?", a: "Yes. We provide rapid storm response and the timestamped damage documentation insurance carriers need to process claims." },
+    ],
+  },
+  "sugar-land": {
+    local: "Sugar Land's commercial corridors, First Colony, Town Square, and Highway 6, are dominated by institutional owners and corporate ownership groups. That means reporting standards matter: our photo-documented findings are formatted for the boards, asset managers, and investors common in Fort Bend County's commercial market.",
+    faqs: [
+      { q: "Do your reports meet institutional ownership standards?", a: "Yes. Every inspection includes findings ranked by urgency with photos and budget estimates, formatted to forward directly to ownership groups, boards, or insurance." },
+      { q: "Can you maintain multiple Sugar Land buildings consistently?", a: "We provide portfolio maintenance with one point of contact and consistent documentation across every property you manage in Fort Bend County." },
+    ],
+  },
+  spring: {
+    local: "Spring and the Klein area stretch along I-45 North and the Grand Parkway, from Old Town Spring's retail buildings to the large developments near the ExxonMobil campus. It's a deep mix of strip centers, churches, medical facilities, and multi-family, each with different roofing demands we handle daily.",
+    faqs: [
+      { q: "Do you service the Old Town Spring and ExxonMobil campus areas?", a: "Yes, we cover the full Spring and Klein corridor along I-45 North and the Grand Parkway, including retail, office, medical, and multi-family properties." },
+      { q: "Do you offer maintenance plans for Spring property managers?", a: "We offer semi-annual maintenance programs with photo reports that catch small issues before they become emergency calls." },
+    ],
+  },
+  cypress: {
+    local: "Cypress and the US-290 corridor are among Houston's fastest-growing commercial areas, with new retail, medical, and office construction going up constantly along Barker Cypress, Fry Road, and Fairfield. New roofs need maintenance from day one to protect the warranty, and we also service the established properties throughout the area.",
+    faqs: [
+      { q: "Should a brand-new commercial roof in Cypress need maintenance?", a: "Yes, manufacturer warranties require documented maintenance. Starting a program day one protects your warranty and catches installation issues before they cause damage." },
+      { q: "What areas of Cypress do you cover?", a: "We service the full US-290 corridor including Barker Cypress, Fry Road, and the Fairfield area." },
+    ],
+  },
+  pasadena: {
+    local: "Pasadena and the Ship Channel are unlike anywhere else we work. Chemical exposure, industrial contaminants, and heavy-industry proximity mean PVC membranes often outperform TPO here, they resist the grease and chemical attack that degrade other systems. We carry the certifications to install chemical-resistant systems built for industrial environments.",
+    faqs: [
+      { q: "Why do you recommend PVC over TPO near the Ship Channel?", a: "PVC resists chemical and grease exposure far better than TPO, which matters near industrial facilities, restaurants, and the Ship Channel. We'll spec the right membrane for your building's exposure." },
+      { q: "Do you handle industrial roofing in Pasadena?", a: "Yes. We're certified for chemical-resistant systems and understand the specific demands of industrial commercial roofing in this corridor." },
+    ],
+  },
+  conroe: {
+    local: "Conroe and greater Montgomery County are booming along I-45 and the Grand Parkway, new medical facilities, retail centers, and mixed-use developments from Willis to Shenandoah. That growth means both new-construction warranty work and ongoing maintenance for owners who want to protect a fresh investment.",
+    faqs: [
+      { q: "Do you cover all of Montgomery County from Conroe?", a: "Yes, we service the entire Montgomery County corridor from Willis to Shenandoah, including Conroe's growing commercial and medical districts." },
+      { q: "Do you do new-construction commercial roofing in Conroe?", a: "We install warranty-backed systems on new construction and start maintenance programs immediately to protect the warranty and the owner's investment." },
+    ],
+  },
+};
+
 /* ── Page Data ── */
 export const PAGES = {
   repair: { tag: "Roof Repair", title: "Commercial Roof Repair in", highlight: "Houston", desc: "Membrane deterioration, failed flashings, storm damage, and ponding water all need targeted repair before they escalate. We respond within 24 hours and deliver clear proposals before any work begins.", sections: [
@@ -1120,12 +1194,14 @@ function ServicePage({ slug }) {
 function CityPage({ slug }) {
   const city = CITIES.find(c => c.slug === slug);
   if (!city) return <PageHero tag="404" title="Page" highlight="Not Found" desc="This page doesn't exist." />;
+  const extra = CITY_EXTRA[slug] || {};
   return (
     <div key={slug}>
       <PageHero tag={"Service Area: " + city.county} title={"Commercial Roofing in"} highlight={city.name} desc={city.desc} />
       <TrustBar />
       <PageSection title={"Why " + city.name + " Building Owners Choose Coons Roofing"} bg="#fff">
         <p style={{ fontFamily: F, fontSize: 15, color: C.slate, lineHeight: 1.8 }}>{city.detail}</p>
+        {extra.local && <p style={{ fontFamily: F, fontSize: 15, color: C.slate, lineHeight: 1.8, marginTop: 16 }}>{extra.local}</p>}
       </PageSection>
       <PageSection title="Services Available" bg={C.light}>
         <p style={{ fontFamily: F, fontSize: 15, color: C.slate, lineHeight: 1.8 }}>We provide the full range of commercial roofing services in {city.name}: inspections, preventative maintenance, repair, coatings and restoration, and full replacement when the numbers support it. Every service includes photo-documented reports you can forward directly to ownership or insurance.</p>
@@ -1134,6 +1210,16 @@ function CityPage({ slug }) {
       <PageSection title={"Certifications and Coverage in " + city.name} bg="#fff">
         <p style={{ fontFamily: F, fontSize: 15, color: C.slate, lineHeight: 1.8 }}>Certified installer for Versico, FiberTite, Duro-Last, Karnak, Everest Systems, IPC, Western Colloid, Elevate, and GAF. Fully insured with General Liability and Workers Compensation. Certificates provided before work begins. Same-day emergency response available across {city.name} and {city.county}.</p>
       </PageSection>
+      {extra.faqs && extra.faqs.length > 0 && (
+        <PageSection title={"Commercial Roofing FAQs — " + city.name} bg={C.light}>
+          {extra.faqs.map((f, i) => (
+            <div key={i} style={{ marginBottom: 20 }}>
+              <p style={{ fontFamily: F, fontSize: 16, fontWeight: 800, color: C.black, marginBottom: 6 }}>{f.q}</p>
+              <p style={{ fontFamily: F, fontSize: 15, color: C.slate, lineHeight: 1.8 }}>{f.a}</p>
+            </div>
+          ))}
+        </PageSection>
+      )}
       <section style={{ background: "#fff", padding: "48px clamp(16px,4vw,48px)" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <Fade>
