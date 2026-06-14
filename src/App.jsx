@@ -3,20 +3,20 @@ import { useState, useEffect, useRef } from "react";
 const COONS_LOGO = "/logo-coons.png";
 const COONS_LOGO_W = "/logo-coons-white.png";
 
-const PH_MAINTENANCE = "service-maintenance.jpg";
-const PH_REPAIR = "service-repair.jpg";
-const PH_COATINGS = "service-coatings.jpg";
-const PH_REPLACEMENT = "service-replacement.jpg";
-const PH_INSPECTION = "service-inspection.jpg";
-const PH_EMERGENCY = "service-emergency.jpg";
-const HERO_BG = "hero-bg.jpg";
-const PH_BEFOREAFTER = "before-after.jpg";
-const MAP_IMG = "houston-map.jpg";
+const PH_MAINTENANCE = "/service-maintenance.jpg";
+const PH_REPAIR = "/service-repair.jpg";
+const PH_COATINGS = "/service-coatings.jpg";
+const PH_REPLACEMENT = "/service-replacement.jpg";
+const PH_INSPECTION = "/service-inspection.jpg";
+const PH_EMERGENCY = "/service-emergency.jpg";
+const HERO_BG = "/hero-bg.jpg";
+const PH_BEFOREAFTER = "/before-after.jpg";
+const MAP_IMG = "/houston-map.jpg";
 const C = { black: "#0A0A0A", red: "#E62236", slate: "#4B4B4B", light: "#F3F3F3", white: "#FFFFFF", card: "#111111" };
 const F = "'Poppins',sans-serif";
-const PH_ROOF_PROJECT = "roof-project.jpg";
-const PH_FAMILY = "family.jpg";
-const PH_WADE = "wade-owner.jpg";
+const PH_ROOF_PROJECT = "/roof-project.jpg";
+const PH_FAMILY = "/family.jpg";
+const PH_WADE = "/wade-owner.jpg";
 
 // GoHighLevel Inbound Webhook URL (Workflow → "Inbound Webhook" trigger).
 // Workflow: "Website Lead — Coons Roofing" (location zemOrVB3bS5ADz7ow32o).
@@ -174,7 +174,7 @@ function TrustBar() {
         {items.map(it => (
           <div key={it.text} style={{ display: "flex", alignItems: "center", gap: 8 }}>
             {it.icon}
-            <span style={{ fontFamily: F, fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.55)", letterSpacing: 0.5 }}>{it.text}</span>
+            <span style={{ fontFamily: F, fontSize: 12.5, fontWeight: 700, color: "rgba(255,255,255,0.8)", letterSpacing: 0.5 }}>{it.text}</span>
           </div>
         ))}
       </div>
@@ -196,7 +196,7 @@ function LogoBar() {
       <p style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: "#bbb", letterSpacing: 2, textTransform: "uppercase", textAlign: "center", marginBottom: 18 }}>Certified By</p>
       <div style={{ overflow: "hidden", width: "100%", maskImage: "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 72, width: "max-content", animation: `${id.current} 40s linear infinite` }}>
-          {tripled.map((l, i) => <img key={l.n + i} src={l.s} alt={l.n} style={{ height: 39, opacity: 0.75, flexShrink: 0 }} />)}
+          {tripled.map((l, i) => <img key={l.n + i} src={l.s} alt={l.n} style={{ height: 38, opacity: 0.65, filter: "grayscale(1)", flexShrink: 0 }} />)}
         </div>
       </div>
     </section>
@@ -206,7 +206,7 @@ function LogoBar() {
 function Difference() {
   const iconStyle = { width: 32, height: 32, stroke: C.red, strokeWidth: 1.5, fill: "none", strokeLinecap: "round", strokeLinejoin: "round" };
   const items = [
-    { icon: <svg viewBox="0 0 24 24" style={iconStyle}><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>, title: "Value-Engineered Repairs", desc: "Solutions that fix it right, not just patch and pray." },
+    { icon: <svg viewBox="0 0 24 24" style={iconStyle}><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>, title: "Value-Engineered Repairs", desc: "We fix the actual failure — flashing, seams, drainage — not just the symptom, so you're not paying for the same leak twice." },
     { icon: <svg viewBox="0 0 24 24" style={iconStyle}><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>, title: "Photo-Documented Reports", desc: "Clear photo reports you can forward straight to your boss or ownership group. No extra work on your end." },
     { icon: <svg viewBox="0 0 24 24" style={iconStyle}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>, title: "Proactive Maintenance", desc: "Regular checkups and clear plans so you're never caught off guard." },
     { icon: <svg viewBox="0 0 24 24" style={iconStyle}><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>, title: "No-Surprise Communication", desc: "You'll always know where things stand, what it costs, and when we'll be done." },
@@ -221,29 +221,17 @@ function Difference() {
             Repair. Maintain. Restore.<br/><span style={{ color: C.red }}>Replace Only When Necessary.</span>
           </h2>
         </Fade>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16, maxWidth: 580, margin: "0 auto" }}>
-          {items.map((it, i) => (
-            i === 4 ? (
-              <div key={it.title} style={{ gridColumn: "1 / -1", maxWidth: 340, margin: "0 auto", width: "100%" }}>
-                <Fade delay={i * 0.06}>
-                  <div style={{ background: "#fff", padding: 24, textAlign: "center", borderTop: `3px solid ${C.red}`, height: "100%", transition: "transform 0.3s" }} onMouseOver={e=>e.currentTarget.style.transform="translateY(-4px)"} onMouseOut={e=>e.currentTarget.style.transform="translateY(0)"}>
-                    <div style={{ marginBottom: 12 }}>{it.icon}</div>
-                    <div style={{ fontFamily: F, fontSize: 14, fontWeight: 800, color: C.black, marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.3 }}>{it.title}</div>
-                    <div style={{ fontFamily: F, fontSize: 13, color: C.slate, lineHeight: 1.5 }}>{it.desc}</div>
-                  </div>
-                </Fade>
+        <Fade>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 16, maxWidth: 940, margin: "0 auto" }}>
+            {items.map((it) => (
+              <div key={it.title} style={{ flex: "1 1 240px", maxWidth: 290, background: "#fff", padding: 24, textAlign: "center", borderTop: `3px solid ${C.red}`, transition: "transform 0.3s" }} onMouseOver={e=>e.currentTarget.style.transform="translateY(-4px)"} onMouseOut={e=>e.currentTarget.style.transform="translateY(0)"}>
+                <div style={{ marginBottom: 12 }}>{it.icon}</div>
+                <div style={{ fontFamily: F, fontSize: 14, fontWeight: 800, color: C.black, marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.3 }}>{it.title}</div>
+                <div style={{ fontFamily: F, fontSize: 13, color: C.slate, lineHeight: 1.5 }}>{it.desc}</div>
               </div>
-            ) : (
-              <Fade key={it.title} delay={i * 0.06}>
-                <div style={{ background: "#fff", padding: 24, textAlign: "center", borderTop: `3px solid ${C.red}`, height: "100%", transition: "transform 0.3s" }} onMouseOver={e=>e.currentTarget.style.transform="translateY(-4px)"} onMouseOut={e=>e.currentTarget.style.transform="translateY(0)"}>
-                  <div style={{ marginBottom: 12 }}>{it.icon}</div>
-                  <div style={{ fontFamily: F, fontSize: 14, fontWeight: 800, color: C.black, marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.3 }}>{it.title}</div>
-                  <div style={{ fontFamily: F, fontSize: 13, color: C.slate, lineHeight: 1.5 }}>{it.desc}</div>
-                </div>
-              </Fade>
-            )
-          ))}
-        </div>
+            ))}
+          </div>
+        </Fade>
       </div>
     </section>
   );
@@ -306,7 +294,7 @@ function Services() {
           Commercial Roofing Services Built Around <span style={{color:C.red}}>the Building Owner</span>
         </h2></Fade>
         <Fade delay={0.05}><p style={{fontFamily:F,fontSize:"clamp(14px,3.5vw,17px)",color:C.slate,lineHeight:1.7,maxWidth:640,margin:"0 auto 24px"}}>
-          Protect your roof, your tenants, and your budget with clear documentation, proactive maintenance, and fast response when problems show up.
+          Keep your tenants dry, your budget predictable, and ownership confident — with documented inspections, proactive maintenance, and fast leak response.
         </p></Fade>
         <Fade delay={0.1}><div style={{display:"flex",flexWrap:"wrap",gap:12,justifyContent:"center",maxWidth:520,margin:"0 auto 40px"}}>
           <a href="#contact" onClick={scrollToContact} style={{background:C.red,color:"#fff",padding:"15px 28px",fontFamily:F,fontSize:13,fontWeight:700,textDecoration:"none",letterSpacing:1,textTransform:"uppercase",boxShadow:"0 4px 20px rgba(230,34,54,0.3)",flex:"1 1 200px",textAlign:"center"}}>Schedule Roof Assessment</a>
@@ -397,10 +385,10 @@ function About() {
         </Fade>
         <Fade delay={0.1}>
           <div style={{ marginBottom: 24, borderRadius: 8, overflow: "hidden", maxWidth: 280, margin: "0 auto 24px" }}><img src={PH_FAMILY} alt="Wade Coons and family" width="700" height="1050" loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} /></div>
-          <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.8, marginBottom: 12 }}>Wade Coons learned the construction business from his dad and turned that foundation into a commercial roofing company that property managers and building owners across Houston trust with their most important assets.</p>
-          <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.8, marginBottom: 24 }}>You deal with the decision-maker, not a salesperson. That's how we maintain the documentation standards, communication, and quality that commercial clients require.</p>
+          <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.86)", lineHeight: 1.8, marginBottom: 12 }}>Wade Coons learned the construction business from his dad and turned that foundation into a commercial roofing company that property managers and building owners across Houston trust with the roofs over their tenants, their budgets, and their reputation.</p>
+          <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.86)", lineHeight: 1.8, marginBottom: 24 }}>You deal with the decision-maker, not a salesperson. That's how we maintain the documentation standards, communication, and quality that commercial clients require.</p>
           <div style={{ marginBottom: 8, borderRadius: 8, overflow: "hidden", maxWidth: 320, margin: "0 auto 8px" }}><img src={PH_WADE} alt="Wade Coons, owner of Coons Roofing, on a commercial roof in Houston" width="760" height="1000" loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} /></div>
-          <p style={{ fontFamily: F, fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.55)", letterSpacing: 1, textTransform: "uppercase", marginBottom: 32 }}>Wade Coons — Owner</p>
+          <p style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.72)", letterSpacing: 1, textTransform: "uppercase", marginBottom: 32 }}>Wade Coons — Owner</p>
         </Fade>
         <Fade delay={0.15}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginBottom: 24 }}>
@@ -467,12 +455,12 @@ function Reviews() {
             </a>
           </div>
         </Fade>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20, maxWidth: 820, margin: "0 auto" }}>
           {revs.map((r, i) => (
             <Fade key={r.name} delay={i * 0.08}>
-              <div style={{ background: C.light, padding: 28, borderTop: `3px solid ${C.red}`, height: "100%", textAlign: "center" }}>
-                <svg width="56" height="18" viewBox="0 0 272 92" style={{margin:"0 auto 10px",display:"block"}}><path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#EA4335"/><path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#FBBC05"/><path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z" fill="#4285F4"/><path d="M225 3v65h-9.5V3h9.5z" fill="#34A853"/><path d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.96 0-11.84 4.37-11.59 12.93z" fill="#EA4335"/><path d="M35.29 41.19V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49-.01z" fill="#4285F4"/></svg>
-                <div style={{ display: "flex", gap: 3, marginBottom: 14, justifyContent: "center" }}>{[1,2,3,4,5].map(s=><span key={s} style={{ color: "#FFB800", fontSize: 16 }}>★</span>)}</div>
+              <div style={{ background: C.light, padding: 28, borderTop: `3px solid ${C.red}`, height: "100%", textAlign: "left" }}>
+                <svg width="56" height="18" viewBox="0 0 272 92" style={{margin:"0 0 12px",display:"block"}}><path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#EA4335"/><path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#FBBC05"/><path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z" fill="#4285F4"/><path d="M225 3v65h-9.5V3h9.5z" fill="#34A853"/><path d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.96 0-11.84 4.37-11.59 12.93z" fill="#EA4335"/><path d="M35.29 41.19V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49-.01z" fill="#4285F4"/></svg>
+                <div style={{ display: "flex", gap: 3, marginBottom: 14, justifyContent: "flex-start" }}>{[1,2,3,4,5].map(s=><span key={s} style={{ color: "#FFB800", fontSize: 16 }}>★</span>)}</div>
                 <p style={{ fontFamily: F, fontSize: 14, color: C.slate, lineHeight: 1.7, marginBottom: 16, fontStyle: "italic" }}>"{r.text}"</p>
                 <div style={{ fontFamily: F, fontSize: 13, fontWeight: 800, color: C.black }}>{r.name}</div>
               </div>
@@ -607,18 +595,18 @@ function CTA() {
               <textarea aria-label="Message" style={{...inputStyle,minHeight:80,resize:"vertical"}} placeholder="Tell us what's going on with your roof..." value={form.message} onChange={e=>setForm({...form,message:e.target.value})}/>
               <label style={{ display: "flex", gap: 10, alignItems: "flex-start", textAlign: "left", cursor: "pointer" }}>
                 <input type="checkbox" aria-label="Consent to service text messages" checked={form.consent} onChange={e=>setForm({...form,consent:e.target.checked})} style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#fff", cursor: "pointer" }}/>
-                <span style={{ fontFamily: F, fontSize: 11.5, color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>
+                <span style={{ fontFamily: F, fontSize: 10.5, color: "rgba(255,255,255,0.62)", lineHeight: 1.5 }}>
                   I agree to receive calls and service/transactional text messages (roof assessment, scheduling, appointment coordination, and follow-ups) from Coons Roofing LLC at the number provided. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.
                 </span>
               </label>
               <label style={{ display: "flex", gap: 10, alignItems: "flex-start", textAlign: "left", cursor: "pointer" }}>
                 <input type="checkbox" aria-label="Consent to promotional text messages" checked={form.marketingConsent} onChange={e=>setForm({...form,marketingConsent:e.target.checked})} style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#fff", cursor: "pointer" }}/>
-                <span style={{ fontFamily: F, fontSize: 11.5, color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>
+                <span style={{ fontFamily: F, fontSize: 10.5, color: "rgba(255,255,255,0.62)", lineHeight: 1.5 }}>
                   I agree to receive marketing and promotional text messages (offers and announcements) from Coons Roofing LLC at the number provided. Message frequency varies. Msg &amp; data rates may apply. Consent is not a condition of purchase. Reply STOP to opt out, HELP for help. See our <a href="/privacy/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Privacy Policy</a> and <a href="/terms/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Terms</a>.
                 </span>
               </label>
               {error && <div role="alert" style={{ fontFamily: F, fontSize: 13, color: "#fff", background: "rgba(0,0,0,0.25)", padding: "8px 12px", textAlign: "left" }}>{error}</div>}
-              <button type="submit" disabled={submitting} style={{ background: "#fff", color: C.red, padding: "14px", fontFamily: F, fontSize: 14, fontWeight: 800, border: "none", cursor: submitting ? "wait" : "pointer", textTransform: "uppercase", letterSpacing: 1, opacity: submitting ? 0.7 : 1 }}>{submitting ? "Sending..." : "Send Request"}</button>
+              <button type="submit" disabled={submitting} style={{ background: "#fff", color: C.red, padding: "14px", borderRadius: 4, fontFamily: F, fontSize: 14, fontWeight: 800, border: "none", cursor: submitting ? "wait" : "pointer", textTransform: "uppercase", letterSpacing: 1, opacity: submitting ? 0.7 : 1 }}>{submitting ? "Sending..." : "Get My Free Roof Report"}</button>
             </form>
             <div style={{ display: "flex", gap: 16, justifyContent: "center", alignItems: "center" }}>
               <span style={{ fontFamily: F, fontSize: 12, color: "rgba(255,255,255,0.7)" }}>or call directly:</span>
@@ -998,7 +986,7 @@ export const PAGES = {
 
 /* ── Blog Data ── */
 export const BLOG = [
-  { slug: "commercial-roof-maintenance-program-houston", related: ["maintenance", "inspections"], title: "Why Every Houston Commercial Property Needs a Roof Maintenance Program", date: "June 2026", published: "2026-06-12", read: "6 min", img: "blog-maintenance.webp", body: [
+  { slug: "commercial-roof-maintenance-program-houston", related: ["maintenance", "inspections"], title: "Why Every Houston Commercial Property Needs a Roof Maintenance Program", date: "June 2026", published: "2026-06-12", read: "6 min", img: "/blog-maintenance.webp", body: [
     "A commercial roof maintenance program is a scheduled plan of inspections, cleaning, and small repairs that catches problems before they become five- and six-figure failures. For Houston property managers running flat or low-slope roofs, it's the single highest-ROI line item you're probably underfunding, because every dollar spent on proactive upkeep typically defers a far larger replacement bill.",
     "Houston is one of the harshest roofing environments in the country. Relentless UV bakes membranes for nine months a year, summer heat drives thermal cycling that works seams and flashings loose, and then a single afternoon storm can dump several inches of rain onto a roof that doesn't drain fast enough. A roof that would last 25 years in a milder climate can degrade noticeably faster here without attention. A maintenance program is how you fight that math.",
     "What does a real program look like? At minimum, two scheduled inspections a year — typically spring and fall — plus a check after any major storm event. Each visit should cover the membrane field (TPO, PVC, or modified bitumen), all flashings and penetrations, drains and scuppers, and rooftop equipment curbs. Drains get cleared, debris gets removed, open seams get sealed, and minor punctures get patched on the spot before water finds them.",
@@ -1007,7 +995,7 @@ export const BLOG = [
     "The contractors who push replacement first aren't doing you any favors. The honest approach is to repair and restore while the roof still has life in it, document everything, and only recommend replacement when the inspection data and the numbers genuinely support it. A maintenance program is what gives you that data instead of a guess.",
     "If you're managing commercial property in the Houston area and you don't have a documented maintenance plan in place, that's worth fixing before the next storm season. Schedule a free roof assessment and we'll walk your roof, give you a photo report, and tell you honestly where it stands."
   ]},
-  { slug: "tpo-roof-repair-houston", related: ["repair", "coatings"], title: "TPO Roof Repair in Houston: Signs, Process, and What Drives the Cost", date: "June 2026", published: "2026-06-13", read: "6 min", img: "blog-tpo-repair.webp", body: [
+  { slug: "tpo-roof-repair-houston", related: ["repair", "coatings"], title: "TPO Roof Repair in Houston: Signs, Process, and What Drives the Cost", date: "June 2026", published: "2026-06-13", read: "6 min", img: "/blog-tpo-repair.webp", body: [
     "Most TPO roof problems in Houston are repairable, and repair almost always costs a fraction of replacement. If you're seeing seam separations, punctures, or ponding on a TPO roof that still has years of membrane life left, the right first move is a targeted repair — not a tear-off. The key is catching the issue early and having someone diagnose the actual cause.",
     "TPO (thermoplastic polyolefin) is one of the most common commercial membranes in Houston for good reason: its reflective white surface fights our brutal heat and UV load, and its heat-welded seams create a strong, watertight bond. But no membrane is maintenance-free. Over years of thermal cycling and sun exposure, the most common failure points show up at the seams, at flashings and penetrations, and anywhere foot traffic or debris has punctured the field.",
     "The warning signs are usually visible if you know where to look. Watch for seams that have lifted or split, cracking or 'crazing' on the membrane surface, water stains on the ceiling or deck below, loose or pulling flashings around HVAC curbs and pipes, and ponding water that sits for days after rain. Any one of these means it's time for an inspection. Several of them together mean water is likely already getting in.",
@@ -1016,7 +1004,7 @@ export const BLOG = [
     "There's also a middle path worth knowing about: roof coatings. If a TPO roof is aging but still structurally sound, a restoration coating can extend its service life significantly and restore reflectivity — for far less than replacement. It's not right for every roof, but for the right candidate in Houston's sun, it's a smart way to buy years without a capital project.",
     "If you've got a TPO roof showing any of these signs, get eyes on it before the next storm makes it worse. Schedule a free roof assessment and we'll diagnose the real problem, send you a photo report, and give you a straight answer on repair versus anything bigger."
   ]},
-  { slug: "commercial-roof-storm-damage-insurance-claim-houston", related: ["emergency", "inspections"], title: "How to Handle a Commercial Roof Storm Damage Insurance Claim in Houston", date: "June 2026", published: "2026-06-14", read: "7 min", img: "blog-storm.webp", body: [
+  { slug: "commercial-roof-storm-damage-insurance-claim-houston", related: ["emergency", "inspections"], title: "How to Handle a Commercial Roof Storm Damage Insurance Claim in Houston", date: "June 2026", published: "2026-06-14", read: "7 min", img: "/blog-storm.webp", body: [
     "After a storm hits your commercial roof, the two things that decide whether your insurance claim succeeds are documentation and timing. Get a professional inspection and a dated photo report as soon as it's safe, file promptly, and don't let the damage sit — because in Houston, the next storm is rarely far behind, and insurers push back hard on damage that wasn't documented right away.",
     "Houston sees the full menu of roof-damaging weather: straight-line winds that lift and tear membrane, hail that bruises and fractures the surface, and torrential rain that exploits every weak seam and clogged drain. On flat and low-slope commercial roofs, the damage isn't always obvious from the ground — wind can peel back flashing, hail can compromise the membrane without an obvious hole, and water can travel far from its entry point before it shows up inside.",
     "Your first move after a storm is a safety-first damage assessment. If water is actively coming in, emergency measures — temporary patching, tarping, getting water off the roof — protect the building and, importantly, show the insurer you mitigated further damage, which is something most policies require. Then comes the thorough inspection: a contractor documenting every affected area with photos, measurements, and notes tied to the date of the storm event.",
