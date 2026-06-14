@@ -591,13 +591,13 @@ function CTA() {
               <label style={{ display: "flex", gap: 10, alignItems: "flex-start", textAlign: "left", cursor: "pointer" }}>
                 <input type="checkbox" aria-label="Consent to service text messages" checked={form.consent} onChange={e=>setForm({...form,consent:e.target.checked})} style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#fff", cursor: "pointer" }}/>
                 <span style={{ fontFamily: F, fontSize: 11.5, color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>
-                  I agree to receive calls and text messages from Coons Roofing about my roof assessment, scheduling, and service updates at the number provided. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.
+                  I agree to receive calls and service/transactional text messages (roof assessment, scheduling, appointment coordination, and follow-ups) from Coons Roofing LLC at the number provided. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.
                 </span>
               </label>
               <label style={{ display: "flex", gap: 10, alignItems: "flex-start", textAlign: "left", cursor: "pointer" }}>
                 <input type="checkbox" aria-label="Consent to promotional text messages" checked={form.marketingConsent} onChange={e=>setForm({...form,marketingConsent:e.target.checked})} style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#fff", cursor: "pointer" }}/>
                 <span style={{ fontFamily: F, fontSize: 11.5, color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>
-                  I'd also like to receive occasional promotions, offers, and announcements from Coons Roofing by text. Consent is not a condition of purchase. Reply STOP to opt out. See our <a href="/privacy/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Privacy Policy</a> and <a href="/terms/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Terms</a>.
+                  I agree to receive marketing and promotional text messages (offers and announcements) from Coons Roofing LLC at the number provided. Message frequency varies. Msg &amp; data rates may apply. Consent is not a condition of purchase. Reply STOP to opt out, HELP for help. See our <a href="/privacy/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Privacy Policy</a> and <a href="/terms/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Terms</a>.
                 </span>
               </label>
               {error && <div role="alert" style={{ fontFamily: F, fontSize: 13, color: "#fff", background: "rgba(0,0,0,0.25)", padding: "8px 12px", textAlign: "left" }}>{error}</div>}
