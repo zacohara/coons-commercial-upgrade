@@ -642,7 +642,7 @@ function Footer() {
 
             </div>
           </div>
-          {[{t:"Services",items:[{n:"Repair",s:"repair"},{n:"Maintenance",s:"maintenance"},{n:"Coatings",s:"coatings"},{n:"Replacement",s:"replacement"},{n:"Inspections",s:"inspections"},{n:"Emergency",s:"emergency"}]},{t:"Areas",items:[{n:"Houston"},{n:"Harris County"},{n:"Montgomery County"},{n:"Galveston County"},{n:"Tomball"},{n:"Katy"}]},{t:"Contact",items:[{n:"713-367-1495",h:"tel:713-367-1495"},{n:"wade@coonsroofing.com",h:"mailto:wade@coonsroofing.com"},{n:"10607 Lynbrook Dr"},{n:"Houston, TX 77042"}]}].map(col=>(
+          {[{t:"Services",items:[{n:"Repair",s:"repair"},{n:"Maintenance",s:"maintenance"},{n:"Coatings",s:"coatings"},{n:"Replacement",s:"replacement"},{n:"Inspections",s:"inspections"},{n:"Emergency",s:"emergency"},{n:"TPO Roofing",s:"tpo-roofing-houston"},{n:"Flat Roof Repair",s:"flat-roof-repair-houston"}]},{t:"Areas",items:[{n:"Houston",s:"houston"},{n:"Katy",s:"katy"},{n:"The Woodlands",s:"the-woodlands"},{n:"Sugar Land",s:"sugar-land"},{n:"Pearland",s:"pearland"},{n:"Spring",s:"spring"}]},{t:"Contact",items:[{n:"713-367-1495",h:"tel:713-367-1495"},{n:"wade@coonsroofing.com",h:"mailto:wade@coonsroofing.com"},{n:"10607 Lynbrook Dr"},{n:"Houston, TX 77042"}]}].map(col=>(
             <div key={col.t}>
               <div style={{ fontFamily: F, fontSize: 11, fontWeight: 800, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 14 }}>{col.t}</div>
               {col.items.map(it=> it.s ? (
@@ -870,6 +870,24 @@ export const PAGES = {
     { t: "Our Approach", c: "Repair. Maintain. Restore. Replace only when necessary. Every recommendation is backed by documentation and the math to support it. We don't sell roofs. We solve roofing problems in the most cost-effective way possible." },
     { t: "Built for Property Managers", c: "We understand that a property manager's job is putting out fires all day. You don't have time to chase your roofer for updates or explain what a photo report needs to look like. We built our entire process around how PMs actually work: clear communication, fast turnaround, and documentation you can forward without editing." },
     { t: "Certifications and Coverage", c: "Certified installer for Versico, FiberTite, Duro-Last, Karnak, Everest Systems, IPC, Western Colloid, Elevate, and GAF. Fully insured with General Liability and Workers Compensation coverage. Certificates provided before work begins on every project." },
+  ]},
+  houston: { tag: "Houston Commercial Roofing", title: "Commercial Roofing in", highlight: "Houston", desc: "Coons Roofing is Houston's commercial roofing contractor for property managers and building owners. Repair, maintenance, coatings, and replacement across the metro. We repair and restore first, and recommend replacement only when the numbers genuinely support it.", sections: [
+    { t: "Commercial Roofing Built for Houston's Climate", c: "Houston is brutal on flat and low-slope roofs. Relentless heat and UV break down membranes, sudden downpours expose every drainage weakness, and hurricane season tests every seam and flashing. We specialize in the commercial systems built to handle it, and we know how Houston buildings fail before they do." },
+    { t: "Every System, Every Building Type", c: "TPO, PVC, modified bitumen, built-up, metal, and coating restorations across office buildings, retail and strip centers, warehouses, industrial facilities, medical offices, churches, and multi-family properties. Certified installer for Versico, FiberTite, Duro-Last, GAF, Western Colloid, and more." },
+    { t: "Documentation Property Managers Actually Need", c: "Every inspection and repair comes with timestamped photo reports formatted for ownership, boards, and insurance carriers. Managing a portfolio? One point of contact, consistent reporting standards, and a documented history for every building." },
+    { t: "Serving the Entire Houston Metro", c: "From inside the Loop to Katy, The Woodlands, Sugar Land, Pearland, League City, Spring, Cypress, Tomball, Pasadena, and Conroe. Same-day emergency response across Harris, Montgomery, Fort Bend, Galveston, and Brazoria counties." }
+  ]},
+  "tpo-roofing-houston": { tag: "TPO Roofing", title: "TPO Roofing in", highlight: "Houston", desc: "Certified TPO installation, repair, and replacement for Houston commercial buildings. An energy-efficient single-ply membrane built for Texas heat, with reflective surfaces that cut cooling costs.", sections: [
+    { t: "Why TPO Works in Houston", c: "TPO's reflective white membrane bounces back the Texas sun, lowering roof surface temperatures and cutting cooling bills on big-footprint commercial buildings. It's heat-welded into a monolithic, watertight surface, and it's the most cost-effective single-ply system for standard commercial roofs in our climate." },
+    { t: "TPO Installation & Replacement", c: "We're certified to install warranty-backed TPO systems from leading manufacturers. We handle tear-off, decking and insulation, mechanically-attached or fully-adhered membrane, and detailed flashing work, with daily clean-up and weekly photo progress updates throughout the project." },
+    { t: "TPO Repair", c: "Most TPO problems start at seams, penetrations, and flashings. We diagnose the root cause, hot-air weld permanent repairs, and document everything with before and after photos. No band-aids, no callbacks." },
+    { t: "TPO vs. PVC vs. Other Systems", c: "TPO is the value leader for most buildings. PVC is the better call near restaurants and industrial sites where grease and chemicals attack the membrane. We'll tell you honestly which system fits your building and budget, not just what we'd rather install." }
+  ]},
+  "flat-roof-repair-houston": { tag: "Flat Roof Repair", title: "Flat Roof Repair in", highlight: "Houston", desc: "Fast, permanent flat and low-slope commercial roof repair across the Houston metro. Leaks, ponding water, failed seams and flashings, and storm damage, with same-day response on active water intrusion.", sections: [
+    { t: "Common Flat Roof Problems in Houston", c: "Ponding water that never drains, split or open seams, cracked pipe-boot and curb flashings, clogged or undersized drains, and storm-driven punctures. On Houston's flat commercial roofs, small issues become interior-damage claims fast. We find the real source, not just the visible drip." },
+    { t: "Our Repair Process", c: "Every repair starts with a full diagnostic, not a guess. We identify the root cause, document it with photos, and present a clear proposal before any work begins. Then we make a permanent repair and send you timestamped before-and-after documentation for your records or insurance." },
+    { t: "Systems We Repair", c: "TPO, PVC, modified bitumen, built-up roofing, and metal. Whatever's on your building, we carry the certifications and materials to repair it correctly and keep your manufacturer warranty intact." },
+    { t: "Repair vs. Replace", c: "We repair and restore first. We only recommend replacement when the numbers genuinely support it. If a targeted repair buys you years of reliable service, that's what we'll tell you, even when a full re-roof would be a bigger ticket for us." }
   ]},
   projects: { tag: "Our Work", title: "Recent", highlight: "Projects", desc: "Detailed case studies from commercial roofing projects across the Houston metro.", sections: [
     { t: "Project Gallery Coming Soon", c: "We're building out our gallery with before/after photos, scope details, and system specs from recent jobs. Call 713-367-1495 to discuss your building type, and we can share relevant examples directly." },
@@ -1153,6 +1171,9 @@ export const PAGE_TITLES = {
   emergency: "Emergency Roof Repair Houston | Coons Roofing",
   about: "About Coons Roofing | Houston Commercial Roofing Contractor",
   projects: "Commercial Roofing Projects Houston | Coons Roofing",
+  houston: "Commercial Roofing Houston TX | Coons Roofing",
+  "tpo-roofing-houston": "TPO Roofing Houston | Commercial TPO Install & Repair",
+  "flat-roof-repair-houston": "Flat Roof Repair Houston | Coons Roofing",
   blog: "Roofing Blog for Property Managers | Coons Roofing Houston",
 };
 const SITE = "https://coonsroofing.com";
@@ -1177,7 +1198,35 @@ export function headFor(route) {
     title = PAGE_TITLES.home;
     description = "Commercial roofing contractor serving property managers and building owners across the Houston metro. Repair. Maintain. Restore. Replace only when necessary.";
   }
-  return { title, description, canonical };
+  const jsonld = [];
+  if (route !== "home") {
+    const crumbName = blogPost ? "Article" : city ? city.name : route === "blog" ? "Blog" : PAGES[route] ? PAGES[route].tag : route;
+    jsonld.push({
+      "@context": "https://schema.org", "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/" },
+        { "@type": "ListItem", "position": 2, "name": crumbName, "item": canonical },
+      ],
+    });
+  }
+  if (city) {
+    jsonld.push({
+      "@context": "https://schema.org", "@type": "Service",
+      "serviceType": "Commercial Roofing", "name": "Commercial Roofing in " + city.name,
+      "areaServed": { "@type": "City", "name": city.name },
+      "provider": { "@type": "RoofingContractor", "@id": SITE + "/#business", "name": "Coons Roofing" },
+      "url": canonical,
+    });
+  } else if (PAGES[route] && route !== "about" && route !== "projects") {
+    jsonld.push({
+      "@context": "https://schema.org", "@type": "Service",
+      "serviceType": PAGES[route].tag, "name": PAGES[route].tag + " in Houston",
+      "areaServed": { "@type": "City", "name": "Houston" },
+      "provider": { "@type": "RoofingContractor", "@id": SITE + "/#business", "name": "Coons Roofing" },
+      "url": canonical,
+    });
+  }
+  return { title, description, canonical, jsonld };
 }
 
 export default function CoonsHomepage({ route }) {

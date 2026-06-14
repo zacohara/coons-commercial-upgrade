@@ -36,6 +36,13 @@ function buildPage(html, head) {
     /<meta property="og:url" content="[^"]*"\s*\/>/,
     `<meta property="og:url" content="${head.canonical}" />`,
   )
+  // inject per-page JSON-LD (BreadcrumbList, Service) before </head>
+  if (head.jsonld && head.jsonld.length) {
+    const scripts = head.jsonld
+      .map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`)
+      .join('\n    ')
+    out = out.replace('</head>', `    ${scripts}\n  </head>`)
+  }
   return out
 }
 
