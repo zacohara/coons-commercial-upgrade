@@ -39,25 +39,27 @@ function useVis(t = 0.12) {
 function Fade({ children, delay = 0, className = "" }) {
   const [r, v] = useVis();
   return (
-    <div ref={r} className={className} style={{
+    <div ref={r} className={("fade " + className).trim()} style={{
       opacity: v ? 1 : 0, transform: v ? "translateY(0)" : "translateY(28px)",
       transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
     }}>{children}</div>
   );
 }
 
-/* ── Router ── */
-function useRouter() {
-  const [page, setPage] = useState(window.location.hash.slice(2) || "home");
-  useEffect(() => {
-    const h = () => { setPage(window.location.hash.slice(2) || "home"); window.scrollTo(0, 0); };
-    window.addEventListener("hashchange", h);
-    return () => window.removeEventListener("hashchange", h);
-  }, []);
-  return page;
+/* ── Router (real paths, SSR-safe, full-navigation) ── */
+function routeFromPath() {
+  if (typeof window === "undefined") return "home";
+  const p = window.location.pathname.replace(/^\/+|\/+$/g, "");
+  return p || "home";
+}
+function useRouter(injected) {
+  return injected != null ? injected : routeFromPath();
+}
+function hrefFor(to) {
+  return to === "home" ? "/" : "/" + to + "/";
 }
 function Link({ to, children, style, onClick, ...props }) {
-  return <a href={"#/" + to} style={{ textDecoration: "none", ...style }} onClick={onClick} {...props}>{children}</a>;
+  return <a href={hrefFor(to)} style={{ textDecoration: "none", ...style }} onClick={onClick} {...props}>{children}</a>;
 }
 
 function Nav() {
@@ -812,7 +814,7 @@ function TermsPage() {
 
 
 /* ── City Service Area Pages ── */
-const CITIES = [
+export const CITIES = [
   { slug: "katy", name: "Katy", county: "Harris & Fort Bend County", desc: "Serving commercial properties along the I-10 corridor from Katy Mills to downtown Katy. Office parks, retail centers, churches, and HOA communities.", pop: "Over 21,000 businesses", detail: "Katy's rapid commercial growth means more flat roofs exposed to Houston's heat, UV, and storm cycles. We service everything from the LaCenterra retail district to the industrial parks along Franz Road. If you manage commercial property in Katy, you need a roofer who understands the local building codes and can respond fast when storms roll through." },
   { slug: "the-woodlands", name: "The Woodlands", county: "Montgomery County", desc: "Commercial roofing for office campuses, retail villages, medical facilities, and HOA properties throughout The Woodlands and surrounding areas.", pop: "Major commercial district", detail: "The Woodlands Town Center, Hughes Landing, and Research Forest Drive are home to some of the largest commercial roofing footprints north of Houston. We work with property managers overseeing multi-building portfolios across the master-planned community. Our crews know the area, understand HOA requirements, and deliver the documentation standards corporate tenants expect." },
   { slug: "tomball", name: "Tomball", county: "Harris & Montgomery County", desc: "Commercial roof repair, maintenance, and replacement for Tomball businesses, churches, and property management companies.", pop: "Growing commercial corridor", detail: "Tomball sits at the intersection of 249 and 2920, a rapidly developing commercial corridor. New strip centers, medical offices, and industrial buildings go up every year. We handle everything from emergency leak repair on older metal roofs in historic downtown to warranty-backed TPO installations on new construction along the Tomball Tollway." },
@@ -826,7 +828,7 @@ const CITIES = [
 ];
 
 /* ── Page Data ── */
-const PAGES = {
+export const PAGES = {
   repair: { tag: "Roof Repair", title: "Commercial Roof Repair in", highlight: "Houston", desc: "Membrane deterioration, failed flashings, storm damage, and ponding water all need targeted repair before they escalate. We respond within 24 hours and deliver clear proposals before any work begins.", sections: [
     { t: "How We Handle Repairs", c: "Every repair starts with a full diagnostic, not a guess. We identify the root cause, document it with photos, and present you with options ranked by cost and longevity. No work begins until you approve the scope and price in writing." },
     { t: "What We Repair", c: "Punctured or deteriorated membranes, failed pipe boot flashings, cracked or separated seams, ponding water issues, damaged drains and scuppers, storm and wind damage, HVAC curb leaks, and parapet wall flashing failures. We work on TPO, PVC, modified bitumen, metal, built-up, and coated systems." },
@@ -875,7 +877,7 @@ const PAGES = {
 };
 
 /* ── Blog Data ── */
-const BLOG = [
+export const BLOG = [
   { slug: "commercial-roof-inspection-houston", related: ["inspections","maintenance"], title: "How Often Should a Commercial Roof Be Inspected in Houston?", date: "March 2026", read: "5 min", img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1400&q=80", body: [
     "If you manage a commercial property in Houston, your roof takes more punishment than almost any other building component. Between hurricane season, hail, 100-degree summers, and UV exposure that never lets up, the question isn't whether your roof will deteriorate. It's how fast.",
     "The short answer: twice a year minimum. Once in spring before storm season hits, and once in fall after the worst of it passes. If your building took a direct hit from a named storm or a serious hail event, you need an inspection within 48 hours regardless of schedule.",
@@ -1017,7 +1019,7 @@ function BlogPost({ slug }) {
               "author": { "@type": "Person", "name": "Wade Coons" },
               "publisher": { "@type": "Organization", "name": "Coons Roofing" },
               "description": post.body[0].slice(0, 155),
-              "mainEntityOfPage": "https://coonsroofing.com/#/blog/" + post.slug
+              "mainEntityOfPage": "https://coonsroofing.com/blog/" + post.slug + "/"
             }) }} />
           <h1 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(24px,6vw,40px)", color: "#fff", lineHeight: 1.15, marginBottom: 20 }}>{post.title}</h1></Fade>
           <Fade delay={0.1}><nav aria-label="Breadcrumb" style={{ display: "flex", gap: 6, justifyContent: "center", alignItems: "center" }}><Link to="home" style={{ fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.5)" }}>Home</Link><span style={{ color: "rgba(255,255,255,0.3)", fontSize: 10 }}>›</span><Link to="blog" style={{ fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.5)" }}>Blog</Link><span style={{ color: "rgba(255,255,255,0.3)", fontSize: 10 }}>›</span><span style={{ fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.7)" }}>Article</span></nav></Fade>
@@ -1044,7 +1046,7 @@ function BlogPost({ slug }) {
           <Fade delay={0.18}>
             <div style={{ marginTop: 20, display: "flex", gap: 10, alignItems: "center" }}>
               <span style={{ fontFamily: F, fontSize: 12, color: C.slate }}>Share:</span>
-              <a href={"https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent("https://coonsroofing.com/#/blog/" + post.slug)} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", background: "#0A66C2", color: "#fff", fontFamily: F, fontSize: 11, fontWeight: 700, textDecoration: "none", borderRadius: 4 }}>
+              <a href={"https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent("https://coonsroofing.com/blog/" + post.slug + "/")} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", background: "#0A66C2", color: "#fff", fontFamily: F, fontSize: 11, fontWeight: 700, textDecoration: "none", borderRadius: 4 }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 LinkedIn
               </a>
@@ -1056,7 +1058,7 @@ function BlogPost({ slug }) {
               <p style={{ fontFamily: F, fontSize: 13, color: C.slate, marginBottom: 20 }}>We'll walk your roof, take photos, and give you straight answers.</p>
               <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 300, margin: "0 auto" }}>
                 <a href="tel:713-367-1495" style={{ background: C.red, color: "#fff", padding: "14px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, textDecoration: "none", textTransform: "uppercase", letterSpacing: 1, textAlign: "center", minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>Call 713-367-1495</a>
-                <Link to="home" onClick={()=>setTimeout(()=>document.getElementById("contact")?.scrollIntoView({behavior:"smooth"}),300)} style={{ border: `2px solid ${C.red}`, color: C.red, padding: "12px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, textAlign: "center", minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>Schedule Complimentary Assessment</Link>
+                <a href="/#contact" style={{ border: `2px solid ${C.red}`, color: C.red, padding: "12px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, textAlign: "center", minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>Schedule Complimentary Assessment</a>
               </div>
             </div>
           </Fade>
@@ -1141,33 +1143,54 @@ function HomePage() {
   );
 }
 
-export default function CoonsHomepage() {
-  const page = useRouter();
-  const pageTitles = {
-    home: "Coons Roofing | Commercial Roofing Houston TX",
-    repair: "Commercial Roof Repair Houston | Coons Roofing",
-    maintenance: "Commercial Roof Maintenance Houston | Coons Roofing",
-    coatings: "Roof Coatings & Restoration Houston | Coons Roofing",
-    replacement: "Commercial Roof Replacement Houston | Coons Roofing",
-    inspections: "Commercial Roof Inspections Houston | Coons Roofing",
-    emergency: "Emergency Roof Repair Houston | Coons Roofing",
-    about: "About Coons Roofing | Houston Commercial Roofing Contractor",
-    projects: "Commercial Roofing Projects Houston | Coons Roofing",
-    blog: "Roofing Blog for Property Managers | Coons Roofing Houston",
-  };
+export const PAGE_TITLES = {
+  home: "Coons Roofing | Commercial Roofing Houston TX",
+  repair: "Commercial Roof Repair Houston | Coons Roofing",
+  maintenance: "Commercial Roof Maintenance Houston | Coons Roofing",
+  coatings: "Roof Coatings & Restoration Houston | Coons Roofing",
+  replacement: "Commercial Roof Replacement Houston | Coons Roofing",
+  inspections: "Commercial Roof Inspections Houston | Coons Roofing",
+  emergency: "Emergency Roof Repair Houston | Coons Roofing",
+  about: "About Coons Roofing | Houston Commercial Roofing Contractor",
+  projects: "Commercial Roofing Projects Houston | Coons Roofing",
+  blog: "Roofing Blog for Property Managers | Coons Roofing Houston",
+};
+const SITE = "https://coonsroofing.com";
+export function headFor(route) {
+  const canonical = route === "home" ? SITE + "/" : SITE + "/" + route + "/";
+  const city = CITIES.find(c => c.slug === route);
+  const blogPost = route.startsWith("blog/") && BLOG.find(p => p.slug === route.slice(5));
+  let title, description;
+  if (blogPost) {
+    title = blogPost.title + " | Coons Roofing Houston";
+    description = blogPost.body[0].slice(0, 155);
+  } else if (city) {
+    title = "Commercial Roofing " + city.name + " TX | Coons Roofing";
+    description = city.desc;
+  } else if (route === "blog") {
+    title = PAGE_TITLES.blog;
+    description = "Commercial roofing insights for Houston property managers and building owners: maintenance, repair, coatings, and replacement guidance.";
+  } else if (PAGES[route]) {
+    title = PAGE_TITLES[route] || PAGE_TITLES.home;
+    description = PAGES[route].desc;
+  } else {
+    title = PAGE_TITLES.home;
+    description = "Commercial roofing contractor serving property managers and building owners across the Houston metro. Repair. Maintain. Restore. Replace only when necessary.";
+  }
+  return { title, description, canonical };
+}
+
+export default function CoonsHomepage({ route }) {
+  const page = useRouter(route);
   useEffect(() => {
-    const city = CITIES.find(c => c.slug === page);
-    const blogPost = page.startsWith("blog/") && BLOG.find(p => p.slug === page.slice(5));
-    if (blogPost) document.title = blogPost.title + " | Coons Roofing Houston";
-    else if (city) document.title = "Commercial Roofing " + city.name + " TX | Coons Roofing";
-    else document.title = pageTitles[page] || "Coons Roofing | Commercial Roofing Houston TX";
+    const { title, description } = headFor(page);
+    document.title = title;
     const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      if (blogPost) metaDesc.content = blogPost.body[0].slice(0, 155) + "...";
-      else if (city) metaDesc.content = city.desc;
-      else if (PAGES[page]) metaDesc.content = PAGES[page].desc;
-    }
+    if (metaDesc) metaDesc.content = description;
     document.documentElement.style.scrollBehavior = "smooth";
+    if (page === "home" && window.location.hash === "#contact") {
+      setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 300);
+    }
     return () => { document.documentElement.style.scrollBehavior = ""; };
   }, [page]);
   return (
