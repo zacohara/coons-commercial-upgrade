@@ -534,7 +534,8 @@ function CTA() {
     if (!form.name.trim()) { setError("Please enter your name."); return; }
     if (!form.phone.trim() || !/[\d\-\(\)\+\s]{7,}/.test(form.phone)) { setError("Please enter a valid phone number."); return; }
     if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) { setError("Please enter a valid email address."); return; }
-    if (!form.consent) { setError("Please check the box to agree to be contacted before submitting."); return; }
+    // SMS consent is intentionally OPTIONAL (not required to submit) — A2P 10DLC:
+    // consent must be the user's independent choice, never a condition of submitting.
     setSubmitting(true);
     try {
       const res = await fetch(GHL_WEBHOOK_URL, {
