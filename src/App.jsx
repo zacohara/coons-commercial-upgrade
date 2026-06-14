@@ -16,6 +16,7 @@ const C = { black: "#0A0A0A", red: "#E62236", slate: "#4B4B4B", light: "#F3F3F3"
 const F = "'Poppins',sans-serif";
 const PH_ROOF_PROJECT = "roof-project.jpg";
 const PH_FAMILY = "family.jpg";
+const PH_WADE = "wade-owner.jpg";
 
 // GoHighLevel Inbound Webhook URL (Workflow → "Inbound Webhook" trigger).
 // Workflow: "Website Lead — Coons Roofing" (location zemOrVB3bS5ADz7ow32o).
@@ -86,7 +87,7 @@ function Nav() {
       <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
         <Link to="home" style={{ display: "flex", alignItems: "center" }}><img src={COONS_LOGO_W} alt="Coons Roofing" style={{ height: 30 }} /></Link>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <a href="tel:713-367-1495" style={{ background: C.red, color: "#fff", padding: "10px 16px", fontFamily: F, fontSize: 11, fontWeight: 700, textDecoration: "none", display: "flex", alignItems: "center", gap: 6, minHeight: 40 }} onFocus={e=>Object.assign(e.target.style,focusRing)} onBlur={e=>{e.target.style.outline="none"}}>
+          <a href="tel:+17133671495" style={{ background: C.red, color: "#fff", padding: "10px 16px", fontFamily: F, fontSize: 11, fontWeight: 700, textDecoration: "none", display: "flex", alignItems: "center", gap: 6, minHeight: 40 }} onFocus={e=>Object.assign(e.target.style,focusRing)} onBlur={e=>{e.target.style.outline="none"}}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
             Call
           </a>
@@ -115,7 +116,7 @@ function Nav() {
           <Link key={c.slug} to={c.slug} role="menuitem" style={subStyle} onClick={()=>setOpen(false)}>{c.name}</Link>
         ))}
         <a role="menuitem" href="#contact" style={linkStyle} onClick={(e)=>{e.preventDefault();setOpen(false);setTimeout(()=>document.getElementById("contact")?.scrollIntoView({behavior:"smooth"}),100);}}>Contact</a>
-        <a role="menuitem" href="tel:713-367-1495" style={{ ...linkStyle, color: C.red, borderBottom: "none", fontWeight: 700 }}>713-367-1495</a>
+        <a role="menuitem" href="tel:+17133671495" style={{ ...linkStyle, color: C.red, borderBottom: "none", fontWeight: 700 }}>713-367-1495</a>
       </div>
       </>
     )}
@@ -141,9 +142,12 @@ function Hero() {
           </p>
         </Fade>
         <Fade delay={0.3}>
-          <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 12, maxWidth: 520, margin: "0 auto", justifyContent: "center" }}>
-            <a href="#contact" onClick={(e)=>{e.preventDefault();document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}} style={{ background: C.red, color: "#fff", padding: "16px clamp(16px,4vw,32px)", fontFamily: F, fontSize: "clamp(12px,3.5vw,14px)", fontWeight: 700, textDecoration: "none", letterSpacing: 1, textTransform: "uppercase", textAlign: "center", boxShadow: "0 4px 20px rgba(230,34,54,0.3)", flex: "1 1 200px" }}>Schedule Complimentary Roof Assessment</a>
-            <a href="tel:713-367-1495" style={{ background: "transparent", color: "#fff", padding: "16px clamp(16px,4vw,32px)", fontFamily: F, fontSize: "clamp(12px,3.5vw,14px)", fontWeight: 700, textDecoration: "none", letterSpacing: 1, textTransform: "uppercase", textAlign: "center", border: "2px solid rgba(255,255,255,0.3)", flex: "1 1 200px" }}>Call 713-367-1495</a>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 460, margin: "0 auto", alignItems: "stretch" }}>
+            <a href="#contact" onClick={(e)=>{e.preventDefault();document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}} style={{ background: C.red, color: "#fff", padding: "20px 28px", fontFamily: F, fontSize: "clamp(15px,4vw,19px)", fontWeight: 800, textDecoration: "none", letterSpacing: 0.5, textTransform: "uppercase", textAlign: "center", boxShadow: "0 6px 28px rgba(230,34,54,0.45)", borderRadius: 4, lineHeight: 1.3 }}>Schedule Your Complimentary Roof Assessment</a>
+            <a href="tel:+17133671495" style={{ background: "transparent", color: "#fff", padding: "12px 28px", fontFamily: F, textDecoration: "none", border: "2px solid rgba(255,255,255,0.3)", borderRadius: 4, display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.7)" }}>Call</span>
+              <span style={{ fontSize: "clamp(17px,4.5vw,21px)", fontWeight: 800, letterSpacing: 0.5 }}>713-367-1495</span>
+            </a>
           </div>
         </Fade>
         <Fade delay={0.4}>
@@ -287,38 +291,46 @@ function ServiceAreas() {
 
 function Services() {
   const svcs = [
-    {t:"Proactive Inspections",d:"We catch problems before your tenants do. Every inspection includes photos and a clear action plan.",p:PH_INSPECTION,i:"🔍",slug:"inspections"},
-    {t:"Proactive Maintenance",d:"Bi-annual inspections with photo reports. We catch small issues before they become emergency calls at 2am. Keeps your buildings protected and your phone quiet.",p:PH_MAINTENANCE,i:"🛡️",slug:"maintenance"},
-    {t:"Roof Repair",d:"When something needs fixing, we diagnose it right and get it done. No callbacks, no excuses. Clear proposals before any work starts.",p:PH_REPAIR,i:"🔧",slug:"repair"},
-    {t:"Roof Replacement",d:"When it's truly time for a new roof, we'll walk you through every step and keep you in the loop the whole way. Full documentation throughout.",p:PH_ROOF_PROJECT,i:"🏗️",slug:"replacement"},
-    {t:"Storm & Emergency",d:"Got water coming in? Call us first. We respond fast and get you a permanent fix, not a band-aid. Same-day response across the Houston metro.",p:PH_EMERGENCY,i:"⚡",slug:"emergency"},
-    {t:"Coating & Restoration",d:"Extend roof life 15-20 years and push out major capital expenses. We coordinate with tenants, provide detailed documentation for your board, and complete work with minimal disruption.",p:PH_COATINGS,i:"🎨",slug:"coatings"},
+    {t:"Proactive Inspections",d:"Catch small issues before they become leaks, tenant complaints, or costly emergencies.",p:PH_INSPECTION,slug:"inspections"},
+    {t:"Preventative Maintenance",d:"Routine roof care with photo reports, action plans, and clear documentation.",p:PH_MAINTENANCE,slug:"maintenance"},
+    {t:"Roof Repair",d:"Fast diagnosis, clear proposals, and no surprise work before approval.",p:PH_REPAIR,slug:"repair"},
+    {t:"Roof Replacement",d:"A guided replacement process with communication from start to finish.",p:PH_REPLACEMENT,slug:"replacement"},
+    {t:"Storm & Emergency Response",d:"Rapid leak response across the Houston metro when water is coming in.",p:PH_EMERGENCY,slug:"emergency"},
+    {t:"Coating & Restoration",d:"Extend roof life and delay major replacement costs with minimal disruption.",p:PH_COATINGS,slug:"coatings"},
   ];
+  const scrollToContact = (e)=>{e.preventDefault();document.getElementById("contact")?.scrollIntoView({behavior:"smooth"});};
   return (
     <section id="services" style={{background:C.light,padding:"64px 16px",scrollMarginTop:80}}>
-      <div style={{maxWidth:1200,margin:"0 auto",textAlign:"center"}}>
-        <Fade><h2 style={{fontFamily:F,fontWeight:900,fontSize:"clamp(24px,6vw,40px)",color:C.black,lineHeight:1.1,marginBottom:8}}>
-          Roofing Services That Serve <span style={{color:C.red}}>the Building Owner</span>
+      <div style={{maxWidth:1000,margin:"0 auto",textAlign:"center"}}>
+        <Fade><h2 style={{fontFamily:F,fontWeight:900,fontSize:"clamp(24px,6vw,40px)",color:C.black,lineHeight:1.15,marginBottom:16,textTransform:"uppercase"}}>
+          Commercial Roofing Services Built Around <span style={{color:C.red}}>the Building Owner</span>
         </h2></Fade>
-        <Fade delay={0.05}><p style={{fontFamily:F,fontSize:14,color:C.slate,marginBottom:32}}>Not just the roof.</p></Fade>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:14,maxWidth:900,margin:"0 auto"}}>
+        <Fade delay={0.05}><p style={{fontFamily:F,fontSize:"clamp(14px,3.5vw,17px)",color:C.slate,lineHeight:1.7,maxWidth:640,margin:"0 auto 24px"}}>
+          Protect your roof, your tenants, and your budget with clear documentation, proactive maintenance, and fast response when problems show up.
+        </p></Fade>
+        <Fade delay={0.1}><div style={{display:"flex",flexWrap:"wrap",gap:12,justifyContent:"center",maxWidth:520,margin:"0 auto 40px"}}>
+          <a href="#contact" onClick={scrollToContact} style={{background:C.red,color:"#fff",padding:"15px 28px",fontFamily:F,fontSize:13,fontWeight:700,textDecoration:"none",letterSpacing:1,textTransform:"uppercase",boxShadow:"0 4px 20px rgba(230,34,54,0.3)",flex:"1 1 200px",textAlign:"center"}}>Schedule Roof Assessment</a>
+          <a href="tel:+17133671495" style={{background:"transparent",color:C.black,padding:"15px 28px",fontFamily:F,fontSize:13,fontWeight:700,textDecoration:"none",letterSpacing:1,textTransform:"uppercase",border:"2px solid rgba(10,10,10,0.2)",flex:"1 1 200px",textAlign:"center"}}>Call 713-367-1495</a>
+        </div></Fade>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:16}}>
           {svcs.map((s,i)=>(
             <Fade key={s.t} delay={i*0.06}>
               <Link to={s.slug} style={{
-                background:"linear-gradient(180deg,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.78) 100%),url("+s.p+") center/cover", role:"img", "aria-label":s.t+" service - Coons Roofing Houston",
-                padding:"120px 20px 20px",borderRadius:4,textAlign:"left",minHeight:260,display:"flex",flexDirection:"column",justifyContent:"flex-end",
-                transition:"transform 0.3s",cursor:"pointer",textDecoration:"none",height:"100%",boxSizing:"border-box"
-              }} onMouseOver={e=>{e.currentTarget.style.transform="translateY(-4px)"}} onMouseOut={e=>{e.currentTarget.style.transform="translateY(0)"}}>
-                <div style={{fontSize:24,marginBottom:6,filter:"drop-shadow(0 2px 4px rgba(0,0,0,0.5))"}}>{s.i}</div>
-                <div style={{fontFamily:F,fontSize:17,fontWeight:800,color:"#fff",marginBottom:4,textShadow:"0 2px 6px rgba(0,0,0,0.6)"}}>{s.t}</div>
-                <div style={{fontFamily:F,fontSize:12,color:"rgba(255,255,255,0.9)",lineHeight:1.6,textShadow:"0 1px 4px rgba(0,0,0,0.5)",marginBottom:10}}>{s.d}</div>
-                <span style={{fontFamily:F,fontSize:11,fontWeight:700,color:C.red,letterSpacing:1,textTransform:"uppercase"}}>Learn More →</span>
+                background:"linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0.12) 45%,rgba(0,0,0,0.88) 100%),url("+s.p+") center/cover", role:"img", "aria-label":s.t+" service - Coons Roofing Houston",
+                padding:"150px 22px 24px",borderRadius:8,textAlign:"left",minHeight:280,display:"flex",flexDirection:"column",justifyContent:"flex-end",
+                transition:"transform 0.3s, box-shadow 0.3s",cursor:"pointer",textDecoration:"none",height:"100%",boxSizing:"border-box",boxShadow:"0 4px 16px rgba(0,0,0,0.12)"
+              }} onMouseOver={e=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 10px 28px rgba(0,0,0,0.22)";}} onMouseOut={e=>{e.currentTarget.style.transform="translateY(0)";e.currentTarget.style.boxShadow="0 4px 16px rgba(0,0,0,0.12)";}}>
+                <div style={{fontFamily:F,fontSize:19,fontWeight:800,color:"#fff",marginBottom:8,textShadow:"0 2px 6px rgba(0,0,0,0.75)"}}>{s.t}</div>
+                <div style={{fontFamily:F,fontSize:13,color:"rgba(255,255,255,0.92)",lineHeight:1.6,textShadow:"0 1px 4px rgba(0,0,0,0.65)",marginBottom:12}}>{s.d}</div>
+                <div style={{width:40,height:3,background:C.red,borderRadius:2}} />
               </Link>
             </Fade>
           ))}
         </div>
-        <Fade delay={0.4}><div style={{marginTop:28}}>
-          <a href="tel:713-367-1495" style={{background:C.red,color:"#fff",padding:"14px 28px",fontFamily:F,fontSize:13,fontWeight:700,textDecoration:"none",letterSpacing:1,textTransform:"uppercase",display:"inline-block"}}>CALL US 713-367-1495</a>
+        <Fade delay={0.3}><div style={{background:"#fff",borderRadius:10,padding:"32px 24px",boxShadow:"0 6px 24px rgba(0,0,0,0.08)",maxWidth:640,margin:"40px auto 0"}}>
+          <h3 style={{fontFamily:F,fontSize:"clamp(20px,4.5vw,26px)",fontWeight:900,color:C.black,marginBottom:8}}>Not sure what your roof needs?</h3>
+          <p style={{fontFamily:F,fontSize:14,color:C.slate,lineHeight:1.6,marginBottom:20}}>Get a documented roof assessment and clear action plan.</p>
+          <a href="#contact" onClick={scrollToContact} style={{background:C.red,color:"#fff",padding:"15px 36px",fontFamily:F,fontSize:13,fontWeight:700,textDecoration:"none",letterSpacing:1,textTransform:"uppercase",display:"inline-block",boxShadow:"0 4px 20px rgba(230,34,54,0.3)"}}>Schedule Assessment</a>
         </div></Fade>
       </div>
     </section>
@@ -384,25 +396,27 @@ function About() {
           <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(28px,7vw,42px)", color: "#fff", lineHeight: 1.1, marginBottom: 24, textShadow: "0 3px 10px rgba(0,0,0,0.4)" }}>Owner on <span style={{ color: C.red, textShadow: "0 3px 12px rgba(230,34,54,0.3)" }}>Every Project</span></h2>
         </Fade>
         <Fade delay={0.1}>
-          <div style={{ marginBottom: 24, borderRadius: 8, overflow: "hidden", maxWidth: 280, margin: "0 auto 24px" }}><img src={PH_FAMILY} alt="Wade Coons and family" width="600" height="770" loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} /></div>
+          <div style={{ marginBottom: 24, borderRadius: 8, overflow: "hidden", maxWidth: 280, margin: "0 auto 24px" }}><img src={PH_FAMILY} alt="Wade Coons and family" width="700" height="1050" loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} /></div>
           <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.8, marginBottom: 12 }}>Wade Coons learned the construction business from his dad and turned that foundation into a commercial roofing company that property managers and building owners across Houston trust with their most important assets.</p>
-          <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.8, marginBottom: 32 }}>You deal with the decision-maker, not a salesperson. That's how we maintain the documentation standards, communication, and quality that commercial clients require.</p>
+          <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.8, marginBottom: 24 }}>You deal with the decision-maker, not a salesperson. That's how we maintain the documentation standards, communication, and quality that commercial clients require.</p>
+          <div style={{ marginBottom: 8, borderRadius: 8, overflow: "hidden", maxWidth: 320, margin: "0 auto 8px" }}><img src={PH_WADE} alt="Wade Coons, owner of Coons Roofing, on a commercial roof in Houston" width="760" height="1000" loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} /></div>
+          <p style={{ fontFamily: F, fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.55)", letterSpacing: 1, textTransform: "uppercase", marginBottom: 32 }}>Wade Coons — Owner</p>
         </Fade>
         <Fade delay={0.15}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginBottom: 24 }}>
             {[["9","Manufacturer Certs"],["100s","Projects Done"],["3+","Years in Business"],["5.0★","Google Rating"]].map(([n,l])=>(
-              <div key={n} style={{ background: C.card, padding: "20px 12px", borderRadius: 4 }}>
-                <div style={{ fontFamily: F, fontSize: 32, fontWeight: 900, color: C.red, textShadow: "0 2px 8px rgba(230,34,54,0.25)" }}>{n}</div>
-                <div style={{ fontFamily: F, fontSize: 11, color: "#888", marginTop: 4 }}>{l}</div>
+              <div key={n} style={{ background: C.card, padding: "28px 14px", borderRadius: 6 }}>
+                <div style={{ fontFamily: F, fontSize: "clamp(40px,9vw,52px)", fontWeight: 900, color: C.red, lineHeight: 1, textShadow: "0 2px 8px rgba(230,34,54,0.25)" }}>{n}</div>
+                <div style={{ fontFamily: F, fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,0.78)", marginTop: 10, letterSpacing: 0.3 }}>{l}</div>
               </div>
             ))}
           </div>
         </Fade>
         <Fade delay={0.2}>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", marginBottom: 20 }}>
-            {["TPO","PVC","Metal","Coatings"].map(s => <span key={s} style={{ background: "rgba(230,34,54,0.1)", border: "1px solid rgba(230,34,54,0.25)", padding: "6px 16px", fontFamily: F, fontSize: 11, fontWeight: 700, color: C.red, letterSpacing: 1 }}>{s}</span>)}
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 24 }}>
+            {["TPO","PVC","Metal","Coatings"].map(s => <span key={s} style={{ background: "rgba(230,34,54,0.12)", border: "1px solid rgba(230,34,54,0.3)", padding: "9px 22px", fontFamily: F, fontSize: 14, fontWeight: 700, color: C.red, letterSpacing: 1, borderRadius: 4 }}>{s}</span>)}
           </div>
-          <p style={{ fontFamily: F, fontSize: 12, color: "#666", lineHeight: 1.6 }}>Certified installer for Versico, FiberTite, Duro-Last, Karnak, Everest Systems, IPC, Western Colloid, Elevate, and GAF. Fully insured with GL and Workers Comp coverage.</p>
+          <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.72)", lineHeight: 1.8, maxWidth: 620, margin: "0 auto" }}>Certified installer for Versico, FiberTite, Duro-Last, Karnak, Everest Systems, IPC, Western Colloid, Elevate, and GAF. Fully insured with GL and Workers Comp coverage.</p>
         </Fade>
       </div>
     </section>
@@ -420,7 +434,7 @@ function BeforeAfter() {
         </Fade>
         <Fade delay={0.1}>
           <div style={{ borderRadius: 6, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.1)" }}>
-            <img src={PH_BEFOREAFTER} alt="Before and after roof drain cleaning and coating" width="750" height="510" loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
+            <img src={PH_BEFOREAFTER} alt="Before and after roof drain cleaning and coating" width="1000" height="1000" loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
           </div>
           <p style={{ fontFamily: F, fontSize: 13, color: C.slate, marginTop: 16, lineHeight: 1.6 }}>Roof drain cleaning and coating at a Houston retail center. Debris removed, drains cleared, penetrations sealed.</p>
         </Fade>
@@ -434,6 +448,8 @@ function Reviews() {
     { name: "Melanie C.", text: "FINALLY! Fixed a leak I'd been trying to sort out for several months with other providers who didn't fix the problem, and did it quickly. Great communication too. Highly recommend." },
     { name: "Reagan S.", text: "Coons Roofing is very good. Excellent documentation and follow through regarding roof repairs and roof replacements. Projects big and small." },
     { name: "Jennifer A.", text: "We recently replaced our roof with Coons Roofing and couldn't be happier with the result. Wade was great to work with, very professional, and thorough in his communications. The work itself is top notch. The process of the roof replacement was very efficient and quality was great. I would highly recommend Coons Roofing!" },
+    { name: "Mason A.", text: "The owner himself came to our house to inspect our roof after a tornado, and we were so impressed right away! He was punctual, professional, knowledgeable, and not to mention a friendly guy! His team ended up having to replace our whole roof, and they were very considerate about their equipment placement and clean up. Communication was top notch and it was very clear integrity was paramount for the owner. Coons Roofing provided us with quality work and great customer service!" },
+    { name: "Sam B.", text: "The owner came out the morning after the bad wind storm that blew through Houston to personally inspect our roof after a few large branches landed on it. He identified a few torn up shingles and a hole in our roof that he was able to tarp to mitigate any future water damage inside until his team could get out there to fix the issue. His team came out the next morning and had the roof fixed, looking brand new! I really appreciate the communication and work that Wade and his team did for us. I can't recommend them enough for your roofing needs!" },
   ];
   return (
     <section style={{ background: "#fff", padding: "80px clamp(16px,4vw,48px)" }}>
@@ -568,6 +584,7 @@ function CTA() {
       <div style={{ position: "absolute", inset: 0, opacity: 0.05, background: "repeating-linear-gradient(135deg,#000 0px,#000 1px,transparent 1px,transparent 30px)" }} />
       <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center", position: "relative" }}>
         <Fade>
+          <div style={{ display: "inline-block", background: "#fff", padding: "14px 24px", borderRadius: 10, marginBottom: 22, boxShadow: "0 6px 20px rgba(0,0,0,0.18)" }}><img src={COONS_LOGO} alt="Coons Roofing" style={{ height: 44, display: "block" }} /></div>
           <h2 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(24px,6vw,38px)", color: "#fff", lineHeight: 1.1, marginBottom: 10 }}>Schedule Your Complimentary Roof Assessment</h2>
           <p style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.85)", marginBottom: 28, lineHeight: 1.6 }}>We'll walk your roof, take photos, and give you straight answers. No pressure, no gimmicks.</p>
         </Fade>
@@ -575,7 +592,7 @@ function CTA() {
           <Fade><div style={{ background: "rgba(255,255,255,0.15)", padding: 32, borderRadius: 4 }}>
             <div style={{ fontSize: 36, marginBottom: 12 }}>✓</div>
             <div style={{ fontFamily: F, fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 8 }}>Request Received</div>
-            <div style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.85)", marginBottom: 16 }}>We'll be in touch within 24 hours. Need it sooner? Call us at <a href="tel:713-367-1495" style={{ color: "#fff", fontWeight: 800, textDecoration: "none" }}>713-367-1495</a>.</div>
+            <div style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.85)", marginBottom: 16 }}>We'll be in touch within 24 hours. Need it sooner? Call us at <a href="tel:+17133671495" style={{ color: "#fff", fontWeight: 800, textDecoration: "none" }}>713-367-1495</a>.</div>
             <button onClick={()=>{setSent(false);setForm({name:"",phone:"",email:"",address:"",message:"",consent:false,marketingConsent:false});}} style={{ background: "none", border: "1px solid rgba(255,255,255,0.4)", color: "#fff", padding: "12px 24px", fontFamily: F, fontSize: 12, fontWeight: 600, cursor: "pointer", letterSpacing: 0.5, minHeight: 44 }}>Submit Another Request</button>
           </div></Fade>
         ) : (
@@ -605,7 +622,7 @@ function CTA() {
             </div>
             <div style={{ display: "flex", gap: 16, justifyContent: "center", alignItems: "center" }}>
               <span style={{ fontFamily: F, fontSize: 12, color: "rgba(255,255,255,0.7)" }}>or call directly:</span>
-              <a href="tel:713-367-1495" style={{ fontFamily: F, fontSize: 14, fontWeight: 800, color: "#fff", textDecoration: "none" }}>713-367-1495</a>
+              <a href="tel:+17133671495" style={{ fontFamily: F, fontSize: 14, fontWeight: 800, color: "#fff", textDecoration: "none" }}>713-367-1495</a>
             </div>
           </Fade>
         )}
@@ -653,7 +670,7 @@ function Footer() {
 
             </div>
           </div>
-          {[{t:"Services",items:[{n:"Repair",s:"repair"},{n:"Maintenance",s:"maintenance"},{n:"Coatings",s:"coatings"},{n:"Replacement",s:"replacement"},{n:"Inspections",s:"inspections"},{n:"Emergency",s:"emergency"},{n:"TPO Roofing",s:"tpo-roofing-houston"},{n:"Flat Roof Repair",s:"flat-roof-repair-houston"}]},{t:"Areas",items:[{n:"Houston",s:"houston"},{n:"Katy",s:"katy"},{n:"The Woodlands",s:"the-woodlands"},{n:"Sugar Land",s:"sugar-land"},{n:"Pearland",s:"pearland"},{n:"Spring",s:"spring"}]},{t:"Contact",items:[{n:"713-367-1495",h:"tel:713-367-1495"},{n:"wade@coonsroofing.com",h:"mailto:wade@coonsroofing.com"},{n:"10607 Lynbrook Dr"},{n:"Houston, TX 77042"}]}].map(col=>(
+          {[{t:"Services",items:[{n:"Repair",s:"repair"},{n:"Maintenance",s:"maintenance"},{n:"Coatings",s:"coatings"},{n:"Replacement",s:"replacement"},{n:"Inspections",s:"inspections"},{n:"Emergency",s:"emergency"},{n:"TPO Roofing",s:"tpo-roofing-houston"},{n:"Flat Roof Repair",s:"flat-roof-repair-houston"}]},{t:"Areas",items:[{n:"Houston",s:"houston"},{n:"Katy",s:"katy"},{n:"The Woodlands",s:"the-woodlands"},{n:"Sugar Land",s:"sugar-land"},{n:"Pearland",s:"pearland"},{n:"Spring",s:"spring"}]},{t:"Contact",items:[{n:"713-367-1495",h:"tel:+17133671495"},{n:"wade@coonsroofing.com",h:"mailto:wade@coonsroofing.com"},{n:"10607 Lynbrook Dr"},{n:"Houston, TX 77042"}]}].map(col=>(
             <div key={col.t}>
               <div style={{ fontFamily: F, fontSize: 11, fontWeight: 800, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 14 }}>{col.t}</div>
               {col.items.map(it=> it.s ? (
@@ -715,7 +732,7 @@ function StickyCallBar({ page }) {
   return (
     <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 98, background: "rgba(10,10,10,0.95)", backdropFilter: "blur(8px)", padding: "8px 16px", borderTop: "1px solid rgba(230,34,54,0.3)" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, maxWidth: 500, margin: "0 auto" }}>
-        <a href="tel:713-367-1495" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none", flex: 1, padding: "12px 0", minHeight: 44 }}>
+        <a href="tel:+17133671495" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none", flex: 1, padding: "12px 0", minHeight: 44 }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C.red} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           <span style={{ fontFamily: F, fontSize: 13, fontWeight: 800, color: "#fff", letterSpacing: 0.3 }}>Call Now</span>
         </a>
@@ -739,7 +756,7 @@ function PageHero({ tag, title, highlight, desc }) {
         <Fade delay={0.1}><p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.7, marginBottom: 24 }}>{desc}</p></Fade>
         <Fade delay={0.15}><div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 360, margin: "0 auto" }}>
           <a href="#contact" onClick={(e)=>{e.preventDefault();document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}} style={{ background: C.red, color: "#fff", padding: "14px 28px", fontFamily: F, fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, textAlign: "center", textDecoration: "none", cursor: "pointer" }}>Get a Complimentary Assessment</a>
-          <a href="tel:713-367-1495" style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.7)", textDecoration: "none", textAlign: "center" }}>or call 713-367-1495</a>
+          <a href="tel:+17133671495" style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.7)", textDecoration: "none", textAlign: "center" }}>or call 713-367-1495</a>
         </div></Fade>
       </div>
     </section>
@@ -788,7 +805,7 @@ function PrivacyPage() {
         <p style={LEGAL_P}>You may request access to, correction of, or deletion of your personal information, and you may opt out of marketing communications at any time. To make a request, contact us using the details below.</p>
 
         <h3 style={LEGAL_H}>Contact Us</h3>
-        <p style={LEGAL_P}>Coons Roofing<br/>10607 Lynbrook Dr, Houston, TX 77042<br/>Phone: <a href="tel:713-367-1495" style={{ color: C.red, textDecoration: "none" }}>713-367-1495</a><br/>Email: <a href="mailto:wade@coonsroofing.com" style={{ color: C.red, textDecoration: "none" }}>wade@coonsroofing.com</a></p>
+        <p style={LEGAL_P}>Coons Roofing<br/>10607 Lynbrook Dr, Houston, TX 77042<br/>Phone: <a href="tel:+17133671495" style={{ color: C.red, textDecoration: "none" }}>713-367-1495</a><br/>Email: <a href="mailto:wade@coonsroofing.com" style={{ color: C.red, textDecoration: "none" }}>wade@coonsroofing.com</a></p>
       </PageSection>
       <CTA />
     </>
@@ -816,7 +833,7 @@ function TermsPage() {
         <p style={LEGAL_P}>This website is provided "as is." To the fullest extent permitted by law, Coons Roofing is not liable for any indirect or incidental damages arising from your use of the site.</p>
 
         <h3 style={LEGAL_H}>Contact Us</h3>
-        <p style={LEGAL_P}>Questions about these Terms? Contact us at <a href="tel:713-367-1495" style={{ color: C.red, textDecoration: "none" }}>713-367-1495</a> or <a href="mailto:wade@coonsroofing.com" style={{ color: C.red, textDecoration: "none" }}>wade@coonsroofing.com</a>.</p>
+        <p style={LEGAL_P}>Questions about these Terms? Contact us at <a href="tel:+17133671495" style={{ color: C.red, textDecoration: "none" }}>713-367-1495</a> or <a href="mailto:wade@coonsroofing.com" style={{ color: C.red, textDecoration: "none" }}>wade@coonsroofing.com</a>.</p>
       </PageSection>
       <CTA />
     </>
@@ -1187,7 +1204,7 @@ function BlogPost({ slug }) {
               <p style={{ fontFamily: F, fontSize: 15, fontWeight: 700, color: C.black, marginBottom: 8 }}>Need help with your commercial roof?</p>
               <p style={{ fontFamily: F, fontSize: 13, color: C.slate, marginBottom: 20 }}>We'll walk your roof, take photos, and give you straight answers.</p>
               <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 300, margin: "0 auto" }}>
-                <a href="tel:713-367-1495" style={{ background: C.red, color: "#fff", padding: "14px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, textDecoration: "none", textTransform: "uppercase", letterSpacing: 1, textAlign: "center", minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>Call 713-367-1495</a>
+                <a href="tel:+17133671495" style={{ background: C.red, color: "#fff", padding: "14px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, textDecoration: "none", textTransform: "uppercase", letterSpacing: 1, textAlign: "center", minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>Call 713-367-1495</a>
                 <a href="/#contact" style={{ border: `2px solid ${C.red}`, color: C.red, padding: "12px 24px", fontFamily: F, fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, textAlign: "center", minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>Schedule Complimentary Assessment</a>
               </div>
             </div>
