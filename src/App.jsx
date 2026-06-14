@@ -584,7 +584,7 @@ function CTA() {
               <label style={{ display: "flex", gap: 10, alignItems: "flex-start", textAlign: "left", cursor: "pointer" }}>
                 <input type="checkbox" aria-label="Consent to be contacted" checked={form.consent} onChange={e=>setForm({...form,consent:e.target.checked})} style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#fff", cursor: "pointer" }}/>
                 <span style={{ fontFamily: F, fontSize: 11.5, color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>
-                  By checking this box, I agree to receive calls and text messages from Coons Roofing at the number provided about my roof assessment and related services. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. See our <Link to="privacy" style={{ color: "#fff", textDecoration: "underline" }}>Privacy Policy</Link> and <Link to="terms" style={{ color: "#fff", textDecoration: "underline" }}>Terms</Link>.
+                  By checking this box, I agree to receive calls and text messages from Coons Roofing at the number provided about my roof assessment and related services. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. See our <a href="/privacy/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Privacy Policy</a> and <a href="/terms/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Terms</a>.
                 </span>
               </label>
               {error && <div role="alert" style={{ fontFamily: F, fontSize: 13, color: "#fff", background: "rgba(0,0,0,0.25)", padding: "8px 12px", textAlign: "left" }}>{error}</div>}
@@ -669,8 +669,8 @@ function Footer() {
           <span style={{ fontFamily: F, fontSize: 11, color: "#555", display: "block", marginBottom: 4 }}>© 2026 Coons Roofing. All rights reserved.</span>
           <span style={{ fontFamily: F, fontSize: 11, color: "#555", display: "block", marginBottom: 8 }}>Houston, TX</span>
           <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
-            <Link to="privacy" style={{ fontFamily: F, fontSize: 11, color: "#777", textDecoration: "none" }}>Privacy Policy</Link>
-            <Link to="terms" style={{ fontFamily: F, fontSize: 11, color: "#777", textDecoration: "none" }}>Terms of Service</Link>
+            <a href="/privacy/" style={{ fontFamily: F, fontSize: 11, color: "#777", textDecoration: "none" }}>Privacy Policy</a>
+            <a href="/terms/" style={{ fontFamily: F, fontSize: 11, color: "#777", textDecoration: "none" }}>Terms of Service</a>
           </div>
         </div>
       </div>
