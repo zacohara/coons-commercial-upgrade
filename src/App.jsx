@@ -525,7 +525,7 @@ function FAQ() {
 }
 
 function CTA() {
-  const [form, setForm] = useState({ name: "", phone: "", email: "", address: "", message: "", consent: false });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", address: "", message: "", consent: false, marketingConsent: false });
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -547,8 +547,12 @@ function CTA() {
           address: form.address,
           message: form.message,
           sms_consent: form.consent,
+          marketing_consent: form.marketingConsent,
           consent_record: form.consent
-            ? `Opted in via coonsroofing.com on ${new Date().toISOString()} — agreed to receive calls & text messages from Coons Roofing (msg & data rates may apply, msg frequency varies, reply STOP to opt out, HELP for help). Consent not a condition of purchase.`
+            ? `Opted in (service/transactional) via coonsroofing.com on ${new Date().toISOString()} — calls & texts about roof assessment, scheduling, and service updates. Msg frequency varies, msg & data rates may apply, reply STOP to opt out, HELP for help.`
+            : "Not provided",
+          marketing_consent_record: form.marketingConsent
+            ? `Opted in (promotional) via coonsroofing.com on ${new Date().toISOString()} — promotional offers and announcements by text. Consent is not a condition of purchase, reply STOP to opt out.`
             : "Not provided",
           source: "coonsroofing.com — Roof Assessment Form",
           submitted_at: new Date().toISOString()
@@ -572,7 +576,7 @@ function CTA() {
             <div style={{ fontSize: 36, marginBottom: 12 }}>✓</div>
             <div style={{ fontFamily: F, fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 8 }}>Request Received</div>
             <div style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.85)", marginBottom: 16 }}>We'll be in touch within 24 hours. Need it sooner? Call us at <a href="tel:713-367-1495" style={{ color: "#fff", fontWeight: 800, textDecoration: "none" }}>713-367-1495</a>.</div>
-            <button onClick={()=>{setSent(false);setForm({name:"",phone:"",email:"",address:"",message:"",consent:false});}} style={{ background: "none", border: "1px solid rgba(255,255,255,0.4)", color: "#fff", padding: "12px 24px", fontFamily: F, fontSize: 12, fontWeight: 600, cursor: "pointer", letterSpacing: 0.5, minHeight: 44 }}>Submit Another Request</button>
+            <button onClick={()=>{setSent(false);setForm({name:"",phone:"",email:"",address:"",message:"",consent:false,marketingConsent:false});}} style={{ background: "none", border: "1px solid rgba(255,255,255,0.4)", color: "#fff", padding: "12px 24px", fontFamily: F, fontSize: 12, fontWeight: 600, cursor: "pointer", letterSpacing: 0.5, minHeight: 44 }}>Submit Another Request</button>
           </div></Fade>
         ) : (
           <Fade delay={0.1}>
@@ -585,9 +589,15 @@ function CTA() {
               <input aria-label="Property address" style={inputStyle} placeholder="Property Address" value={form.address} onChange={e=>setForm({...form,address:e.target.value})}/>
               <textarea aria-label="Message" style={{...inputStyle,minHeight:80,resize:"vertical"}} placeholder="Tell us what's going on with your roof..." value={form.message} onChange={e=>setForm({...form,message:e.target.value})}/>
               <label style={{ display: "flex", gap: 10, alignItems: "flex-start", textAlign: "left", cursor: "pointer" }}>
-                <input type="checkbox" aria-label="Consent to be contacted" checked={form.consent} onChange={e=>setForm({...form,consent:e.target.checked})} style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#fff", cursor: "pointer" }}/>
+                <input type="checkbox" aria-label="Consent to service text messages" checked={form.consent} onChange={e=>setForm({...form,consent:e.target.checked})} style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#fff", cursor: "pointer" }}/>
                 <span style={{ fontFamily: F, fontSize: 11.5, color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>
-                  By checking this box, I agree to receive calls and text messages from Coons Roofing at the number provided about my roof assessment and related services. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. See our <a href="/privacy/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Privacy Policy</a> and <a href="/terms/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Terms</a>.
+                  I agree to receive calls and text messages from Coons Roofing about my roof assessment, scheduling, and service updates at the number provided. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.
+                </span>
+              </label>
+              <label style={{ display: "flex", gap: 10, alignItems: "flex-start", textAlign: "left", cursor: "pointer" }}>
+                <input type="checkbox" aria-label="Consent to promotional text messages" checked={form.marketingConsent} onChange={e=>setForm({...form,marketingConsent:e.target.checked})} style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#fff", cursor: "pointer" }}/>
+                <span style={{ fontFamily: F, fontSize: 11.5, color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>
+                  I'd also like to receive occasional promotions, offers, and announcements from Coons Roofing by text. Consent is not a condition of purchase. Reply STOP to opt out. See our <a href="/privacy/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Privacy Policy</a> and <a href="/terms/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Terms</a>.
                 </span>
               </label>
               {error && <div role="alert" style={{ fontFamily: F, fontSize: 13, color: "#fff", background: "rgba(0,0,0,0.25)", padding: "8px 12px", textAlign: "left" }}>{error}</div>}
