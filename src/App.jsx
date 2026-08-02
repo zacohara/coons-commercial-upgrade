@@ -105,7 +105,7 @@ function Nav() {
       <div onClick={()=>setOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 98, background: "transparent" }} />
       <div role="menu" style={{ position: "fixed", top: 60, left: 0, right: 0, zIndex: 99, background: "rgba(10,10,10,0.98)", backdropFilter: "blur(12px)", padding: "8px 24px 16px", maxHeight: "calc(100vh - 60px)", overflowY: "auto" }}>
         <div style={{ ...linkStyle, color: C.red, fontSize: 10, fontWeight: 800, letterSpacing: 2, borderBottom: "none", padding: "12px 0 4px" }}>Services</div>
-        {[{t:"Roof Repair",p:"repair"},{t:"Maintenance",p:"maintenance"},{t:"Coatings & Restoration",p:"coatings"},{t:"Replacement",p:"replacement"},{t:"Inspections",p:"inspections"},{t:"Emergency Response",p:"emergency"}].map(s=>(
+        {[{t:"Roof Repair",p:"repair"},{t:"Maintenance",p:"maintenance"},{t:"Coatings & Restoration",p:"coatings"},{t:"Metal Roof Coating",p:"metal-roof-coating-houston"},{t:"Replacement",p:"replacement"},{t:"Inspections",p:"inspections"},{t:"Emergency Response",p:"emergency"}].map(s=>(
           <Link key={s.p} to={s.p} role="menuitem" style={subStyle} onClick={()=>setOpen(false)}>{s.t}</Link>
         ))}
         <Link to="about" role="menuitem" style={linkStyle} onClick={()=>setOpen(false)}>About</Link>
@@ -658,7 +658,7 @@ function Footer() {
 
             </div>
           </div>
-          {[{t:"Services",items:[{n:"Repair",s:"repair"},{n:"Maintenance",s:"maintenance"},{n:"Coatings",s:"coatings"},{n:"Replacement",s:"replacement"},{n:"Inspections",s:"inspections"},{n:"Emergency",s:"emergency"},{n:"TPO Roofing",s:"tpo-roofing-houston"},{n:"Flat Roof Repair",s:"flat-roof-repair-houston"}]},{t:"Areas",items:[{n:"Houston",s:"houston"},{n:"Katy",s:"katy"},{n:"The Woodlands",s:"the-woodlands"},{n:"Sugar Land",s:"sugar-land"},{n:"Pearland",s:"pearland"},{n:"Spring",s:"spring"}]},{t:"Contact",items:[{n:"713-367-1495",h:"tel:+17133671495"},{n:"wade@coonsroofing.com",h:"mailto:wade@coonsroofing.com"},{n:"10607 Lynbrook Dr"},{n:"Houston, TX 77042"}]}].map(col=>(
+          {[{t:"Services",items:[{n:"Repair",s:"repair"},{n:"Maintenance",s:"maintenance"},{n:"Coatings",s:"coatings"},{n:"Replacement",s:"replacement"},{n:"Inspections",s:"inspections"},{n:"Emergency",s:"emergency"},{n:"TPO Roofing",s:"tpo-roofing-houston"},{n:"Flat Roof Repair",s:"flat-roof-repair-houston"},{n:"Metal Roof Coating",s:"metal-roof-coating-houston"}]},{t:"Areas",items:[{n:"Houston",s:"houston"},{n:"Katy",s:"katy"},{n:"The Woodlands",s:"the-woodlands"},{n:"Sugar Land",s:"sugar-land"},{n:"Pearland",s:"pearland"},{n:"Spring",s:"spring"}]},{t:"Contact",items:[{n:"713-367-1495",h:"tel:+17133671495"},{n:"wade@coonsroofing.com",h:"mailto:wade@coonsroofing.com"},{n:"10607 Lynbrook Dr"},{n:"Houston, TX 77042"}]}].map(col=>(
             <div key={col.t}>
               <div style={{ fontFamily: F, fontSize: 11, fontWeight: 800, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 14 }}>{col.t}</div>
               {col.items.map(it=> it.s ? (
@@ -936,6 +936,7 @@ export const PAGES = {
     { t: "Silicone vs. Acrylic", c: "Silicone coatings handle ponding water and UV exposure better than anything else on the market. If your roof has low spots where water sits after rain, silicone is the answer. Acrylic coatings cost less and work great on sloped sections where water drains quickly. They also deliver better reflectivity and energy savings. Most Houston commercial roofs benefit from silicone on the flat areas with acrylic on any sloped sections." },
     { t: "Coating Systems We Install", c: "We install coating systems from Western Colloid, Karnak, and Everest Systems. Each manufacturer has specific strengths depending on your existing membrane, ponding conditions, and budget. All come with manufacturer-backed warranties when installed by a certified applicator." },
     { t: "When Coatings Won't Work", c: "Coatings only work on structurally sound roofs. If you've got widespread membrane failure, saturated insulation, or deck damage, coating over the top just hides the problem. That's why we always inspect before we quote. We've walked away from coating jobs and recommended replacement instead because it was the honest call." },
+    { t: "Restoring a Metal Roof?", c: "Metal deserves its own playbook. Fastener-by-fastener prep, rust-inhibitive primers, reinforced seams, and the right chemistry for your slope and ponding conditions. We put the full breakdown, including real cost numbers, in our metal roof coating guide.", link: { to: "metal-roof-coating-houston", label: "Read the Metal Roof Coating Guide" } },
   ]},
   replacement: { tag: "Roof Replacement", title: "Commercial Roof Replacement in", highlight: "Houston", desc: "When it's truly time for a new roof, we walk you through every step. System selection, budgeting, scheduling, and installation. Full documentation throughout.", sections: [
     { t: "When Replacement Makes Sense", c: "We only recommend replacement when repair costs exceed 30% of a new roof, the membrane has reached end-of-life, or building code requirements mandate a new system. We'll show you the math so you can make an informed decision, not an emotional one." },
@@ -982,10 +983,21 @@ export const PAGES = {
   projects: { tag: "Our Work", title: "Recent", highlight: "Projects", desc: "Detailed case studies from commercial roofing projects across the Houston metro.", sections: [
     { t: "Project Gallery Coming Soon", c: "We're building out our gallery with before/after photos, scope details, and system specs from recent jobs. Call 713-367-1495 to discuss your building type, and we can share relevant examples directly." },
   ]},
+  "metal-roof-coating-houston": { tag: "Metal Roof Coating", title: "Metal Roof Coating in", highlight: "Houston", desc: "Fluid-applied coating systems that stop leaks, kill rust, and add 10 to 20 years of life to your metal roof at 40 to 60 percent less than replacement. Certified applicators for IPC, Karnak, Everest Systems, and Western Colloid.", sections: [] },
 };
 
 /* ── Blog Data ── */
 export const BLOG = [
+  { slug: "fluid-applied-metal-roof-restoration-houston", related: ["metal-roof-coating-houston", "coatings"], title: "Why We're Going All In on Fluid-Applied Roofing for Houston's Metal Buildings", date: "August 2026", published: "2026-08-02", read: "7 min", img: "/service-coatings.jpg", body: [
+    "Fluid-applied coating systems are now our primary answer for aging metal roofs across Houston. Not a side offering, not a fallback when the replacement budget dies. The main play. Here is why we made that call, what these systems actually are, and when we still tell an owner to replace instead.",
+    "Drive any industrial corridor in this city and you are looking at our reason. Houston is wrapped in metal buildings: warehouses, distribution centers, shops, church gyms, self-storage. Most of them are R-panel roofs screwed down decades ago, and every one of them fights the same physics. The panels bake past 150 degrees by afternoon, swell, then shrink again at night. That daily cycle backs fasteners out of their holes, dry-rots the washers, opens the laps, and grinds away the factory finish until Gulf Coast humidity can start rusting bare steel. The panels usually have plenty of life left. The details holding them together do not.",
+    "So the owner calls a roofer about a few leaks, and the quote that comes back is a full tear-off. Two, three, sometimes four hundred thousand dollars, weeks of noise, an exposed building in storm season, and a dumpster parade through the parking lot. For a lot of these roofs, that is the wrong answer to the wrong question.",
+    "A fluid-applied restoration attacks the actual failure points instead. We wash the roof, replace or tighten every fastener, prime the rust so it stops, reinforce every seam and penetration, then coat the entire field with an elastomeric topcoat built up to warranty thickness. When it cures, the roof is one seamless waterproof membrane. No exposed screw heads, no open laps, no seams for wind-driven rain to find. It typically runs $2.50 to $5.00 per square foot, against $8 to $15 or more for replacement, and the building stays open the whole time.",
+    "We got certified with four manufacturers on purpose: IPC, Karnak, Everest Systems, and Western Colloid. Different roofs need different chemistry. Silicone where water ponds, acrylic where the slope sheds, fabric-reinforced systems where an older roof moves too much for coating alone. And here is the part we love: two of the four are made in our backyard. Everest Systems manufactures in Houston and IPC builds their cross-linked acrylics in Pearland. The people formulating these products drive under the same sun and through the same storms your roof does.",
+    "The performance case keeps stacking. A white reflective coating can pull a metal roof's surface temperature down by 50 degrees or more on a summer afternoon, which your AC notices immediately. The systems carry manufacturer-backed warranties from 10 to 20 years, with no-dollar-limit and hail-rated options on qualifying roofs. And most of them can simply be recoated when the warranty runs out, which means the tear-off you keep postponing may never need to happen. Ask your CPA how a maintenance coating gets treated on the books versus a capital replacement while you are at it. That conversation surprises a lot of owners.",
+    "Now the honest part, because it is the same thing we say on your roof. Coatings do not fix everything. Rusted-through panels, soft decking, and saturated insulation cannot be coated over, and anyone willing to coat over those problems is selling you a very expensive delay. If the roof is structurally sound, restoration usually wins. If it is not, we will show you the photos and tell you to replace it, even when that is not the answer we are hoping to give.",
+    "If you own or manage a metal-roofed building anywhere in the Houston metro, get eyes on it before storm season does. We will walk the roof, document everything with photos, and give you the restore-or-replace answer backed by numbers. The assessment is free, and the full breakdown of systems, costs, and warranties is in our metal roof coating guide right here on the site."
+  ]},
   { slug: "commercial-roof-maintenance-program-houston", related: ["maintenance", "inspections"], title: "Why Every Houston Commercial Property Needs a Roof Maintenance Program", date: "June 2026", published: "2026-06-12", read: "6 min", img: "/blog-maintenance.webp", body: [
     "A commercial roof maintenance program is a scheduled plan of inspections, cleaning, and small repairs that catches problems before they become five- and six-figure failures. For Houston property managers running flat or low-slope roofs, it's the single highest-ROI line item you're probably underfunding, because every dollar spent on proactive upkeep typically defers a far larger replacement bill.",
     "Houston is one of the harshest roofing environments in the country. Relentless UV bakes membranes for nine months a year, summer heat drives thermal cycling that works seams and flashings loose, and then a single afternoon storm can dump several inches of rain onto a roof that doesn't drain fast enough. A roof that would last 25 years in a milder climate can degrade noticeably faster here without attention. A maintenance program is how you fight that math.",
@@ -1213,6 +1225,7 @@ function ServicePage({ slug }) {
       {p.sections.map((s, i) => (
         <PageSection key={i} title={s.t} bg={i % 2 === 0 ? "#fff" : C.light}>
           <p style={{ fontFamily: F, fontSize: 15, color: C.slate, lineHeight: 1.8 }}>{s.c}</p>
+          {s.link && <div style={{ marginTop: 18 }}><Link to={s.link.to} style={{ display: "inline-block", background: C.red, color: "#fff", padding: "12px 22px", fontFamily: F, fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1 }}>{s.link.label}</Link></div>}
         </PageSection>
       ))}
       <section style={{ background: C.light, padding: "48px clamp(16px,4vw,48px)" }}>
@@ -1281,6 +1294,163 @@ function CityPage({ slug }) {
   );
 }
 
+/* ── Metal Roof Coating (pillar) ── */
+const MP = { fontFamily: F, fontSize: 15, color: C.slate, lineHeight: 1.8 };
+const METAL_FAILS = [
+  { t: "Fasteners back out", d: "Daily thermal movement works screws loose, enlarges their holes, and dry-rots the rubber washers. A typical metal roof has thousands of fasteners, and every one is a potential leak." },
+  { t: "Seams open up", d: "Panel laps, ridges, and transitions move with the metal. The original stitch screws and butyl tape eventually give, and wind-driven rain finds every gap they leave behind." },
+  { t: "Rust sets in", d: "The factory galvalume finish sacrifices itself for years, then wears through. Once bare steel meets Gulf Coast humidity, corrosion moves fast." },
+  { t: "Flashings and penetrations fail", d: "Pipes, curbs, skylights, and edge metal are where most leaks actually start. Chasing them one tube of caulk at a time is a treadmill, not a repair." },
+];
+const METAL_STEPS = [
+  { t: "Pressure wash and prep", d: "We wash the entire roof down to a clean, sound surface and degrease anything the coating needs to grip. Adhesion is everything, so prep gets treated like its own job." },
+  { t: "Fastener pass", d: "Every backed-out screw gets tightened or replaced, and failed washers get swapped. Tightening a stripped screw accomplishes nothing, so where threads are gone we upsize the fastener." },
+  { t: "Rust-inhibitive primer", d: "Rusted areas and previously painted panels get a primer coat that locks down oxidation and guarantees the topcoat bonds. This is the step cheap coating jobs skip, and it is why they fail." },
+  { t: "Seam and detail treatment", d: "Brush-grade sealant or fabric-reinforced base coat goes over every seam, fastener head, curb, and penetration. This is where the labor lives, because this is where metal roofs actually leak." },
+  { t: "Full-field topcoat", d: "The finish coats are applied to the mil thickness your warranty requires, checked as we go, and photo-documented like everything else we do." },
+];
+const METAL_CHEM = [
+  { t: "Silicone", d: "The default for low-slope metal with ponding water or brutal sun exposure. Silicone shrugs off standing water and UV better than anything else we install." },
+  { t: "Acrylic", d: "The workhorse for sloped metal that sheds water fast. Highly reflective, easier on the budget, and the chemistry both of our Texas manufacturers build their metal systems around." },
+  { t: "Fabric-Reinforced", d: "Polyester fabric embedded in the coating over the seams or the entire field. The call for older roofs with more movement, and for owners who want a membrane they can renew with a recoat instead of ever replacing." },
+];
+const METAL_BRANDS = [
+  { n: "Everest Systems", s: "/cert-everest.png", loc: "Manufactured in Houston, TX", d: "A full line of acrylic, silicone, and urethane systems manufactured in Houston, including dedicated metal primers, rust bleed-blockers, and a PVDF topcoat for color-critical roofs. Warranties up to 20 years." },
+  { n: "IPC", s: "/cert-ipc.png", loc: "Manufactured in Pearland, TX", d: "Cross-linked acrylic systems made in Pearland, minutes from many of the buildings we coat. IPC metal restorations have earned 20-year no-dollar-limit warranties that include 2-inch hail coverage." },
+  { n: "Karnak", s: "/cert-karnak.png", loc: "Clark, NJ", d: "A family-owned manufacturer with a dedicated metal roof restoration system, a high-solids silicone, and products third-party certified by UL, FM, and the Cool Roof Rating Council. Warranties from 5 to 20 years." },
+  { n: "Western Colloid", s: "/cert-western-colloid.png", loc: "Made in California", d: "Fluid Applied Reinforced Roofing: coating layered with polyester fabric into a seamless membrane that weighs about a pound per square foot. Warranties up to 20 years, renewable with a recoat instead of a tear-off." },
+];
+const METAL_PHOTOS = [
+  { s: PH_BEFOREAFTER, c: "Drains cleared, penetrations sealed, and coating down at a Houston retail center" },
+  { s: PH_COATINGS, c: "Fluid-applied restoration in progress" },
+];
+const METAL_FAQS = [
+  { q: "How much does metal roof coating cost in Houston?", a: "Most metal roof restorations in the Houston market run $2.50 to $5.00 per square foot depending on panel condition, how much seam and fastener work is needed, and the warranty length you want. A full replacement typically starts around $8 to $15 per square foot. We give you an exact number after a free on-roof assessment." },
+  { q: "How long does a metal roof coating last?", a: "The systems we install carry manufacturer-backed warranties from 10 to 20 years depending on the applied thickness. At the end of that window, most of these roofs can be cleaned and recoated for a fraction of the original cost, which restarts the clock without a tear-off." },
+  { q: "Can you coat a rusty metal roof?", a: "Usually, yes. Surface rust gets cleaned and locked down with a rust-inhibitive primer before any coating goes on. What we will not do is coat over rust-through, soft decking, or saturated insulation. If the panels are structurally gone, we will tell you that honestly." },
+  { q: "Is coating better than replacing a metal roof?", a: "If the roof is structurally sound, coating usually wins on cost, speed, disruption, and energy performance. If it has widespread rust-through or deck damage, replacement is the honest answer. Our free assessment tells you which side of that line your roof is on, with photos to back it up." },
+  { q: "Will a roof coating lower my energy bills?", a: "A bare metal panel can run 170 degrees or hotter on a Houston summer afternoon. A bright white reflective coating can cut that surface temperature by 50 degrees or more, which reduces the heat driving into your building and the load on your cooling equipment." },
+  { q: "Do roof coatings come with a real warranty?", a: "Yes. Installed to spec by a certified applicator, these systems carry manufacturer-backed warranties up to 20 years, with no-dollar-limit options available on qualifying roofs. That is the manufacturer standing behind the roof, not just your contractor." },
+];
+function MetalRoofPage() {
+  const p = PAGES["metal-roof-coating-houston"];
+  const card = { background: C.light, padding: 22 };
+  const cardW = { background: "#fff", padding: 22 };
+  const grid2 = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16, marginTop: 24 };
+  return (
+    <div key="metal-roof-coating-houston">
+      <PageHero tag={p.tag} title={p.title} highlight={p.highlight} desc={p.desc} />
+      <TrustBar />
+      <PageSection title="Why Metal Roofs Leak in Houston" bg="#fff">
+        <p style={MP}>Metal is a great roof until the details give up. In Houston, a panel can swing from morning-cool to well over 150 degrees by afternoon, and that daily expansion and contraction slowly works the whole system loose. The panels themselves usually have plenty of life left. It is everything holding them together that fails.</p>
+        <div style={grid2}>
+          {METAL_FAILS.map(f => (
+            <div key={f.t} style={{ ...card, borderTop: "3px solid " + C.red }}>
+              <p style={{ fontFamily: F, fontSize: 15, fontWeight: 800, color: C.black, marginBottom: 8 }}>{f.t}</p>
+              <p style={{ ...MP, fontSize: 14 }}>{f.d}</p>
+            </div>
+          ))}
+        </div>
+      </PageSection>
+      <PageSection title="What Fluid-Applied Restoration Actually Is" bg={C.light}>
+        <p style={MP}>A fluid-applied restoration is not a coat of paint. It is an engineered roof system installed as a liquid: cleaning and prep, a rust-inhibitive primer, reinforced treatment over every seam, fastener, and penetration, and then a full-field elastomeric topcoat built up to a specified thickness. When it cures, your entire roof is one seamless, waterproof, highly reflective membrane with no laps to open and no fasteners exposed to the weather.</p>
+        <p style={{ ...MP, marginTop: 16 }}>Because it goes over the existing panels, there is no tear-off, no dumpsters, no exposed building, and no weeks of noise over your tenants. Most metal restorations finish in days, and the building stays open the whole time.</p>
+      </PageSection>
+      <PageSection title="Our 5-Step Metal Restoration Process" bg="#fff">
+        {METAL_STEPS.map((s, i) => (
+          <div key={s.t} style={{ display: "flex", gap: 18, marginBottom: i === METAL_STEPS.length - 1 ? 0 : 24 }}>
+            <div style={{ fontFamily: F, fontWeight: 900, fontSize: 28, color: C.red, lineHeight: 1, minWidth: 34 }}>{i + 1}</div>
+            <div>
+              <p style={{ fontFamily: F, fontSize: 16, fontWeight: 800, color: C.black, marginBottom: 6 }}>{s.t}</p>
+              <p style={MP}>{s.d}</p>
+            </div>
+          </div>
+        ))}
+      </PageSection>
+      <PageSection title="Silicone, Acrylic, or Fabric-Reinforced?" bg={C.light}>
+        <div style={{ ...grid2, marginTop: 0 }}>
+          {METAL_CHEM.map(ch => (
+            <div key={ch.t} style={cardW}>
+              <p style={{ fontFamily: F, fontSize: 15, fontWeight: 800, color: C.red, marginBottom: 8 }}>{ch.t}</p>
+              <p style={{ ...MP, fontSize: 14 }}>{ch.d}</p>
+            </div>
+          ))}
+        </div>
+        <p style={{ ...MP, marginTop: 20 }}>Plenty of Houston metal roofs get a hybrid: reinforced details everywhere, silicone where water sits, acrylic where it drains. The roof tells us which system it needs. We do not decide that from the office.</p>
+      </PageSection>
+      <PageSection title="The Systems We Install" bg="#fff">
+        <p style={MP}>We are certified applicators for four fluid-applied manufacturers, and we picked them deliberately. Two of the four make their coatings right here in the Houston metro, formulated for exactly the heat, humidity, and storm cycles your roof lives in.</p>
+        <div style={grid2}>
+          {METAL_BRANDS.map(b => (
+            <div key={b.n} style={card}>
+              <img src={b.s} alt={b.n} style={{ height: 34, marginBottom: 12, display: "block" }} loading="lazy" />
+              <p style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: C.red, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 6 }}>{b.loc}</p>
+              <p style={{ fontFamily: F, fontSize: 16, fontWeight: 800, color: C.black, marginBottom: 8 }}>{b.n}</p>
+              <p style={{ ...MP, fontSize: 14 }}>{b.d}</p>
+            </div>
+          ))}
+        </div>
+      </PageSection>
+      <PageSection title="What It Costs" bg={C.light}>
+        <p style={MP}>Straight numbers, because that is how this decision actually gets made.</p>
+        <div style={{ background: "#fff", marginTop: 20 }}>
+          {[["Fluid-applied metal restoration", "$2.50 to $5.00 / sq ft"], ["Full metal roof replacement", "$8 to $15+ / sq ft"]].map(([k, v], i) => (
+            <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, padding: "16px 20px", borderBottom: i === 0 ? "1px solid #eee" : "none", flexWrap: "wrap" }}>
+              <span style={{ fontFamily: F, fontSize: 14, fontWeight: 700, color: C.black }}>{k}</span>
+              <span style={{ fontFamily: F, fontSize: 14, fontWeight: 800, color: i === 0 ? C.red : C.slate }}>{v}</span>
+            </div>
+          ))}
+        </div>
+        <div style={{ background: C.black, padding: 24, marginTop: 16 }}>
+          <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: C.red, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 8 }}>A real-world example</p>
+          <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.85)", lineHeight: 1.7 }}>Restoring a 20,000 square foot warehouse roof typically lands between $70,000 and $140,000. Replacing that same roof can clear $300,000 before you count the disruption to your operation.</p>
+        </div>
+        <p style={{ ...MP, marginTop: 20 }}>Then there is the energy side. An uncoated metal panel can run 170 degrees or hotter on a Houston summer afternoon. A bright white reflective coating can cut that surface temperature by 50 degrees or more, and your cooling bill feels it immediately.</p>
+        <p style={{ ...MP, marginTop: 16 }}>One more conversation worth having before you sign anything: coating work is often handled differently on your books than a capital roof replacement, and Section 179 now covers certain commercial roof improvements. We are roofers, not accountants, so take that question to your CPA. It is worth asking.</p>
+      </PageSection>
+      <PageSection title="When We Won't Coat Your Metal Roof" bg="#fff">
+        <p style={MP}>Coatings only work over a structurally sound roof. If your panels have rusted through, the decking is soft, or the insulation underneath is saturated, a coating just hides a problem that is still getting worse. That is why every project starts with a free on-roof assessment, and it is why we have walked away from coating jobs and recommended replacement instead. You will get the honest answer either way, with photos to back it up.</p>
+      </PageSection>
+      <PageSection title="Warranties That Actually Mean Something" bg={C.light}>
+        <p style={MP}>Installed to spec by a certified applicator, the systems we use carry manufacturer-backed warranties from 10 to 20 years, with no-dollar-limit coverage available on qualifying roofs. That means the manufacturer, not just your contractor, stands behind the roof. And when the warranty window closes, most of these systems can be cleaned and recoated to start the clock again. Done right, this can be the last roof decision the building ever forces on you.</p>
+      </PageSection>
+      {METAL_PHOTOS.length > 0 && (
+        <PageSection title="Recent Coating Work" bg="#fff">
+          <div style={grid2}>
+            {METAL_PHOTOS.map(ph => (
+              <figure key={ph.s} style={{ margin: 0 }}>
+                <img src={ph.s} alt={ph.c} style={{ width: "100%", display: "block" }} loading="lazy" />
+                <figcaption style={{ fontFamily: F, fontSize: 12, color: C.slate, marginTop: 8 }}>{ph.c}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </PageSection>
+      )}
+      <PageSection title="Metal Roof Coating FAQs" bg={C.light}>
+        {METAL_FAQS.map((f, i) => (
+          <div key={i} style={{ marginBottom: 20 }}>
+            <p style={{ fontFamily: F, fontSize: 16, fontWeight: 800, color: C.black, marginBottom: 6 }}>{f.q}</p>
+            <p style={MP}>{f.a}</p>
+          </div>
+        ))}
+      </PageSection>
+      <section style={{ background: "#fff", padding: "48px clamp(16px,4vw,48px)" }}>
+        <div style={{ maxWidth: 800, margin: "0 auto" }}>
+          <Fade>
+            <p style={{ fontFamily: F, fontSize: 12, fontWeight: 700, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 16, textAlign: "center" }}>Related Services</p>
+            <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+              {["coatings", "repair", "maintenance"].map(k => (
+                <Link key={k} to={k} style={{ padding: "10px 20px", background: C.light, fontFamily: F, fontSize: 12, fontWeight: 700, color: C.black, letterSpacing: 0.5 }}>{PAGES[k].tag}</Link>
+              ))}
+            </div>
+          </Fade>
+        </div>
+      </section>
+      <CTA />
+    </div>
+  );
+}
+
 function HomePage() {
   return (
     <>
@@ -1303,6 +1473,7 @@ export const PAGE_TITLES = {
   houston: "Commercial Roofing Houston TX | Coons Roofing",
   "tpo-roofing-houston": "TPO Roofing Houston | Commercial TPO Install & Repair",
   "flat-roof-repair-houston": "Flat Roof Repair Houston | Coons Roofing",
+  "metal-roof-coating-houston": "Metal Roof Coating & Restoration Houston | Coons Roofing",
   blog: "Roofing Blog for Property Managers | Coons Roofing Houston",
 };
 const SITE = "https://coonsroofing.com";
@@ -1355,6 +1526,9 @@ export function headFor(route) {
       "url": canonical,
     });
   }
+  if (route === "metal-roof-coating-houston") {
+    jsonld.push({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": METAL_FAQS.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) });
+  }
   return { title, description, canonical, jsonld };
 }
 
@@ -1380,6 +1554,7 @@ export default function CoonsHomepage({ route }) {
         page === "terms" ? <TermsPage /> :
         page === "blog" ? <BlogList /> :
         page.startsWith("blog/") ? <BlogPost slug={page.slice(5)} /> :
+        page === "metal-roof-coating-houston" ? <MetalRoofPage /> :
         CITIES.find(c => c.slug === page) ? <CityPage slug={page} /> :
         <ServicePage slug={page} />
       }</main>

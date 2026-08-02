@@ -47,7 +47,7 @@ function buildPage(html, head) {
 }
 
 const SITE = 'https://coonsroofing.com'
-const LASTMOD = '2026-06-14'
+const LASTMOD = '2026-08-02'
 
 let count = 0
 const urls = []
