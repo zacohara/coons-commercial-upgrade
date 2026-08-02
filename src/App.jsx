@@ -988,7 +988,7 @@ export const PAGES = {
 
 /* ── Blog Data ── */
 export const BLOG = [
-  { slug: "fluid-applied-metal-roof-restoration-houston", related: ["metal-roof-coating-houston", "coatings"], title: "Why We're Going All In on Fluid-Applied Roofing for Houston's Metal Buildings", date: "August 2026", published: "2026-08-02", read: "7 min", img: "/service-coatings.jpg", body: [
+  { slug: "fluid-applied-metal-roof-restoration-houston", related: ["metal-roof-coating-houston", "coatings"], title: "Why We're Going All In on Fluid-Applied Roofing for Houston's Metal Buildings", date: "August 2026", published: "2026-08-02", read: "7 min", img: "/metal-1.jpg", body: [
     "Fluid-applied coating systems are now our primary answer for aging metal roofs across Houston. Not a side offering, not a fallback when the replacement budget dies. The main play. Here is why we made that call, what these systems actually are, and when we still tell an owner to replace instead.",
     "Drive any industrial corridor in this city and you are looking at our reason. Houston is wrapped in metal buildings: warehouses, distribution centers, shops, church gyms, self-storage. Most of them are R-panel roofs screwed down decades ago, and every one of them fights the same physics. The panels bake past 150 degrees by afternoon, swell, then shrink again at night. That daily cycle backs fasteners out of their holes, dry-rots the washers, opens the laps, and grinds away the factory finish until Gulf Coast humidity can start rusting bare steel. The panels usually have plenty of life left. The details holding them together do not.",
     "So the owner calls a roofer about a few leaks, and the quote that comes back is a full tear-off. Two, three, sometimes four hundred thousand dollars, weeks of noise, an exposed building in storm season, and a dumpster parade through the parking lot. For a lot of these roofs, that is the wrong answer to the wrong question.",
@@ -1321,8 +1321,10 @@ const METAL_BRANDS = [
   { n: "Western Colloid", s: "/cert-western-colloid.png", loc: "Made in California", d: "Fluid Applied Reinforced Roofing: coating layered with polyester fabric into a seamless membrane that weighs about a pound per square foot. Warranties up to 20 years, renewable with a recoat instead of a tear-off." },
 ];
 const METAL_PHOTOS = [
-  { s: PH_BEFOREAFTER, c: "Drains cleared, penetrations sealed, and coating down at a Houston retail center" },
-  { s: PH_COATINGS, c: "Fluid-applied restoration in progress" },
+  { s: "/metal-1.jpg", c: "Crew spraying white elastomeric coating across a metal roof" },
+  { s: "/metal-2.jpg", c: "Working the spray rig down the panel field, hose tended behind" },
+  { s: "/metal-3.jpg", c: "Seams and fastener heads sealed first, then basecoat over the panels" },
+  { s: "/metal-4.jpg", c: "Coating carried around the roof penetrations and curbs" },
 ];
 const METAL_FAQS = [
   { q: "How much does metal roof coating cost in Houston?", a: "Most metal roof restorations in the Houston market run $2.50 to $5.00 per square foot depending on panel condition, how much seam and fastener work is needed, and the warranty length you want. A full replacement typically starts around $8 to $15 per square foot. We give you an exact number after a free on-roof assessment." },
