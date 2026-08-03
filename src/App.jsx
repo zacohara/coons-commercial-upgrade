@@ -22,6 +22,24 @@ const COONS_MARK_W = "/coons-mark-white.svg";
 
 // GoHighLevel Inbound Webhook URL (Workflow → "Inbound Webhook" trigger).
 // Workflow: "Website Lead — Coons Roofing" (location zemOrVB3bS5ADz7ow32o).
+/* Every lead used to arrive in GHL with an identical hardcoded source, so no
+   page could ever be credited with a job. This captures where it came from. */
+function leadContext() {
+  if (typeof window === "undefined") return {};
+  const q = new URLSearchParams(window.location.search);
+  const utm = {};
+  ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid"].forEach(k => {
+    const v = q.get(k); if (v) utm[k] = v;
+  });
+  return {
+    page_path: window.location.pathname,
+    page_url: window.location.href,
+    page_title: typeof document !== "undefined" ? document.title : "",
+    referrer: typeof document !== "undefined" ? document.referrer : "",
+    ...utm,
+  };
+}
+
 const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/zemOrVB3bS5ADz7ow32o/webhook-trigger/7d1b7f59-bedc-49ae-9f1f-81824b0bc818";
 
 const LOGOS = [{n:"Versico",s:"/cert-versico.png"},{n:"FiberTite",s:"/cert-fibertite.png"},{n:"Duro-Last",s:"/cert-duro-last.png"},{n:"Karnak",s:"/cert-karnak.png"},{n:"Everest",s:"/cert-everest.png"},{n:"IPC",s:"/cert-ipc.png"},{n:"Western Colloid",s:"/cert-western-colloid.png"},{n:"Elevate",s:"/cert-elevate.png"},{n:"GAF",s:"/cert-gaf.png"}];
@@ -104,10 +122,8 @@ function Nav() {
       </div>
     </nav>
     </header>
-    {open && (
-      <>
-      <div onClick={()=>setOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 98, background: "transparent" }} />
-      <div role="menu" style={{ position: "fixed", top: 60, left: 0, right: 0, zIndex: 99, background: "rgba(10,10,10,0.98)", backdropFilter: "blur(12px)", padding: "8px 24px 16px", maxHeight: "calc(100vh - 60px)", overflowY: "auto" }}>
+    {open && <div onClick={()=>setOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 98, background: "transparent" }} />}
+      <div role="menu" aria-hidden={!open} style={{ display: open ? "block" : "none", position: "fixed", top: 60, left: 0, right: 0, zIndex: 99, background: "rgba(10,10,10,0.98)", backdropFilter: "blur(12px)", padding: "8px 24px 16px", maxHeight: "calc(100vh - 60px)", overflowY: "auto" }}>
         <div style={{ ...linkStyle, color: C.red, fontSize: 10, fontWeight: 800, letterSpacing: 2, borderBottom: "none", padding: "12px 0 4px" }}>Services</div>
         {[{t:"Roof Repair",p:"repair"},{t:"Maintenance",p:"maintenance"},{t:"Coatings & Restoration",p:"coatings"},{t:"Metal Roof Coating",p:"metal-roof-coating-houston"},{t:"Replacement",p:"replacement"},{t:"Inspections",p:"inspections"},{t:"Emergency Response",p:"emergency"}].map(s=>(
           <Link key={s.p} to={s.p} role="menuitem" style={subStyle} onClick={()=>setOpen(false)}>{s.t}</Link>
@@ -116,14 +132,12 @@ function Nav() {
         <Link to="blog" role="menuitem" style={linkStyle} onClick={()=>setOpen(false)}>Blog</Link>
         <Link to="projects" role="menuitem" style={linkStyle} onClick={()=>setOpen(false)}>Projects</Link>
         <div style={{ ...linkStyle, color: C.red, fontSize: 10, fontWeight: 800, letterSpacing: 2, borderBottom: "none", padding: "12px 0 4px" }}>Service Areas</div>
-        {CITIES.slice(0,6).map(c=>(
+        {CITIES.map(c=>(
           <Link key={c.slug} to={c.slug} role="menuitem" style={subStyle} onClick={()=>setOpen(false)}>{c.name}</Link>
         ))}
         <a role="menuitem" href="#contact" style={linkStyle} onClick={(e)=>{e.preventDefault();setOpen(false);setTimeout(()=>document.getElementById("contact")?.scrollIntoView({behavior:"smooth"}),100);}}>Contact</a>
         <a role="menuitem" href="tel:+17133671495" style={{ ...linkStyle, color: C.red, borderBottom: "none", fontWeight: 700 }}>713-367-1495</a>
       </div>
-      </>
-    )}
     </>
   );
 }
@@ -137,12 +151,12 @@ function Hero() {
 
         <Fade now delay={0.1}>
           <h1 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(32px,8vw,62px)", color: "#fff", lineHeight: 1.05, marginBottom: 24, textTransform: "uppercase", textShadow: "0 4px 12px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.08)" }}>
-            Serving Building Owners Who Need <span style={{ color: C.red, textShadow: "0 4px 16px rgba(230,34,54,0.35), 0 2px 0 rgba(140,10,20,0.5)" }}>Results, Not Excuses</span>
+            Houston Commercial Roofing That <span style={{ color: C.red, textShadow: "0 4px 16px rgba(230,34,54,0.35), 0 2px 0 rgba(140,10,20,0.5)" }}>Fixes the Actual Problem</span>
           </h1>
         </Fade>
         <Fade now delay={0.2}>
           <p style={{ fontFamily: F, fontSize: "clamp(14px,3.5vw,17px)", color: "rgba(255,255,255,0.78)", fontWeight: 400, marginBottom: 36, maxWidth: 560, margin: "0 auto 36px", lineHeight: 1.7 }}>
-            We help property managers and building owners protect what matters most. Real evaluations. Honest answers. No runarounds.
+            Repair, maintain, restore. We recommend replacement only when the numbers support it, and we show you the math.
           </p>
         </Fade>
         <Fade now delay={0.3}>
@@ -565,6 +579,7 @@ function CTA() {
             ? `Opted in (promotional) via coonsroofing.com on ${new Date().toISOString()} — promotional offers and announcements by text. Consent is not a condition of purchase, reply STOP to opt out.`
             : "Not provided",
           source: "coonsroofing.com — Roof Assessment Form",
+          ...leadContext(),
           submitted_at: new Date().toISOString()
         })
       });
@@ -602,15 +617,18 @@ function CTA() {
               <label style={{ display: "flex", gap: 10, alignItems: "flex-start", textAlign: "left", cursor: "pointer" }}>
                 <input type="checkbox" aria-label="Consent to service text messages" checked={form.consent} onChange={e=>setForm({...form,consent:e.target.checked})} style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#fff", cursor: "pointer" }}/>
                 <span style={{ fontFamily: F, fontSize: 10.5, color: "rgba(255,255,255,0.62)", lineHeight: 1.5 }}>
-                  I agree to receive calls and service/transactional text messages (roof assessment, scheduling, appointment coordination, and follow-ups) from Coons Roofing LLC at the number provided. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.
+                  <strong style={{ color: "rgba(255,255,255,0.85)" }}>Optional.</strong> I agree to receive calls and service/transactional text messages (roof assessment, scheduling, appointment coordination, and follow-ups) from Coons Roofing LLC at the number provided. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.
                 </span>
               </label>
               <label style={{ display: "flex", gap: 10, alignItems: "flex-start", textAlign: "left", cursor: "pointer" }}>
                 <input type="checkbox" aria-label="Consent to promotional text messages" checked={form.marketingConsent} onChange={e=>setForm({...form,marketingConsent:e.target.checked})} style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#fff", cursor: "pointer" }}/>
                 <span style={{ fontFamily: F, fontSize: 10.5, color: "rgba(255,255,255,0.62)", lineHeight: 1.5 }}>
-                  I agree to receive marketing and promotional text messages (offers and announcements) from Coons Roofing LLC at the number provided. Message frequency varies. Msg &amp; data rates may apply. Consent is not a condition of purchase. Reply STOP to opt out, HELP for help. See our <a href="/privacy/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Privacy Policy</a> and <a href="/terms/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Terms</a>.
+                  <strong style={{ color: "rgba(255,255,255,0.85)" }}>Optional.</strong> I agree to receive marketing and promotional text messages (offers and announcements) from Coons Roofing LLC at the number provided. Message frequency varies. Msg &amp; data rates may apply. Consent is not a condition of purchase. Reply STOP to opt out, HELP for help. See our <a href="/privacy/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Privacy Policy</a> and <a href="/terms/" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>Terms</a>.
                 </span>
               </label>
+              <p style={{ fontFamily: F, fontSize: 12, color: "rgba(255,255,255,0.8)", lineHeight: 1.5, textAlign: "left", margin: "2px 0 0" }}>
+                We reply within 24 hours, usually the same day. No pressure, no sales visit you did not ask for, and we never sell your information.
+              </p>
               {error && <div role="alert" style={{ fontFamily: F, fontSize: 13, color: "#fff", background: "rgba(0,0,0,0.25)", padding: "8px 12px", textAlign: "left" }}>{error}</div>}
               <button type="submit" disabled={submitting} style={{ background: "#fff", color: C.red, padding: "14px", borderRadius: 4, fontFamily: F, fontSize: 14, fontWeight: 800, border: "none", cursor: submitting ? "wait" : "pointer", textTransform: "uppercase", letterSpacing: 1, opacity: submitting ? 0.7 : 1 }}>{submitting ? "Sending..." : "Get My Free Roof Report"}</button>
             </form>
@@ -636,6 +654,7 @@ function Footer() {
         body: JSON.stringify({
           email,
           source: "coonsroofing.com — Newsletter Signup",
+          ...leadContext(),
           tag: "Newsletter",
           submitted_at: new Date().toISOString()
         })
@@ -664,7 +683,7 @@ function Footer() {
 
             </div>
           </div>
-          {[{t:"Services",items:[{n:"Repair",s:"repair"},{n:"Maintenance",s:"maintenance"},{n:"Coatings",s:"coatings"},{n:"Replacement",s:"replacement"},{n:"Inspections",s:"inspections"},{n:"Emergency",s:"emergency"},{n:"TPO Roofing",s:"tpo-roofing-houston"},{n:"Flat Roof Repair",s:"flat-roof-repair-houston"},{n:"Metal Roof Coating",s:"metal-roof-coating-houston"}]},{t:"Areas",items:[{n:"Houston",s:"houston"},{n:"Katy",s:"katy"},{n:"The Woodlands",s:"the-woodlands"},{n:"Sugar Land",s:"sugar-land"},{n:"Pearland",s:"pearland"},{n:"Spring",s:"spring"}]},{t:"Contact",items:[{n:"713-367-1495",h:"tel:+17133671495"},{n:"wade@coonsroofing.com",h:"mailto:wade@coonsroofing.com"},{n:"10607 Lynbrook Dr"},{n:"Houston, TX 77042"}]}].map(col=>(
+          {[{t:"Services",items:[{n:"Repair",s:"repair"},{n:"Maintenance",s:"maintenance"},{n:"Coatings",s:"coatings"},{n:"Replacement",s:"replacement"},{n:"Inspections",s:"inspections"},{n:"Emergency",s:"emergency"},{n:"TPO Roofing",s:"tpo-roofing-houston"},{n:"Flat Roof Repair",s:"flat-roof-repair-houston"},{n:"Metal Roof Coating",s:"metal-roof-coating-houston"}]},{t:"Areas",items:[{n:"Houston",s:"houston"},{n:"Katy",s:"katy"},{n:"The Woodlands",s:"the-woodlands"},{n:"Sugar Land",s:"sugar-land"},{n:"Pearland",s:"pearland"},{n:"Spring",s:"spring"},{n:"Tomball",s:"tomball"},{n:"League City",s:"league-city"},{n:"Cypress",s:"cypress"},{n:"Pasadena",s:"pasadena"},{n:"Conroe",s:"conroe"}]},{t:"Company",items:[{n:"About",s:"about"},{n:"Projects",s:"projects"},{n:"Blog",s:"blog"}]},{t:"Contact",items:[{n:"713-367-1495",h:"tel:+17133671495"},{n:"wade@coonsroofing.com",h:"mailto:wade@coonsroofing.com"},{n:"10607 Lynbrook Dr"},{n:"Houston, TX 77042"}]}].map(col=>(
             <div key={col.t}>
               <div style={{ fontFamily: F, fontSize: 11, fontWeight: 800, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 14 }}>{col.t}</div>
               {col.items.map(it=> it.s ? (
@@ -731,6 +750,11 @@ function StickyCallBar({ page }) {
           <span style={{ fontFamily: F, fontSize: 13, fontWeight: 800, color: "#fff", letterSpacing: 0.3 }}>Call Now</span>
         </a>
         <div style={{ width: 1, height: 20, background: "rgba(255,255,255,0.15)" }} />
+        <a href="/#contact" onClick={(e)=>{const el=document.getElementById("contact"); if(el){e.preventDefault();el.scrollIntoView({behavior:"smooth"});}}} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none", flex: 1, padding: "12px 0", minHeight: 44 }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C.red} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          <span style={{ fontFamily: F, fontSize: 13, fontWeight: 800, color: "#fff", letterSpacing: 0.3 }}>Free Assessment</span>
+        </a>
+        <div style={{ width: 1, height: 20, background: "rgba(255,255,255,0.15)" }} />
         <a href="sms:713-367-1495" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none", flex: 1, padding: "12px 0", minHeight: 44 }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C.red} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
           <span style={{ fontFamily: F, fontSize: 13, fontWeight: 800, color: "#fff", letterSpacing: 0.3 }}>Text Us</span>
@@ -772,6 +796,41 @@ function Figure({ src, cap, ratio = "3 / 2" }) {
       <img src={src} alt={cap} loading="lazy" style={{ width: "100%", aspectRatio: ratio, objectFit: "cover", display: "block", background: C.light }} />
       <figcaption style={{ borderLeft: `3px solid ${C.red}`, paddingLeft: 11, marginTop: 11, fontFamily: F, fontSize: 12.5, color: C.slate, lineHeight: 1.5 }}>{cap}</figcaption>
     </figure>
+  );
+}
+
+function MidCTA({ headline = "Not sure where your roof stands?", sub = "We walk it, photograph everything, and give you the repair-or-replace answer backed by numbers. No charge." }) {
+  return (
+    <section style={{ background: C.black, padding: "44px clamp(16px,4vw,48px)" }}>
+      <div style={{ maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
+        <img src={COONS_MARK_W} alt="" aria-hidden="true" style={{ height: 22, width: "auto", marginBottom: 14 }} />
+        <p style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(20px,3.6vw,27px)", color: "#fff", lineHeight: 1.25, marginBottom: 10 }}>{headline}</p>
+        <p style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.72)", lineHeight: 1.6, marginBottom: 22, maxWidth: 560, marginLeft: "auto", marginRight: "auto" }}>{sub}</p>
+        <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+          <a href="/#contact" onClick={(e)=>{const el=document.getElementById("contact"); if(el){e.preventDefault();el.scrollIntoView({behavior:"smooth"});}}} style={{ background: C.red, color: "#fff", padding: "14px 26px", fontFamily: F, fontSize: 13, fontWeight: 800, textDecoration: "none", textTransform: "uppercase", letterSpacing: 1, minHeight: 44, display: "flex", alignItems: "center" }}>Get a Free Assessment</a>
+          <a href="tel:+17133671495" style={{ border: "2px solid rgba(255,255,255,0.35)", color: "#fff", padding: "12px 26px", fontFamily: F, fontSize: 13, fontWeight: 800, textDecoration: "none", textTransform: "uppercase", letterSpacing: 1, minHeight: 44, display: "flex", alignItems: "center" }}>713-367-1495</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function RelatedPosts({ slug }) {
+  const others = BLOG.filter(p => p.slug !== slug).slice(0, 3);
+  if (!others.length) return null;
+  return (
+    <div style={{ marginTop: 34, paddingTop: 26, borderTop: "1px solid #eee" }}>
+      <BrandRule />
+      <p style={{ fontFamily: F, fontSize: 12, fontWeight: 800, color: C.red, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 14 }}>Keep Reading</p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: 14 }}>
+        {others.map(o => (
+          <Link key={o.slug} to={"blog/" + o.slug} style={{ textDecoration: "none", display: "block" }}>
+            <img src={blogCard(o)} alt={o.title} width="700" height="467" loading="lazy" style={{ width: "100%", aspectRatio: "3 / 2", objectFit: "cover", display: "block", background: C.light }} />
+            <p style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: C.black, lineHeight: 1.35, marginTop: 8 }}>{o.title}</p>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -1232,7 +1291,7 @@ function BlogPost({ slug }) {
               "datePublished": post.published || "2026-03-15",
               "dateModified": post.updated || post.published || "2026-03-15",
               "image": SITE + blogHero(post),
-              "author": { "@type": "Person", "name": "Wade Coons" },
+              "author": { "@type": "Person", "@id": SITE + "/about/#wade", "name": "Wade Coons", "jobTitle": "Owner", "url": SITE + "/about/" },
               "publisher": { "@type": "Organization", "name": "Coons Roofing" },
               "description": (bmeta(post).d || post.body[0].slice(0, 155)),
               "mainEntityOfPage": "https://coonsroofing.com/blog/" + post.slug + "/"
@@ -1243,6 +1302,13 @@ function BlogPost({ slug }) {
       </section>
       <TrustBar />
       <section style={{ background: "#fff", padding: "48px 0" }}>
+        <div style={{ maxWidth: 680, margin: "0 auto 26px", padding: "0 16px", display: "flex", gap: 11, alignItems: "center" }}>
+          <img src={COONS_MARK} alt="" aria-hidden="true" style={{ height: 26, width: "auto" }} />
+          <div>
+            <p style={{ fontFamily: F, fontSize: 13, fontWeight: 800, color: C.black, margin: 0 }}>Wade Coons</p>
+            <p style={{ fontFamily: F, fontSize: 12, color: C.slate, margin: 0 }}>Owner, Coons Roofing. On the roof since 2022.</p>
+          </div>
+        </div>
         {post.body.flatMap((item, i) => {
           const hs = (bmeta(post).h || {})[String(i)];
           return hs ? [item, { h: hs }] : [item];
@@ -1275,6 +1341,7 @@ function BlogPost({ slug }) {
               </div>
             </Fade>
           )}
+          <Fade delay={0.16}><RelatedPosts slug={slug} /></Fade>
           <Fade delay={0.18}>
             <div style={{ marginTop: 20, display: "flex", gap: 10, alignItems: "center" }}>
               <span style={{ fontFamily: F, fontSize: 12, color: C.slate }}>Share:</span>
@@ -1296,6 +1363,7 @@ function BlogPost({ slug }) {
           </Fade>
         </div>
       </section>
+      <CTA />
     </div>
   );
 }
@@ -1499,6 +1567,7 @@ function MetalRoofPage() {
         <p style={{ ...MP, marginTop: 20 }}>Then there is the energy side. An uncoated metal panel can run 170 degrees or hotter on a Houston summer afternoon. A bright white reflective coating can cut that surface temperature by 50 degrees or more, and your cooling bill feels it immediately.</p>
         <p style={{ ...MP, marginTop: 16 }}>One more conversation worth having before you sign anything: coating work is often handled differently on your books than a capital roof replacement, and Section 179 now covers certain commercial roof improvements. We are roofers, not accountants, so take that question to your CPA. It is worth asking.</p>
       </PageSection>
+      <MidCTA headline="Wondering if your metal roof can be restored?" sub="We walk it, document every seam and fastener, and tell you honestly whether coating is the right call or whether the panels are past saving." />
       <PageSection mark title="When We Won't Coat Your Metal Roof" bg="#fff">
         <p style={MP}>Coatings only work over a structurally sound roof. If your panels have rusted through, the decking is soft, or the insulation underneath is saturated, a coating just hides a problem that is still getting worse. That is why every project starts with a free on-roof assessment, and it is why we have walked away from coating jobs and recommended replacement instead. You will get the honest answer either way, with photos to back it up.</p>
       </PageSection>
@@ -1535,7 +1604,7 @@ function HomePage() {
   return (
     <>
       <Hero /><TrustBar /><LogoBar /><Difference /><ServiceAreas />
-      <Services /><Process /><About /><BeforeAfter /><Reviews /><FAQ /><CTA />
+      <Services /><Process /><About /><BeforeAfter /><MidCTA /><Reviews /><FAQ /><CTA />
     </>
   );
 }
@@ -1597,7 +1666,7 @@ export function headFor(route) {
   } else if (PAGES[route] && route !== "about" && route !== "projects") {
     jsonld.push({
       "@context": "https://schema.org", "@type": "Service",
-      "serviceType": PAGES[route].tag, "name": PAGES[route].tag + " in Houston",
+      "serviceType": PAGES[route].tag, "name": route === "houston" ? "Commercial Roofing in Houston" : PAGES[route].tag + " in Houston",
       "areaServed": { "@type": "City", "name": "Houston" },
       "provider": { "@type": "RoofingContractor", "@id": SITE + "/#business", "name": "Coons Roofing" },
       "url": canonical,

@@ -59,13 +59,17 @@
       "areaServed": [
         {"@type":"City","name":"Houston"},{"@type":"AdministrativeArea","name":"Harris County"},
         {"@type":"AdministrativeArea","name":"Montgomery County"},{"@type":"AdministrativeArea","name":"Galveston County"},
+        {"@type":"AdministrativeArea","name":"Fort Bend County"},{"@type":"AdministrativeArea","name":"Brazoria County"},
         {"@type":"City","name":"Katy"},{"@type":"City","name":"The Woodlands"},{"@type":"City","name":"Tomball"},
         {"@type":"City","name":"Pearland"},{"@type":"City","name":"League City"},{"@type":"City","name":"Sugar Land"},
         {"@type":"City","name":"Spring"},{"@type":"City","name":"Cypress"},{"@type":"City","name":"Pasadena"},
         {"@type":"City","name":"Conroe"}
       ],
       "priceRange": "$$",
-      "openingHoursSpecification": {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:00","closes":"18:00"},
+      "openingHoursSpecification": [
+        {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:00","closes":"18:00"},
+        {"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday"],"opens":"00:00","closes":"23:59","description":"Emergency leak response only"}
+      ],
       "description": "Commercial roofing contractor serving property managers and building owners across the Houston metro. Certified installer for Versico, FiberTite, Duro-Last, GAF, Western Colloid, and more.",
       "hasOfferCatalog": {
         "@type": "OfferCatalog", "name": "Commercial Roofing Services",
