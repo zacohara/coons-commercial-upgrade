@@ -17,6 +17,8 @@ const F = "'Poppins',sans-serif";
 const PH_ROOF_PROJECT = "/roof-project.jpg";
 const PH_FAMILY = "/family.jpg";
 const PH_WADE = "/wade-owner.jpg";
+const COONS_MARK = "/coons-mark.svg";
+const COONS_MARK_W = "/coons-mark-white.svg";
 
 // GoHighLevel Inbound Webhook URL (Workflow → "Inbound Webhook" trigger).
 // Workflow: "Website Lead — Coons Roofing" (location zemOrVB3bS5ADz7ow32o).
@@ -30,7 +32,8 @@ function useVis(t = 0.12) {
   useEffect(() => {
     const el = r.current;
     if (!el) return;
-    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setV(true); }, { threshold: t });
+    if (typeof IntersectionObserver === "undefined") { setV(true); return; }
+    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setV(true); }, { threshold: 0, rootMargin: "320px 0px 320px 0px" });
     o.observe(el);
     return () => o.disconnect();
   }, [t]);
@@ -41,7 +44,7 @@ function Fade({ children, delay = 0, className = "" }) {
   const [r, v] = useVis();
   return (
     <div ref={r} className={("fade " + className).trim()} style={{
-      opacity: v ? 1 : 0, transform: v ? "translateY(0)" : "translateY(28px)",
+      opacity: v ? 1 : 0, transform: v ? "translateY(0)" : "translateY(14px)",
       transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
     }}>{children}</div>
   );
@@ -751,11 +754,45 @@ function PageHero({ tag, title, highlight, desc }) {
   );
 }
 
-function PageSection({ title, children, bg = "#fff" }) {
+function BrandRule({ light = false, style }) {
+  return (
+    <div aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 13, ...style }}>
+      <span style={{ width: 26, height: 3, background: C.red, display: "block", flexShrink: 0 }} />
+      <img src={light ? COONS_MARK_W : COONS_MARK} alt="" style={{ height: 17, width: "auto", display: "block", opacity: 1 }} />
+    </div>
+  );
+}
+
+function Figure({ src, cap, ratio = "3 / 2" }) {
+  return (
+    <figure style={{ margin: 0 }}>
+      <img src={src} alt={cap} loading="lazy" style={{ width: "100%", aspectRatio: ratio, objectFit: "cover", display: "block", background: C.light }} />
+      <figcaption style={{ borderLeft: `3px solid ${C.red}`, paddingLeft: 11, marginTop: 11, fontFamily: F, fontSize: 12.5, color: C.slate, lineHeight: 1.5 }}>{cap}</figcaption>
+    </figure>
+  );
+}
+
+function QuoteBand({ text }) {
+  return (
+    <div style={{ background: C.black, padding: "36px clamp(20px,5vw,44px)" }}>
+      <div style={{ maxWidth: 760, margin: "0 auto", display: "flex", gap: 18, alignItems: "flex-start" }}>
+        <img src={COONS_MARK_W} alt="" aria-hidden="true" style={{ height: 27, width: "auto", flexShrink: 0, marginTop: 5 }} />
+        <p style={{ fontFamily: F, fontSize: "clamp(17px,2.3vw,21px)", fontWeight: 800, color: "#fff", lineHeight: 1.45, margin: 0 }}>{text}</p>
+      </div>
+    </div>
+  );
+}
+
+function MetalFig({ k }) {
+  const p = METAL_PHOTOS[k];
+  return <div style={{ marginTop: 26 }}><Figure src={p.s} cap={p.c} /></div>;
+}
+
+function PageSection({ title, children, bg = "#fff", mark = false }) {
   return (
     <section style={{ background: bg, padding: "64px clamp(16px,4vw,48px)" }}>
       <div style={{ maxWidth: 800, margin: "0 auto" }}>
-        {title && <Fade><h2 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(22px,5vw,34px)", color: bg === "#fff" || bg === C.light ? C.black : "#fff", lineHeight: 1.1, marginBottom: 20 }}>{title}</h2></Fade>}
+        {title && <Fade><div>{mark && <BrandRule light={!(bg === "#fff" || bg === C.light)} />}<h2 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(22px,5vw,34px)", color: bg === "#fff" || bg === C.light ? C.black : "#fff", lineHeight: 1.1, marginBottom: 20 }}>{title}</h2></div></Fade>}
         <Fade delay={0.05}>{children}</Fade>
       </div>
     </section>
@@ -988,13 +1025,17 @@ export const PAGES = {
 
 /* ── Blog Data ── */
 export const BLOG = [
-  { slug: "fluid-applied-metal-roof-restoration-houston", related: ["metal-roof-coating-houston", "coatings"], title: "Why We're Going All In on Fluid-Applied Roofing for Houston's Metal Buildings", date: "August 2026", published: "2026-08-02", read: "7 min", img: "/metal-1.jpg", body: [
+  { slug: "fluid-applied-metal-roof-restoration-houston", related: ["metal-roof-coating-houston", "coatings"], title: "Why We're Going All In on Fluid-Applied Roofing for Houston's Metal Buildings", date: "August 2026", published: "2026-08-02", read: "7 min", hero: "/metal-1-hero.jpg", img: "/metal-1.jpg", body: [
     "Fluid-applied coating systems are now our primary answer for aging metal roofs across Houston. Not a side offering, not a fallback when the replacement budget dies. The main play. Here is why we made that call, what these systems actually are, and when we still tell an owner to replace instead.",
     "Drive any industrial corridor in this city and you are looking at our reason. Houston is wrapped in metal buildings: warehouses, distribution centers, shops, church gyms, self-storage. Most of them are R-panel roofs screwed down decades ago, and every one of them fights the same physics. The panels bake past 150 degrees by afternoon, swell, then shrink again at night. That daily cycle backs fasteners out of their holes, dry-rots the washers, opens the laps, and grinds away the factory finish until Gulf Coast humidity can start rusting bare steel. The panels usually have plenty of life left. The details holding them together do not.",
+    { img: "/metal-3.jpg", cap: "Seams and fastener heads sealed first, then basecoat over the panels" },
     "So the owner calls a roofer about a few leaks, and the quote that comes back is a full tear-off. Two, three, sometimes four hundred thousand dollars, weeks of noise, an exposed building in storm season, and a dumpster parade through the parking lot. For a lot of these roofs, that is the wrong answer to the wrong question.",
+    { quote: "The panels usually have plenty of life left. The details holding them together do not." },
     "A fluid-applied restoration attacks the actual failure points instead. We wash the roof, replace or tighten every fastener, prime the rust so it stops, reinforce every seam and penetration, then coat the entire field with an elastomeric topcoat built up to warranty thickness. When it cures, the roof is one seamless waterproof membrane. No exposed screw heads, no open laps, no seams for wind-driven rain to find. It typically runs $2.50 to $5.00 per square foot, against $8 to $15 or more for replacement, and the building stays open the whole time.",
+    { img: "/metal-2.jpg", cap: "Working the spray rig down the panel field, hose tended behind" },
     "We got certified with four manufacturers on purpose: IPC, Karnak, Everest Systems, and Western Colloid. Different roofs need different chemistry. Silicone where water ponds, acrylic where the slope sheds, fabric-reinforced systems where an older roof moves too much for coating alone. And here is the part we love: two of the four are made in our backyard. Everest Systems manufactures in Houston and IPC builds their cross-linked acrylics in Pearland. The people formulating these products drive under the same sun and through the same storms your roof does.",
     "The performance case keeps stacking. A white reflective coating can pull a metal roof's surface temperature down by 50 degrees or more on a summer afternoon, which your AC notices immediately. The systems carry manufacturer-backed warranties from 10 to 20 years, with no-dollar-limit and hail-rated options on qualifying roofs. And most of them can simply be recoated when the warranty runs out, which means the tear-off you keep postponing may never need to happen. Ask your CPA how a maintenance coating gets treated on the books versus a capital replacement while you are at it. That conversation surprises a lot of owners.",
+    { img: "/metal-4.jpg", cap: "Coating carried around the roof penetrations and curbs" },
     "Now the honest part, because it is the same thing we say on your roof. Coatings do not fix everything. Rusted-through panels, soft decking, and saturated insulation cannot be coated over, and anyone willing to coat over those problems is selling you a very expensive delay. If the roof is structurally sound, restoration usually wins. If it is not, we will show you the photos and tell you to replace it, even when that is not the answer we are hoping to give.",
     "If you own or manage a metal-roofed building anywhere in the Houston metro, get eyes on it before storm season does. We will walk the roof, document everything with photos, and give you the restore-or-replace answer backed by numbers. The assessment is free, and the full breakdown of systems, costs, and warranties is in our metal roof coating guide right here on the site."
   ]},
@@ -1155,7 +1196,7 @@ function BlogPost({ slug }) {
   if (!post) return <PageHero tag="404" title="Post" highlight="Not Found" desc="This blog post doesn't exist." />;
   return (
     <div key={slug}>
-      <section style={{ background: `linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85)), url(${post.img}) center/cover`, padding: "120px 24px 60px", textAlign: "center" }}>
+      <section style={{ background: `linear-gradient(to bottom, rgba(0,0,0,${post.hero ? 0.58 : 0.6}) 0%, rgba(0,0,0,${post.hero ? 0.62 : 0.7}) 45%, rgba(0,0,0,${post.hero ? 0.88 : 0.85}) 100%), url(${post.hero || post.img}) ${post.hero ? "center 32%" : "center"}/cover`, padding: post.hero ? "132px 24px 76px" : "120px 24px 60px", textAlign: "center", minHeight: post.hero ? 430 : undefined, display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ maxWidth: 600, margin: "0 auto" }}>
           <Fade><p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 10 }}>{post.date} · {post.read} read</p></Fade>
           <Fade delay={0.05}><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -1173,13 +1214,21 @@ function BlogPost({ slug }) {
         </div>
       </section>
       <TrustBar />
-      <section style={{ background: "#fff", padding: "48px 16px" }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          {post.body.map((para, i) => (
-            <Fade key={i} delay={i * 0.03}>
-              <p style={{ fontFamily: F, fontSize: 16, color: C.slate, lineHeight: 1.85, marginBottom: 24 }}>{para}</p>
-            </Fade>
-          ))}
+      <section style={{ background: "#fff", padding: "48px 0" }}>
+        {post.body.map((item, i) => {
+          if (typeof item === "string") return (
+            <div key={i} style={{ maxWidth: 680, margin: "0 auto", padding: "0 16px" }}>
+              <Fade><p style={{ fontFamily: F, fontSize: 16, color: C.slate, lineHeight: 1.85, marginBottom: 24 }}>{item}</p></Fade>
+            </div>
+          );
+          if (item.quote) return <Fade key={i}><div style={{ margin: "6px 0 34px" }}><QuoteBand text={item.quote} /></div></Fade>;
+          return (
+            <div key={i} style={{ maxWidth: 880, margin: "0 auto", padding: "0 16px" }}>
+              <Fade><div style={{ margin: "6px 0 36px" }}><Figure src={item.img} cap={item.cap} /></div></Fade>
+            </div>
+          );
+        })}
+        <div style={{ maxWidth: 680, margin: "0 auto", padding: "0 16px" }}>
           {post.related && post.related.length > 0 && (
             <Fade delay={0.15}>
               <div style={{ marginTop: 28, paddingTop: 24, borderTop: "1px solid #eee" }}>
@@ -1320,12 +1369,12 @@ const METAL_BRANDS = [
   { n: "Karnak", s: "/cert-karnak.png", loc: "Clark, NJ", d: "A family-owned manufacturer with a dedicated metal roof restoration system, a high-solids silicone, and products third-party certified by UL, FM, and the Cool Roof Rating Council. Warranties from 5 to 20 years." },
   { n: "Western Colloid", s: "/cert-western-colloid.png", loc: "Made in California", d: "Fluid Applied Reinforced Roofing: coating layered with polyester fabric into a seamless membrane that weighs about a pound per square foot. Warranties up to 20 years, renewable with a recoat instead of a tear-off." },
 ];
-const METAL_PHOTOS = [
-  { s: "/metal-1.jpg", c: "Crew spraying white elastomeric coating across a metal roof" },
-  { s: "/metal-2.jpg", c: "Working the spray rig down the panel field, hose tended behind" },
-  { s: "/metal-3.jpg", c: "Seams and fastener heads sealed first, then basecoat over the panels" },
-  { s: "/metal-4.jpg", c: "Coating carried around the roof penetrations and curbs" },
-];
+const METAL_PHOTOS = {
+  spray: { s: "/metal-1.jpg", c: "Crew spraying white elastomeric coating across a metal roof" },
+  field: { s: "/metal-2.jpg", c: "Working the spray rig down the panel field, hose tended behind" },
+  seams: { s: "/metal-3.jpg", c: "Seams and fastener heads sealed first, then basecoat over the panels" },
+  curbs: { s: "/metal-4.jpg", c: "Coating carried around the roof penetrations and curbs" },
+};
 const METAL_FAQS = [
   { q: "How much does metal roof coating cost in Houston?", a: "Most metal roof restorations in the Houston market run $2.50 to $5.00 per square foot depending on panel condition, how much seam and fastener work is needed, and the warranty length you want. A full replacement typically starts around $8 to $15 per square foot. We give you an exact number after a free on-roof assessment." },
   { q: "How long does a metal roof coating last?", a: "The systems we install carry manufacturer-backed warranties from 10 to 20 years depending on the applied thickness. At the end of that window, most of these roofs can be cleaned and recoated for a fraction of the original cost, which restarts the clock without a tear-off." },
@@ -1343,7 +1392,8 @@ function MetalRoofPage() {
     <div key="metal-roof-coating-houston">
       <PageHero tag={p.tag} title={p.title} highlight={p.highlight} desc={p.desc} />
       <TrustBar />
-      <PageSection title="Why Metal Roofs Leak in Houston" bg="#fff">
+      <LogoBar />
+      <PageSection mark title="Why Metal Roofs Leak in Houston" bg="#fff">
         <p style={MP}>Metal is a great roof until the details give up. In Houston, a panel can swing from morning-cool to well over 150 degrees by afternoon, and that daily expansion and contraction slowly works the whole system loose. The panels themselves usually have plenty of life left. It is everything holding them together that fails.</p>
         <div style={grid2}>
           {METAL_FAILS.map(f => (
@@ -1353,12 +1403,14 @@ function MetalRoofPage() {
             </div>
           ))}
         </div>
+        <MetalFig k="seams" />
       </PageSection>
-      <PageSection title="What Fluid-Applied Restoration Actually Is" bg={C.light}>
+      <PageSection mark title="What Fluid-Applied Restoration Actually Is" bg={C.light}>
         <p style={MP}>A fluid-applied restoration is not a coat of paint. It is an engineered roof system installed as a liquid: cleaning and prep, a rust-inhibitive primer, reinforced treatment over every seam, fastener, and penetration, and then a full-field elastomeric topcoat built up to a specified thickness. When it cures, your entire roof is one seamless, waterproof, highly reflective membrane with no laps to open and no fasteners exposed to the weather.</p>
         <p style={{ ...MP, marginTop: 16 }}>Because it goes over the existing panels, there is no tear-off, no dumpsters, no exposed building, and no weeks of noise over your tenants. Most metal restorations finish in days, and the building stays open the whole time.</p>
+        <MetalFig k="field" />
       </PageSection>
-      <PageSection title="Our 5-Step Metal Restoration Process" bg="#fff">
+      <PageSection mark title="Our 5-Step Metal Restoration Process" bg="#fff">
         {METAL_STEPS.map((s, i) => (
           <div key={s.t} style={{ display: "flex", gap: 18, marginBottom: i === METAL_STEPS.length - 1 ? 0 : 24 }}>
             <div style={{ fontFamily: F, fontWeight: 900, fontSize: 28, color: C.red, lineHeight: 1, minWidth: 34 }}>{i + 1}</div>
@@ -1368,8 +1420,9 @@ function MetalRoofPage() {
             </div>
           </div>
         ))}
+        <MetalFig k="spray" />
       </PageSection>
-      <PageSection title="Silicone, Acrylic, or Fabric-Reinforced?" bg={C.light}>
+      <PageSection mark title="Silicone, Acrylic, or Fabric-Reinforced?" bg={C.light}>
         <div style={{ ...grid2, marginTop: 0 }}>
           {METAL_CHEM.map(ch => (
             <div key={ch.t} style={cardW}>
@@ -1380,7 +1433,7 @@ function MetalRoofPage() {
         </div>
         <p style={{ ...MP, marginTop: 20 }}>Plenty of Houston metal roofs get a hybrid: reinforced details everywhere, silicone where water sits, acrylic where it drains. The roof tells us which system it needs. We do not decide that from the office.</p>
       </PageSection>
-      <PageSection title="The Systems We Install" bg="#fff">
+      <PageSection mark title="The Systems We Install" bg="#fff">
         <p style={MP}>We are certified applicators for four fluid-applied manufacturers, and we picked them deliberately. Two of the four make their coatings right here in the Houston metro, formulated for exactly the heat, humidity, and storm cycles your roof lives in.</p>
         <div style={grid2}>
           {METAL_BRANDS.map(b => (
@@ -1393,7 +1446,7 @@ function MetalRoofPage() {
           ))}
         </div>
       </PageSection>
-      <PageSection title="What It Costs" bg={C.light}>
+      <PageSection mark title="What It Costs" bg={C.light}>
         <p style={MP}>Straight numbers, because that is how this decision actually gets made.</p>
         <div style={{ background: "#fff", marginTop: 20 }}>
           {[["Fluid-applied metal restoration", "$2.50 to $5.00 / sq ft"], ["Full metal roof replacement", "$8 to $15+ / sq ft"]].map(([k, v], i) => (
@@ -1410,25 +1463,14 @@ function MetalRoofPage() {
         <p style={{ ...MP, marginTop: 20 }}>Then there is the energy side. An uncoated metal panel can run 170 degrees or hotter on a Houston summer afternoon. A bright white reflective coating can cut that surface temperature by 50 degrees or more, and your cooling bill feels it immediately.</p>
         <p style={{ ...MP, marginTop: 16 }}>One more conversation worth having before you sign anything: coating work is often handled differently on your books than a capital roof replacement, and Section 179 now covers certain commercial roof improvements. We are roofers, not accountants, so take that question to your CPA. It is worth asking.</p>
       </PageSection>
-      <PageSection title="When We Won't Coat Your Metal Roof" bg="#fff">
+      <PageSection mark title="When We Won't Coat Your Metal Roof" bg="#fff">
         <p style={MP}>Coatings only work over a structurally sound roof. If your panels have rusted through, the decking is soft, or the insulation underneath is saturated, a coating just hides a problem that is still getting worse. That is why every project starts with a free on-roof assessment, and it is why we have walked away from coating jobs and recommended replacement instead. You will get the honest answer either way, with photos to back it up.</p>
       </PageSection>
-      <PageSection title="Warranties That Actually Mean Something" bg={C.light}>
+      <PageSection mark title="Warranties That Actually Mean Something" bg={C.light}>
         <p style={MP}>Installed to spec by a certified applicator, the systems we use carry manufacturer-backed warranties from 10 to 20 years, with no-dollar-limit coverage available on qualifying roofs. That means the manufacturer, not just your contractor, stands behind the roof. And when the warranty window closes, most of these systems can be cleaned and recoated to start the clock again. Done right, this can be the last roof decision the building ever forces on you.</p>
+        <MetalFig k="curbs" />
       </PageSection>
-      {METAL_PHOTOS.length > 0 && (
-        <PageSection title="Recent Coating Work" bg="#fff">
-          <div style={grid2}>
-            {METAL_PHOTOS.map(ph => (
-              <figure key={ph.s} style={{ margin: 0 }}>
-                <img src={ph.s} alt={ph.c} style={{ width: "100%", display: "block" }} loading="lazy" />
-                <figcaption style={{ fontFamily: F, fontSize: 12, color: C.slate, marginTop: 8 }}>{ph.c}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </PageSection>
-      )}
-      <PageSection title="Metal Roof Coating FAQs" bg={C.light}>
+      <PageSection mark title="Metal Roof Coating FAQs" bg={C.light}>
         {METAL_FAQS.map((f, i) => (
           <div key={i} style={{ marginBottom: 20 }}>
             <p style={{ fontFamily: F, fontSize: 16, fontWeight: 800, color: C.black, marginBottom: 6 }}>{f.q}</p>
