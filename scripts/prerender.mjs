@@ -36,6 +36,40 @@ function buildPage(html, head) {
     /<meta property="og:url" content="[^"]*"\s*\/>/,
     `<meta property="og:url" content="${head.canonical}" />`,
   )
+  // per-page social cards. Without these every page inherited the homepage
+  // title, so shared links all previewed as "Coons Roofing | Commercial Roofing".
+  out = out.replace(
+    /<meta property="og:title" content="[^"]*"\s*\/>/,
+    `<meta property="og:title" content="${escAttr(head.title)}" />`,
+  )
+  out = out.replace(
+    /<meta property="og:description" content="[^"]*"\s*\/>/,
+    `<meta property="og:description" content="${escAttr(head.description)}" />`,
+  )
+  out = out.replace(
+    /<meta name="twitter:title" content="[^"]*"\s*\/>/,
+    `<meta name="twitter:title" content="${escAttr(head.title)}" />`,
+  )
+  out = out.replace(
+    /<meta name="twitter:description" content="[^"]*"\s*\/>/,
+    `<meta name="twitter:description" content="${escAttr(head.description)}" />`,
+  )
+  if (head.ogType) {
+    out = out.replace(
+      /<meta property="og:type" content="[^"]*"\s*\/>/,
+      `<meta property="og:type" content="${head.ogType}" />`,
+    )
+  }
+  if (head.image) {
+    out = out.replace(
+      /<meta property="og:image" content="[^"]*"\s*\/>/,
+      `<meta property="og:image" content="${head.image}" />`,
+    )
+    out = out.replace(
+      /<meta name="twitter:image" content="[^"]*"\s*\/>/,
+      `<meta name="twitter:image" content="${head.image}" />`,
+    )
+  }
   // inject per-page JSON-LD (BreadcrumbList, Service) before </head>
   if (head.jsonld && head.jsonld.length) {
     const scripts = head.jsonld
@@ -64,6 +98,30 @@ for (const route of ROUTES) {
   count++
   console.log('prerendered', route, '->', outPath.replace(root, ''))
 }
+
+// Legacy URLs from the pre-2026 site. These previously 404'd, so nothing
+// Google had indexed carried across. A 200 + instant refresh + canonical is the
+// closest thing to a 301 available on GitHub Pages.
+const LEGACY = {
+  'services': '/', 'service-areas': '/houston/', 'financing': '/',
+  'gallery': '/projects/', 'about-us': '/about/', 'contact-us': '/',
+  'kemah-tx': '/league-city/', 'roof-repair': '/repair/',
+  'roof-replacement': '/replacement/', 'commercial-roofing': '/',
+}
+for (const [from, to] of Object.entries(LEGACY)) {
+  const target = SITE + to
+  const stub = `<!doctype html><html lang="en"><head><meta charset="UTF-8" />
+<title>Moved | Coons Roofing</title>
+<link rel="canonical" href="${target}" />
+<meta name="robots" content="noindex, follow" />
+<meta http-equiv="refresh" content="0; url=${to}" />
+<script>window.location.replace(${JSON.stringify(to)})</script>
+</head><body><p>This page has moved. <a href="${to}">Continue to Coons Roofing</a>.</p></body></html>`
+  const lp = join(root, 'dist', from, 'index.html')
+  mkdirSync(dirname(lp), { recursive: true })
+  writeFileSync(lp, stub)
+}
+console.log('wrote', Object.keys(LEGACY).length, 'legacy redirect stubs')
 
 // Static legal pages (served from public/, not React routes)
 urls.push(SITE + '/privacy/', SITE + '/terms/')

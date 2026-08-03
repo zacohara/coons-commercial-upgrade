@@ -40,11 +40,12 @@ function useVis(t = 0.12) {
   return [r, v];
 }
 
-function Fade({ children, delay = 0, className = "" }) {
+function Fade({ children, delay = 0, className = "", now = false }) {
   const [r, v] = useVis();
+  const on = now || v;
   return (
     <div ref={r} className={("fade " + className).trim()} style={{
-      opacity: v ? 1 : 0, transform: v ? "translateY(0)" : "translateY(14px)",
+      opacity: on ? 1 : 0, transform: on ? "translateY(0)" : "translateY(14px)",
       transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
     }}>{children}</div>
   );
@@ -134,17 +135,17 @@ function Hero() {
       <div style={{ position: "absolute", bottom: "-20%", left: "50%", transform: "translateX(-50%)", width: "140%", height: "60%", background: `radial-gradient(ellipse, rgba(230,34,54,0.06) 0%, transparent 70%)` }} />
       <div style={{ maxWidth: 700, margin: "0 auto", width: "100%", position: "relative" }}>
 
-        <Fade delay={0.1}>
+        <Fade now delay={0.1}>
           <h1 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(32px,8vw,62px)", color: "#fff", lineHeight: 1.05, marginBottom: 24, textTransform: "uppercase", textShadow: "0 4px 12px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.08)" }}>
             Serving Building Owners Who Need <span style={{ color: C.red, textShadow: "0 4px 16px rgba(230,34,54,0.35), 0 2px 0 rgba(140,10,20,0.5)" }}>Results, Not Excuses</span>
           </h1>
         </Fade>
-        <Fade delay={0.2}>
+        <Fade now delay={0.2}>
           <p style={{ fontFamily: F, fontSize: "clamp(14px,3.5vw,17px)", color: "rgba(255,255,255,0.78)", fontWeight: 400, marginBottom: 36, maxWidth: 560, margin: "0 auto 36px", lineHeight: 1.7 }}>
             We help property managers and building owners protect what matters most. Real evaluations. Honest answers. No runarounds.
           </p>
         </Fade>
-        <Fade delay={0.3}>
+        <Fade now delay={0.3}>
           <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 460, margin: "0 auto", alignItems: "stretch" }}>
             <a href="#contact" onClick={(e)=>{e.preventDefault();document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}} style={{ background: C.red, color: "#fff", padding: "20px 28px", fontFamily: F, fontSize: "clamp(15px,4vw,19px)", fontWeight: 800, textDecoration: "none", letterSpacing: 0.5, textTransform: "uppercase", textAlign: "center", boxShadow: "0 6px 28px rgba(230,34,54,0.45)", borderRadius: 4, lineHeight: 1.3 }}>Schedule Your Complimentary Roof Assessment</a>
             <a href="tel:+17133671495" style={{ background: "transparent", color: "#fff", padding: "12px 28px", fontFamily: F, textDecoration: "none", border: "2px solid rgba(255,255,255,0.3)", borderRadius: 4, display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
@@ -153,7 +154,7 @@ function Hero() {
             </a>
           </div>
         </Fade>
-        <Fade delay={0.4}>
+        <Fade now delay={0.4}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 28 }}>
             <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 8px rgba(34,197,94,0.6)" }} />
             <span style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.7)", letterSpacing: 0.3 }}>Same-day emergency response across Houston</span>
@@ -196,7 +197,7 @@ function LogoBar() {
   const tripled = [...LOGOS, ...LOGOS, ...LOGOS];
   return (
     <section style={{ background: "#fff", padding: "28px 0", borderBottom: "1px solid #eee", overflow: "hidden" }}>
-      <p style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: "#bbb", letterSpacing: 2, textTransform: "uppercase", textAlign: "center", marginBottom: 18 }}>Certified By</p>
+      <p style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: "#6b6b6b", letterSpacing: 2, textTransform: "uppercase", textAlign: "center", marginBottom: 18 }}>Certified By</p>
       <div style={{ overflow: "hidden", width: "100%", maskImage: "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 72, width: "max-content", animation: `${id.current} 40s linear infinite` }}>
           {tripled.map((l, i) => <img key={l.n + i} src={l.s} alt={l.n} style={{ height: 38, opacity: 0.65, filter: "grayscale(1)", flexShrink: 0 }} />)}
@@ -484,16 +485,18 @@ function Reviews() {
   );
 }
 
-function FAQ() {
-  const [openIdx, setOpenIdx] = useState(null);
-  const faqs = [
+const HOME_FAQS = [
     { q: "How quickly can you respond to a roof leak?", a: "We respond to emergency leak calls within 24 hours across the Houston metro. For active leaks during business hours, we can often have someone on-site the same day. We'll get a temporary fix in place immediately and follow up with a permanent repair." },
     { q: "Do you provide photo reports after inspections?", a: "Every inspection includes a detailed photo report documenting current conditions, problem areas, and recommended next steps. Reports are formatted so you can forward them directly to ownership, insurance, or your maintenance files with no extra work on your end." },
     { q: "How do I know if my roof needs repair or full replacement?", a: "That's exactly what our complimentary assessment answers. We evaluate membrane condition, flashing integrity, drainage, and remaining service life. Our approach is always to repair, maintain, and restore first. We only recommend replacement when the numbers genuinely support it." },
     { q: "What types of commercial roofs do you work on?", a: "We service all major flat and low-slope systems including TPO, PVC, modified bitumen, metal, built-up roofing, and coating systems. We're certified installers for Versico, FiberTite, Duro-Last, GAF, Western Colloid, and several other manufacturers." },
     { q: "Do you handle insurance documentation?", a: "Yes. We provide the inspection reports, repair documentation, and photo evidence that insurance carriers need. We've helped many building owners get claims approved by providing clear, professional documentation of storm damage and pre-existing conditions." },
     { q: "Can you manage roofing across multiple properties?", a: "Absolutely. We work with property managers who oversee multiple buildings across the Houston metro. One point of contact, consistent quality standards, and documented history for every property in your portfolio." },
-  ];
+  ];;
+
+function FAQ() {
+  const [openIdx, setOpenIdx] = useState(null);
+  const faqs = HOME_FAQS;
   return (
     <section style={{ background: C.light, padding: "80px clamp(16px,4vw,48px)" }}>
       <div style={{ maxWidth: 700, margin: "0 auto" }}>
@@ -653,7 +656,7 @@ function Footer() {
             <div style={{ marginBottom: 12 }}>
               <img src={COONS_LOGO_W} alt="Coons Roofing" style={{ height: 22 }} />
             </div>
-            <p style={{ fontFamily: F, fontSize: 12, color: "#666", lineHeight: 1.6, maxWidth: 320, marginBottom: 16 }}>Commercial roofing serving building owners and property managers across the Houston metro. Repair. Maintain. Restore. Replace only when necessary.</p>
+            <p style={{ fontFamily: F, fontSize: 12, color: "#8f8f8f", lineHeight: 1.6, maxWidth: 320, marginBottom: 16 }}>Commercial roofing serving building owners and property managers across the Houston metro. Repair. Maintain. Restore. Replace only when necessary.</p>
             <div style={{ display: "flex", gap: 8 }}>
               {socialIcon("M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z", "https://www.linkedin.com/company/coons-roofing", "LinkedIn")}
               {socialIcon("M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7h-2.54v-2.9h2.54v-2.2c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.86h2.78l-.45 2.9h-2.33v7c4.78-.75 8.44-4.9 8.44-9.9 0-5.53-4.5-10.02-10-10.02z", "https://www.facebook.com/coonsroofing", "Facebook")}
@@ -665,9 +668,9 @@ function Footer() {
             <div key={col.t}>
               <div style={{ fontFamily: F, fontSize: 11, fontWeight: 800, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 14 }}>{col.t}</div>
               {col.items.map(it=> it.s ? (
-                <Link key={it.n} to={it.s} style={{ fontFamily: F, fontSize: 12, color: "#777", marginBottom: 6, display: "block", transition: "color 0.2s" }} onMouseOver={e=>e.target.style.color="#bbb"} onMouseOut={e=>e.target.style.color="#777"}>{it.n}</Link>
+                <Link key={it.n} to={it.s} style={{ fontFamily: F, fontSize: 12, color: "#777", marginBottom: 6, display: "block", transition: "color 0.2s" }} onMouseOver={e=>e.target.style.color="#6b6b6b"} onMouseOut={e=>e.target.style.color="#777"}>{it.n}</Link>
               ) : it.h ? (
-                <a key={it.n} href={it.h} style={{ fontFamily: F, fontSize: 12, color: "#777", marginBottom: 6, display: "block", textDecoration: "none", transition: "color 0.2s" }} onMouseOver={e=>e.target.style.color="#bbb"} onMouseOut={e=>e.target.style.color="#777"}>{it.n}</a>
+                <a key={it.n} href={it.h} style={{ fontFamily: F, fontSize: 12, color: "#777", marginBottom: 6, display: "block", textDecoration: "none", transition: "color 0.2s" }} onMouseOver={e=>e.target.style.color="#6b6b6b"} onMouseOut={e=>e.target.style.color="#777"}>{it.n}</a>
               ) : (
                 <div key={it.n} style={{ fontFamily: F, fontSize: 12, color: "#777", marginBottom: 6 }}>{it.n}</div>
               ))}
@@ -687,8 +690,8 @@ function Footer() {
           </div>
         </div>
         <div style={{ borderTop: "1px solid #1a1a1a", paddingTop: 20, paddingBottom: 64, textAlign: "center" }}>
-          <span style={{ fontFamily: F, fontSize: 11, color: "#555", display: "block", marginBottom: 4 }}>© 2026 Coons Roofing. All rights reserved.</span>
-          <span style={{ fontFamily: F, fontSize: 11, color: "#555", display: "block", marginBottom: 8 }}>Houston, TX</span>
+          <span style={{ fontFamily: F, fontSize: 11, color: "#8f8f8f", display: "block", marginBottom: 4 }}>© 2026 Coons Roofing. All rights reserved.</span>
+          <span style={{ fontFamily: F, fontSize: 11, color: "#8f8f8f", display: "block", marginBottom: 8 }}>Houston, TX</span>
           <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
             <a href="/privacy/" style={{ fontFamily: F, fontSize: 11, color: "#777", textDecoration: "none" }}>Privacy Policy</a>
             <a href="/terms/" style={{ fontFamily: F, fontSize: 11, color: "#777", textDecoration: "none" }}>Terms of Service</a>
@@ -742,10 +745,10 @@ function PageHero({ tag, title, highlight, desc }) {
   return (
     <section style={{ background: `linear-gradient(160deg, rgba(0,0,0,0.85) 0%, rgba(10,2,4,0.9) 100%), url(${HERO_BG}) center/cover`, padding: "120px 24px 60px", textAlign: "center" }}>
       <div style={{ maxWidth: 600, margin: "0 auto" }}>
-        <Fade><p style={{ fontFamily: F, fontSize: 12, fontWeight: 700, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 10 }}>{tag}</p></Fade>
-        <Fade delay={0.05}><h1 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(28px,7vw,48px)", color: "#fff", lineHeight: 1.1, marginBottom: 16 }}>{title} <span style={{ color: C.red }}>{highlight}</span></h1></Fade>
-        <Fade delay={0.1}><p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.7, marginBottom: 24 }}>{desc}</p></Fade>
-        <Fade delay={0.15}><div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 360, margin: "0 auto" }}>
+        <Fade now><p style={{ fontFamily: F, fontSize: 12, fontWeight: 700, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 10 }}>{tag}</p></Fade>
+        <Fade now delay={0.05}><h1 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(28px,7vw,48px)", color: "#fff", lineHeight: 1.1, marginBottom: 16 }}>{title} <span style={{ color: C.red }}>{highlight}</span></h1></Fade>
+        <Fade now delay={0.1}><p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.7, marginBottom: 24 }}>{desc}</p></Fade>
+        <Fade now delay={0.15}><div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 360, margin: "0 auto" }}>
           <a href="#contact" onClick={(e)=>{e.preventDefault();document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}} style={{ background: C.red, color: "#fff", padding: "14px 28px", fontFamily: F, fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, textAlign: "center", textDecoration: "none", cursor: "pointer" }}>Get a Complimentary Assessment</a>
           <a href="tel:+17133671495" style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.7)", textDecoration: "none", textAlign: "center" }}>or call 713-367-1495</a>
         </div></Fade>
@@ -1023,6 +1026,29 @@ export const PAGES = {
   "metal-roof-coating-houston": { tag: "Metal Roof Coating", title: "Metal Roof Coating in", highlight: "Houston", desc: "Fluid-applied coating systems that stop leaks, kill rust, and add 10 to 20 years of life to your metal roof at 40 to 60 percent less than replacement. Certified applicators for IPC, Karnak, Everest Systems, and Western Colloid.", sections: [] },
 };
 
+/* Per-post SEO + imagery. Kept separate so published body copy is never touched. */
+export const BLOG_SEO = {
+  "fluid-applied-metal-roof-restoration-houston": { t: "Fluid-Applied Metal Roof Restoration", d: "Fluid-applied coatings can restore an aging Houston metal roof for a fraction of tear-off cost. See how the system works and when replacement still wins.", img: "/metal-1.jpg", hero: "/metal-1-hero.jpg", h: {"0": "Why Houston Metal Roofs Fail", "3": "What a Fluid Applied Restoration Does", "7": "The Energy and Warranty Payoff", "10": "Book a Free Roof Assessment"} },
+  "commercial-roof-maintenance-program-houston": { t: "Commercial Roof Maintenance Programs", d: "A scheduled maintenance program catches small roof problems before they turn into six-figure failures. Here is what one covers on a Houston commercial roof.", img: "/blog-maintenance.jpg", hero: "/blog-maintenance-hero.jpg", h: {"0": "Why Houston Roofs Age Faster", "1": "What a Real Program Covers", "2": "Why Documentation Matters", "3": "The Ponding Water Problem", "4": "Repair Before Replacement"} },
+  "tpo-roof-repair-houston": { t: "TPO Roof Repair: Signs and Costs", d: "Seam splits, punctures and ponding on a TPO roof are usually repairable. Learn the warning signs, the repair process and what drives cost in Houston.", img: "/blog-tpo-repair.jpg", hero: "/blog-tpo-repair-hero.jpg", h: {"0": "How TPO Roofs Fail in Houston", "1": "Warning Signs to Watch For", "2": "What a Proper Repair Looks Like", "3": "What Drives Repair Cost", "4": "Coating as a Middle Path"} },
+  "commercial-roof-storm-damage-insurance-claim-houston": { t: "Roof Storm Damage Insurance Claims", d: "Documentation and timing decide whether a storm damage claim gets paid. Here is how Houston property owners should inspect, file and work with an adjuster.", img: "/blog-storm.jpg", hero: "/blog-storm-hero.jpg", h: {"0": "Storm Damage You Cannot See", "1": "Your First Moves After a Storm", "2": "Why the Photo Report Matters", "3": "Working With the Adjuster", "4": "Watch Out for Replacement Pressure"} },
+  "commercial-roof-inspection-houston": { t: "Commercial Roof Inspection Frequency", d: "Twice a year is the minimum for a Houston commercial roof, plus a check after any major storm. Here is what a real inspection covers and why it matters.", img: "/blog-inspection.jpg", hero: "/blog-inspection-hero.jpg", h: {"0": "How Often to Inspect", "1": "The Mistake Most Managers Make", "2": "What an Inspection Should Cover", "3": "Inspections Protect Your Warranty", "4": "What We See in Houston"} },
+  "tpo-vs-pvc-houston": { t: "TPO vs PVC Commercial Membranes", d: "TPO costs less and suits most Houston commercial buildings, while PVC earns its price around grease and chemicals. Compare cost, welds and service life.", img: "/blog-tpo-pvc.jpg", hero: "/blog-tpo-pvc-hero.jpg", h: {"0": "Where TPO Makes Sense", "1": "When PVC Is Worth It", "2": "Seam and Weld Strength", "3": "Our Recommendation for Most Buildings"} },
+  "signs-commercial-roof-needs-repair": { t: "5 Signs Your Roof Needs Repair", d: "Ponding water, blisters, loose flashings and interior stains all point to repair rather than replacement. Learn the five signs Houston managers should watch.", img: "/blog-repair-signs.jpg", hero: "/blog-repair-signs-hero.jpg", h: {"0": "Ponding Water After 48 Hours", "1": "Blistering and Trapped Moisture", "2": "Flashing Separation at Penetrations", "3": "Interior Stains and Musty Smells", "4": "A Roof Past 15 Years"} },
+  "roof-coating-restoration-guide": { t: "Roof Coating Restoration Guide", d: "A coating restoration adds 10 to 20 warranted years at roughly half the cost of replacement. See how silicone and acrylic systems perform on Houston roofs.", img: "/blog-coating.jpg", hero: "/blog-coating-hero.jpg", h: {"0": "How a Coating System Works", "1": "Silicone Versus Acrylic Coatings", "2": "When Coating Is the Wrong Call", "3": "The Budget Case for Managers", "4": "Systems We Install"} },
+  "commercial-roof-leak-during-business-hours": { t: "Commercial Roof Leak: What to Do", d: "Water dripping through a tenant ceiling needs a specific order of operations. Follow these four steps to protect the building and your insurance claim.", img: "/blog-leak.jpg", hero: "/blog-leak-hero.jpg", h: {"0": "Contain the Interior Damage First", "1": "Call Your Roofer Immediately", "2": "Document Everything for the Claim", "3": "Notify Your Insurance Carrier", "4": "What Not to Do"} },
+  "property-manager-roof-maintenance-budgeting": { t: "Roof Maintenance Budgeting Guide", d: "Two inspections a year cost far less than one failed flashing. Use these per square foot numbers to budget roof maintenance and a proper reserve fund.", img: "/blog-budgeting.jpg", hero: "/blog-budgeting-hero.jpg", h: {"0": "What Maintenance Actually Costs", "1": "The Price of Deferred Repairs", "2": "A Simple Budgeting Framework", "3": "Building a Roof Reserve Fund", "4": "Maintenance Records Protect Warranties"} },
+  "houston-storm-season-roof-preparation": { t: "Storm Season Roof Preparation", d: "Clear drains, tight edge metal and a written emergency plan carry a commercial roof through Houston storm season. Here is the checklist to work through.", img: "/blog-storm-prep.jpg", hero: "/blog-storm-prep-hero.jpg", h: {"0": "Clear Every Drain and Scupper", "1": "Check Edge Metal and Coping", "2": "Secure Rooftop Equipment", "3": "Have an Emergency Plan Ready", "4": "Inspect Within 48 Hours"} },
+  "roofing-contractor-insurance-requirements": { t: "Roofing Contractor Insurance Basics", d: "General liability and workers comp protect you, not just the roofer, and Texas lets contractors skip the second one. Learn what to verify before you sign.", img: "/blog-insurance.jpg", hero: "/blog-insurance-hero.jpg", h: {"0": "What General Liability Covers", "1": "Why Workers Comp Matters", "2": "Texas Lets Contractors Opt Out", "3": "Verify Coverage Before You Sign"} },
+  "flat-roof-drainage-problems-houston": { t: "Flat Roof Drainage: Causes and Fixes", d: "Clogged drains, blocked scuppers and lost slope turn every Houston downpour into structural load. Learn the causes, the warning signs and the real fixes.", img: "/blog-drainage.jpg", hero: "/blog-drainage-hero.jpg", h: {"0": "Clogged Internal Drains", "1": "Blocked Scuppers at the Parapet", "2": "When the Slope Is Inadequate", "3": "Signs You Have a Problem", "4": "How Often to Clear Drains"} },
+  "roof-maintenance-protects-warranty": { t: "Roof Maintenance and Your Warranty", d: "Most manufacturer warranties require documented maintenance, and claims do get denied without it. See what counts as maintenance and what compliance costs.", img: "/blog-warranty.jpg", hero: "/blog-warranty-hero.jpg", h: {"0": "What Manufacturers Actually Require", "1": "How Claims Get Denied", "2": "What Counts as Maintenance", "3": "What It Costs to Comply", "4": "Check Your Warranty Language"} },
+  "commercial-roof-replacement-what-to-expect": { t: "Commercial Roof Replacement Process", d: "From core samples through closeout, here is what a Houston commercial roof replacement involves, including system choices, timelines and tenant disruption.", img: "/blog-replacement.jpg", hero: "/blog-replacement-hero.jpg", h: {"0": "The Assessment and Core Samples", "1": "Choosing the Right System", "2": "What a Good Proposal Includes", "3": "How Long the Work Takes", "4": "Closeout and Warranty Documents"} },
+  "hoa-multifamily-roofing-guide": { t: "HOA and Multi-Family Roofing Guide", d: "Board members hiring a roofer face competing bids, insurance checks and warranty fine print. Here is what to verify before signing on a multi-family roof.", img: "/blog-hoa.jpg", hero: "/blog-hoa-hero.jpg", h: {"0": "Get Three Bids Minimum", "1": "Verify Insurance Before References", "2": "Scheduling Around Residents", "3": "Contractor Versus Manufacturer Warranty", "4": "Documentation for Association Records"} },
+};
+const bmeta = (p) => BLOG_SEO[p.slug] || {};
+export const blogCard = (p) => bmeta(p).img || p.img;
+export const blogHero = (p) => bmeta(p).hero || bmeta(p).img || p.hero || p.img;
+
 /* ── Blog Data ── */
 export const BLOG = [
   { slug: "fluid-applied-metal-roof-restoration-houston", related: ["metal-roof-coating-houston", "coatings"], title: "Why We're Going All In on Fluid-Applied Roofing for Houston's Metal Buildings", date: "August 2026", published: "2026-08-02", read: "7 min", hero: "/metal-1-hero.jpg", img: "/metal-1.jpg", body: [
@@ -1175,7 +1201,7 @@ function BlogList() {
             {BLOG.map((post, i) => (
               <Fade key={post.slug} delay={i * 0.04}>
                 <Link to={"blog/" + post.slug} style={{ display: "block", background: C.light, overflow: "hidden", transition: "transform 0.3s", height: "100%" }} onMouseOver={e=>e.currentTarget.style.transform="translateY(-4px)"} onMouseOut={e=>e.currentTarget.style.transform="translateY(0)"}>
-                  <img src={post.img} alt={post.title} style={{ width: "100%", height: 180, objectFit: "cover", display: "block" }} loading="lazy" />
+                  <img src={blogCard(post)} alt={post.title} width="700" height="467" style={{ width: "100%", height: 180, objectFit: "cover", display: "block" }} loading="lazy" />
                   <div style={{ padding: 20 }}>
                     <div style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: C.red, letterSpacing: 1, textTransform: "uppercase", marginBottom: 8 }}>{post.date} · {post.read} read</div>
                     <div style={{ fontFamily: F, fontSize: 15, fontWeight: 800, color: C.black, lineHeight: 1.3 }}>{post.title}</div>
@@ -1196,32 +1222,42 @@ function BlogPost({ slug }) {
   if (!post) return <PageHero tag="404" title="Post" highlight="Not Found" desc="This blog post doesn't exist." />;
   return (
     <div key={slug}>
-      <section style={{ background: `linear-gradient(to bottom, rgba(0,0,0,${post.hero ? 0.58 : 0.6}) 0%, rgba(0,0,0,${post.hero ? 0.62 : 0.7}) 45%, rgba(0,0,0,${post.hero ? 0.88 : 0.85}) 100%), url(${post.hero || post.img}) ${post.hero ? "center 32%" : "center"}/cover`, padding: post.hero ? "132px 24px 76px" : "120px 24px 60px", textAlign: "center", minHeight: post.hero ? 430 : undefined, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <section style={{ background: `linear-gradient(to bottom, rgba(0,0,0,${true ? 0.58 : 0.6}) 0%, rgba(0,0,0,${true ? 0.62 : 0.7}) 45%, rgba(0,0,0,${true ? 0.88 : 0.85}) 100%), url(${blogHero(post)}) ${true ? "center 32%" : "center"}/cover`, padding: true ? "132px 24px 76px" : "120px 24px 60px", textAlign: "center", minHeight: true ? 430 : undefined, display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ maxWidth: 600, margin: "0 auto" }}>
-          <Fade><p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 10 }}>{post.date} · {post.read} read</p></Fade>
-          <Fade delay={0.05}><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          <Fade now><p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: C.red, letterSpacing: 2, textTransform: "uppercase", marginBottom: 10 }}>{post.date} · {post.read} read</p></Fade>
+          <Fade now delay={0.05}><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "BlogPosting",
               "headline": post.title,
               "datePublished": post.published || "2026-03-15",
+              "dateModified": post.updated || post.published || "2026-03-15",
+              "image": SITE + blogHero(post),
               "author": { "@type": "Person", "name": "Wade Coons" },
               "publisher": { "@type": "Organization", "name": "Coons Roofing" },
-              "description": post.body[0].slice(0, 155),
+              "description": (bmeta(post).d || post.body[0].slice(0, 155)),
               "mainEntityOfPage": "https://coonsroofing.com/blog/" + post.slug + "/"
             }) }} />
           <h1 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(24px,6vw,40px)", color: "#fff", lineHeight: 1.15, marginBottom: 20 }}>{post.title}</h1></Fade>
-          <Fade delay={0.1}><nav aria-label="Breadcrumb" style={{ display: "flex", gap: 6, justifyContent: "center", alignItems: "center" }}><Link to="home" style={{ fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.5)" }}>Home</Link><span style={{ color: "rgba(255,255,255,0.3)", fontSize: 10 }}>›</span><Link to="blog" style={{ fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.5)" }}>Blog</Link><span style={{ color: "rgba(255,255,255,0.3)", fontSize: 10 }}>›</span><span style={{ fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.7)" }}>Article</span></nav></Fade>
+          <Fade now delay={0.1}><nav aria-label="Breadcrumb" style={{ display: "flex", gap: 6, justifyContent: "center", alignItems: "center" }}><Link to="home" style={{ fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.5)" }}>Home</Link><span style={{ color: "rgba(255,255,255,0.3)", fontSize: 10 }}>›</span><Link to="blog" style={{ fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.5)" }}>Blog</Link><span style={{ color: "rgba(255,255,255,0.3)", fontSize: 10 }}>›</span><span style={{ fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.7)" }}>Article</span></nav></Fade>
         </div>
       </section>
       <TrustBar />
       <section style={{ background: "#fff", padding: "48px 0" }}>
-        {post.body.map((item, i) => {
+        {post.body.flatMap((item, i) => {
+          const hs = (bmeta(post).h || {})[String(i)];
+          return hs ? [item, { h: hs }] : [item];
+        }).map((item, i) => {
           if (typeof item === "string") return (
             <div key={i} style={{ maxWidth: 680, margin: "0 auto", padding: "0 16px" }}>
               <Fade><p style={{ fontFamily: F, fontSize: 16, color: C.slate, lineHeight: 1.85, marginBottom: 24 }}>{item}</p></Fade>
             </div>
           );
           if (item.quote) return <Fade key={i}><div style={{ margin: "6px 0 34px" }}><QuoteBand text={item.quote} /></div></Fade>;
+          if (item.h) return (
+            <div key={i} style={{ maxWidth: 680, margin: "0 auto", padding: "0 16px" }}>
+              <Fade><h2 style={{ fontFamily: F, fontWeight: 900, fontSize: "clamp(19px,3.4vw,25px)", color: C.black, lineHeight: 1.25, margin: "16px 0 14px" }}>{item.h}</h2></Fade>
+            </div>
+          );
           return (
             <div key={i} style={{ maxWidth: 880, margin: "0 auto", padding: "0 16px" }}>
               <Fade><div style={{ margin: "6px 0 36px" }}><Figure src={item.img} cap={item.cap} /></div></Fade>
@@ -1527,8 +1563,8 @@ export function headFor(route) {
   const blogPost = route.startsWith("blog/") && BLOG.find(p => p.slug === route.slice(5));
   let title, description;
   if (blogPost) {
-    title = blogPost.title + " | Coons Roofing Houston";
-    description = blogPost.body[0].slice(0, 155);
+    title = (BLOG_SEO[blogPost.slug]?.t || blogPost.title) + " | Coons Roofing Houston";
+    description = BLOG_SEO[blogPost.slug]?.d || blogPost.body[0].slice(0, 155);
   } else if (city) {
     title = "Commercial Roofing " + city.name + " TX | Coons Roofing";
     description = city.desc;
@@ -1544,14 +1580,11 @@ export function headFor(route) {
   }
   const jsonld = [];
   if (route !== "home") {
-    const crumbName = blogPost ? "Article" : city ? city.name : route === "blog" ? "Blog" : PAGES[route] ? PAGES[route].tag : route;
-    jsonld.push({
-      "@context": "https://schema.org", "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/" },
-        { "@type": "ListItem", "position": 2, "name": crumbName, "item": canonical },
-      ],
-    });
+    const crumbName = blogPost ? blogPost.title : city ? city.name : route === "blog" ? "Blog" : PAGES[route] ? PAGES[route].tag : route;
+    const crumbs = [{ "@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/" }];
+    if (blogPost) crumbs.push({ "@type": "ListItem", "position": 2, "name": "Blog", "item": SITE + "/blog/" });
+    crumbs.push({ "@type": "ListItem", "position": crumbs.length + 1, "name": crumbName, "item": canonical });
+    jsonld.push({ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": crumbs });
   }
   if (city) {
     jsonld.push({
@@ -1570,10 +1603,16 @@ export function headFor(route) {
       "url": canonical,
     });
   }
+  if (route === "home") {
+    jsonld.push({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": HOME_FAQS.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) });
+  }
   if (route === "metal-roof-coating-houston") {
     jsonld.push({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": METAL_FAQS.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) });
   }
-  return { title, description, canonical, jsonld };
+  const OG_BY_ROUTE = { "metal-roof-coating-houston": "/metal-1-hero.jpg" };
+  const image = SITE + (blogPost ? blogHero(blogPost) : OG_BY_ROUTE[route] || "/og-default.jpg");
+  const ogType = blogPost ? "article" : "website";
+  return { title, description, canonical, jsonld, image, ogType };
 }
 
 export default function CoonsHomepage({ route }) {
