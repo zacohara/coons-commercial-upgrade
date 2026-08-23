@@ -213,20 +213,19 @@ function TrustBar() {
   );
 }
 
+// The keyframes live in the static <style> block in index.html, not in an
+// effect here. This used to build a random animation name with Math.random()
+// during render, which meant the pre-rendered HTML and the hydrated client
+// disagreed on the name: a React hydration mismatch, no animation at all
+// between first paint and hydration, and pre-render output that changed on
+// every build even when nothing changed.
 function LogoBar() {
-  const id = useRef("marquee-" + Math.random().toString(36).slice(2, 8));
-  useEffect(() => {
-    const style = document.createElement("style");
-    style.textContent = `@keyframes ${id.current}{0%{transform:translateX(0)}100%{transform:translateX(calc(-100% / 3))}}`;
-    document.head.appendChild(style);
-    return () => style.remove();
-  }, []);
   const tripled = [...LOGOS, ...LOGOS, ...LOGOS];
   return (
     <section style={{ background: "#fff", padding: "28px 0", borderBottom: "1px solid #eee", overflow: "hidden" }}>
       <p style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: "#6b6b6b", letterSpacing: 2, textTransform: "uppercase", textAlign: "center", marginBottom: 18 }}>Certified By</p>
       <div style={{ overflow: "hidden", width: "100%", maskImage: "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 72, width: "max-content", animation: `${id.current} 40s linear infinite` }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 72, width: "max-content", animation: "cr-marquee 40s linear infinite" }}>
           {tripled.map((l, i) => <img key={l.n + i} src={l.s} alt={l.n} style={{ height: 38, opacity: 0.65, filter: "grayscale(1)", flexShrink: 0 }} />)}
         </div>
       </div>
