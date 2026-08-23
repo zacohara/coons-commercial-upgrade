@@ -1,0 +1,110 @@
+{
+  "zone": "coonsroofing.com",
+  "note": "Every planned change to the coonsroofing.com zone. Applied one at a time by scripts/godaddy-dns.mjs. Nothing here touches the A records (GitHub Pages), the www CNAME, or the MX records (Google Workspace).",
+  "items": [
+    {
+      "id": 1,
+      "action": "REPLACE",
+      "type": "TXT",
+      "name": "@",
+      "match": "v=spf1",
+      "data": "v=spf1 include:_spf.google.com ~all",
+      "ttl": 3600,
+      "expect": [
+        "v=spf1 include:_spf.google.com ~all"
+      ],
+      "absent": [
+        "v=spf1 a include"
+      ],
+      "why": "Tighten SPF. The a mechanism authorizes the four GitHub Pages IPs to send mail as the domain, which is pointless and widens the surface. Google Workspace only needs the include.",
+      "workstream": "I.3",
+      "order": "apply AFTER DKIM (item 2) is live",
+      "after": [
+        2
+      ]
+    },
+    {
+      "id": 2,
+      "action": "ADD",
+      "type": "TXT",
+      "name": "google._domainkey",
+      "match": null,
+      "data": "[PASTE the 2048-bit DKIM value from admin.google.com > Apps > Google Workspace > Gmail > Authenticate email]",
+      "ttl": 3600,
+      "expect": [
+        "v=DKIM1"
+      ],
+      "why": "Workspace DKIM has never been enabled. The domain sends on SPF alone today, which fails the Google and Yahoo bulk sender rules and caps deliverability on every GHL review request and campaign.",
+      "workstream": "I.1",
+      "blockedOn": "R3, Wade generates the record in admin.google.com. After this propagates, go back to admin and press Start authentication.",
+      "stage": "next"
+    },
+    {
+      "id": 3,
+      "action": "REPLACE",
+      "type": "TXT",
+      "name": "_dmarc",
+      "match": "v=DMARC1",
+      "data": "v=DMARC1; p=none; rua=mailto:dmarc-reports@coonsroofing.com; fo=1",
+      "ttl": 3600,
+      "expect": [
+        "rua=mailto:dmarc-reports@coonsroofing.com"
+      ],
+      "why": "The existing record is p=none with no rua, so it enforces nothing and reports nothing. Adding rua turns on visibility, which is the prerequisite for ever moving to quarantine or reject.",
+      "workstream": "I.2",
+      "blockedOn": "R4, create dmarc-reports@coonsroofing.com as a Workspace group first or the reports bounce."
+    },
+    {
+      "id": 4,
+      "action": "ADD",
+      "type": "CNAME",
+      "name": "mail",
+      "match": null,
+      "data": "[PASTE from GHL Settings > Email Services > dedicated sending domain, location zemOrVB3bS5ADz7ow32o]",
+      "ttl": 3600,
+      "why": "Dedicated GHL sending subdomain mail.coonsroofing.com. Until this is verified inside GHL, no workflow email, review request, or campaign send from GHL is authenticated as coonsroofing.com.",
+      "workstream": "I.4",
+      "blockedOn": "R5. GHL emits a set of records, not one. The first lands here; add the rest as items 41, 42, 43 with the same shape.",
+      "stage": "next"
+    },
+    {
+      "id": 5,
+      "action": "ADD",
+      "type": "TXT",
+      "name": "@",
+      "match": null,
+      "data": "[ONLY IF J.1 finds no usable Search Console property. Paste the GSC domain-property verification token.]",
+      "ttl": 3600,
+      "expect": [
+        "google-site-verification="
+      ],
+      "why": "A GSC domain property covers www, http, https and every subdomain in one shot, which is why it supersedes the v2 C.1 meta-tag approach. Two google-site-verification tokens are already in the zone, so check Wade's Google account BEFORE adding a third.",
+      "workstream": "J.2",
+      "blockedOn": "J.1 inventory. Do not add this until we know the existing tokens are dead."
+    },
+    {
+      "id": 6,
+      "action": "REPLACE",
+      "type": "TXT",
+      "name": "_dmarc",
+      "match": "v=DMARC1",
+      "data": "v=DMARC1; p=quarantine; pct=25; rua=mailto:dmarc-reports@coonsroofing.com; fo=1",
+      "ttl": 3600,
+      "expect": [
+        "p=quarantine",
+        "pct=25"
+      ],
+      "why": "First enforcement step. Only after 2 to 4 weeks of clean rua reports. Then pct=100, then p=reject, each on an explicit GO. Never before the cold outreach volume scales.",
+      "workstream": "I.5",
+      "blockedOn": "Zac's explicit GO after reviewing rua reports",
+      "stage": "later",
+      "after": [
+        3
+      ]
+    }
+  ],
+  "reserved": {
+    "41-49": "additional GHL sending-domain records from R5",
+    "51-59": "cold outreach lookalike domains from R7. Those live in their own zones, not this one."
+  }
+}
