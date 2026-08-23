@@ -1761,6 +1761,19 @@ export function headFor(route) {
   }
   if (route === "home") {
     jsonld.push({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": HOME_FAQS.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) });
+    // The Vimeo embed in the "How We Work" section. Without VideoObject the video
+    // is invisible to Google and to AI crawlers, since it only exists inside a
+    // click-to-load iframe. uploadDate and duration come from Vimeo's oEmbed.
+    jsonld.push({
+      "@context": "https://schema.org", "@type": "VideoObject",
+      "name": "How We Work With Building Owners and PMs",
+      "description": "A short introduction to Coons Roofing, the commercial roofing contractor serving building owners and property managers across the Houston metro.",
+      "thumbnailUrl": SITE + "/og-default.jpg",
+      "uploadDate": "2024-09-11",
+      "duration": "PT1M4S",
+      "embedUrl": "https://player.vimeo.com/video/1008586531",
+      "publisher": { "@type": "RoofingContractor", "@id": SITE + "/#business", "name": "Coons Roofing" },
+    });
   }
   if (route === "metal-roof-coating-houston") {
     jsonld.push({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": METAL_FAQS.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) });
