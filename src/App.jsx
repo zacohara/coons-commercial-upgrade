@@ -31,19 +31,121 @@ function track(name, params) {
   try { window.gtag("event", name, params || {}); } catch (e) { /* never break the page for analytics */ }
 }
 
+// --- Lead attribution -------------------------------------------------------
+// The marketing deal is paid on sourced jobs, so source has to survive an
+// entire visit, not just the page the form happens to sit on. A lead who lands
+// on /metal-roof-coating-houston/?utm_campaign=metal, reads three more pages
+// and converts on /contact/ used to reach the CRM with no campaign attached at
+// all, because leadContext only ever read the URL of the converting page.
+// First touch is now persisted in a first-party cookie for 90 days and sent
+// alongside last touch on every submission.
+const FT_COOKIE = "cr_ft";
+const LT_COOKIE = "cr_lt";
+const TOUCH_DAYS = 90;
+const UTM_KEYS = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content"];
+const CLICK_IDS = ["gclid","fbclid","msclkid","ttclid","li_fat_id"];
+
+function readCookie(name) {
+  if (typeof document === "undefined") return null;
+  const m = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
+  if (!m) return null;
+  try { return JSON.parse(decodeURIComponent(m[1])); } catch { return null; }
+}
+
+function writeCookie(name, value) {
+  if (typeof document === "undefined") return;
+  try {
+    const secure = window.location.protocol === "https:" ? "; Secure" : "";
+    document.cookie = name + "=" + encodeURIComponent(JSON.stringify(value)) +
+      "; Max-Age=" + (TOUCH_DAYS * 86400) + "; Path=/; SameSite=Lax" + secure;
+  } catch { /* never break the page for analytics */ }
+}
+
+// AI assistants are checked before search engines on purpose, so a referral
+// from gemini.google.com is reported as AI and not as Google organic. Knowing
+// how much work arrives through AI answers is the point of the llms.txt and
+// schema work, and it is invisible otherwise.
+const AI_HOSTS = ["chatgpt.com","openai.com","perplexity.ai","claude.ai","copilot.microsoft.com","gemini.google.com","you.com","phind.com"];
+const SEARCH_HOSTS = ["google.","bing.","duckduckgo.","yahoo.","ecosia.","brave.","startpage."];
+const SOCIAL_HOSTS = ["facebook.","instagram.","linkedin.","twitter.","x.com","t.co","youtube.","nextdoor.","reddit."];
+
+function classifyReferrer(ref) {
+  if (!ref) return { source: "direct", medium: "none" };
+  let host = "";
+  try { host = new URL(ref).hostname.replace(/^www\./, ""); } catch { return { source: "direct", medium: "none" }; }
+  const self = window.location.hostname.replace(/^www\./, "");
+  if (host === self) return null;                       // internal navigation
+  const hit = (list) => list.some(h => host === h || host.indexOf(h) !== -1);
+  if (hit(AI_HOSTS)) return { source: host, medium: "ai_search" };
+  if (hit(SEARCH_HOSTS)) return { source: host, medium: "organic" };
+  if (hit(SOCIAL_HOSTS)) return { source: host, medium: "social" };
+  return { source: host, medium: "referral" };
+}
+
+function currentTouch() {
+  if (typeof window === "undefined") return null;
+  const q = new URLSearchParams(window.location.search);
+  const t = { landing_path: window.location.pathname, at: new Date().toISOString() };
+  let tagged = false;
+  UTM_KEYS.forEach(k => { const v = q.get(k); if (v) { t[k] = v.slice(0, 120); tagged = true; } });
+  CLICK_IDS.forEach(k => { const v = q.get(k); if (v) { t[k] = v.slice(0, 200); tagged = true; } });
+  const ref = typeof document !== "undefined" ? document.referrer : "";
+  const cls = classifyReferrer(ref);
+  if (cls) {
+    if (ref) t.referrer = ref.slice(0, 300);
+    // only fill source/medium from the referrer when the URL did not carry utms
+    if (!t.utm_source && cls.medium !== "none") { t.utm_source = cls.source; t.utm_medium = cls.medium; }
+  }
+  t.meaningful = tagged || !!(cls && cls.medium !== "none");
+  return t;
+}
+
+// Runs once per page load. First touch is written on the very first visit even
+// if it is direct. Last touch is only overwritten by a load that actually
+// carries campaign data or an external referrer, so clicking around the site
+// can never overwrite the campaign that brought the visitor here.
+function recordTouch() {
+  const t = currentTouch();
+  if (!t) return;
+  if (!readCookie(FT_COOKIE)) writeCookie(FT_COOKIE, t);
+  if (t.meaningful) writeCookie(LT_COOKIE, t);
+}
+
+function flattenTouch(t, prefix) {
+  const out = {};
+  if (!t) return out;
+  Object.keys(t).forEach(k => { if (k !== "meaningful" && t[k]) out[prefix + k] = t[k]; });
+  return out;
+}
+
+// GA4 params. GA4 has its own attribution model, but stamping the stored first
+// touch onto phone and form events is what lets a call be traced to a campaign
+// inside GHL and GA4 at the same time.
+function attrParams() {
+  const ft = readCookie(FT_COOKIE);
+  if (!ft) return {};
+  const out = {};
+  if (ft.utm_source) out.lead_source = ft.utm_source;
+  if (ft.utm_medium) out.lead_medium = ft.utm_medium;
+  if (ft.utm_campaign) out.lead_campaign = ft.utm_campaign;
+  return out;
+}
+
 function leadContext() {
   if (typeof window === "undefined") return {};
   const q = new URLSearchParams(window.location.search);
   const utm = {};
-  ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid"].forEach(k => {
-    const v = q.get(k); if (v) utm[k] = v;
-  });
+  [...UTM_KEYS, ...CLICK_IDS].forEach(k => { const v = q.get(k); if (v) utm[k] = v; });
+  const ft = readCookie(FT_COOKIE);
+  const lt = readCookie(LT_COOKIE) || ft;
   return {
     page_path: window.location.pathname,
     page_url: window.location.href,
     page_title: typeof document !== "undefined" ? document.title : "",
     referrer: typeof document !== "undefined" ? document.referrer : "",
     ...utm,
+    ...flattenTouch(ft, "ft_"),
+    ...flattenTouch(lt, "lt_"),
   };
 }
 
@@ -597,7 +699,7 @@ function CTA() {
       });
       if (res.ok) {
         setSent(true);
-        track("generate_lead", { form: "roof_assessment", page_path: typeof window !== "undefined" ? window.location.pathname : "" });
+        track("generate_lead", { form: "roof_assessment", page_path: typeof window !== "undefined" ? window.location.pathname : "", ...attrParams() });
       } else { setError("Something went wrong. Please call us at 713-367-1495."); }
     } catch { setError("Connection error. Please call us at 713-367-1495."); }
     setSubmitting(false);
@@ -1785,15 +1887,17 @@ export function headFor(route) {
 }
 
 export default function CoonsHomepage({ route }) {
+  useEffect(() => { recordTouch(); }, []);
   useEffect(() => {
     const onClick = (e) => {
       const a = e.target && e.target.closest ? e.target.closest("a") : null;
       if (!a) return;
       const href = a.getAttribute("href") || "";
       const where = window.location.pathname;
-      if (href.startsWith("tel:")) track("contact_phone", { page_path: where });
-      else if (href.startsWith("sms:")) track("contact_text", { page_path: where });
-      else if (href.indexOf("#contact") !== -1) track("cta_click", { page_path: where, label: (a.textContent || "").trim().slice(0, 40) });
+      const attr = attrParams();
+      if (href.startsWith("tel:")) track("contact_phone", { page_path: where, ...attr });
+      else if (href.startsWith("sms:")) track("contact_text", { page_path: where, ...attr });
+      else if (href.indexOf("#contact") !== -1) track("cta_click", { page_path: where, label: (a.textContent || "").trim().slice(0, 40), ...attr });
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
