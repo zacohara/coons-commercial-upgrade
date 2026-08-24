@@ -479,14 +479,24 @@ function Process() {
               const container = e.currentTarget;
               container.innerHTML = '<div style="position:relative;padding-bottom:56.25%;height:0"><iframe src="https://player.vimeo.com/video/1008586531?h=15d792bdc8&autoplay=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen title="Coons Roofing"></iframe></div>';
             }}>
-            <div style={{ paddingBottom: "56.25%", background: `linear-gradient(135deg, ${C.black} 0%, #1a1a1a 100%)`, position: "relative" }}>
+            <div style={{ paddingBottom: "56.25%", background: C.black, position: "relative" }}>
+              {/* A real jobsite frame behind the play button. This used to be a
+                  flat gradient, which meant the section carried no image at all
+                  until someone clicked, and VideoObject had no honest thumbnail
+                  to point at. Decorative, so alt is empty: the heading above
+                  already names the video. */}
+              <img src="/video-poster.jpg" srcSet="/video-poster-sm.jpg 640w, /video-poster.jpg 1280w" sizes="(max-width: 772px) calc(100vw - 32px), 740px" alt="" width="1280" height="720" loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              {/* The poster is a bright white TPO roof under a pale sky, so the
+                  scrim has to be heavier than a photo-over-dark case would need
+                  to keep the label and play button readable. */}
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(10,10,10,0.35) 0%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0.7) 100%)" }} />
               <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12 }}>
                 <div style={{ width: 64, height: 64, borderRadius: "50%", background: C.red, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 20px rgba(230,34,54,0.4)", transition: "transform 0.3s" }}
                   onMouseOver={e=>e.currentTarget.style.transform="scale(1.1)"}
                   onMouseOut={e=>e.currentTarget.style.transform="scale(1)"}>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><polygon points="8,5 20,12 8,19"/></svg>
                 </div>
-                <span style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.6)", letterSpacing: 0.5 }}>Watch How We Work</span>
+                <span style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: "#fff", letterSpacing: 0.5, textShadow: "0 1px 6px rgba(0,0,0,0.65)" }}>Watch How We Work</span>
               </div>
             </div>
           </div>
@@ -1870,7 +1880,7 @@ export function headFor(route) {
       "@context": "https://schema.org", "@type": "VideoObject",
       "name": "How We Work With Building Owners and PMs",
       "description": "A short introduction to Coons Roofing, the commercial roofing contractor serving building owners and property managers across the Houston metro.",
-      "thumbnailUrl": SITE + "/og-default.jpg",
+      "thumbnailUrl": SITE + "/video-poster.jpg",
       "uploadDate": "2024-09-11",
       "duration": "PT1M4S",
       "embedUrl": "https://player.vimeo.com/video/1008586531",
