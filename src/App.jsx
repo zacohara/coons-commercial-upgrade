@@ -31,19 +31,121 @@ function track(name, params) {
   try { window.gtag("event", name, params || {}); } catch (e) { /* never break the page for analytics */ }
 }
 
+// --- Lead attribution -------------------------------------------------------
+// The marketing deal is paid on sourced jobs, so source has to survive an
+// entire visit, not just the page the form happens to sit on. A lead who lands
+// on /metal-roof-coating-houston/?utm_campaign=metal, reads three more pages
+// and converts on /contact/ used to reach the CRM with no campaign attached at
+// all, because leadContext only ever read the URL of the converting page.
+// First touch is now persisted in a first-party cookie for 90 days and sent
+// alongside last touch on every submission.
+const FT_COOKIE = "cr_ft";
+const LT_COOKIE = "cr_lt";
+const TOUCH_DAYS = 90;
+const UTM_KEYS = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content"];
+const CLICK_IDS = ["gclid","fbclid","msclkid","ttclid","li_fat_id"];
+
+function readCookie(name) {
+  if (typeof document === "undefined") return null;
+  const m = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
+  if (!m) return null;
+  try { return JSON.parse(decodeURIComponent(m[1])); } catch { return null; }
+}
+
+function writeCookie(name, value) {
+  if (typeof document === "undefined") return;
+  try {
+    const secure = window.location.protocol === "https:" ? "; Secure" : "";
+    document.cookie = name + "=" + encodeURIComponent(JSON.stringify(value)) +
+      "; Max-Age=" + (TOUCH_DAYS * 86400) + "; Path=/; SameSite=Lax" + secure;
+  } catch { /* never break the page for analytics */ }
+}
+
+// AI assistants are checked before search engines on purpose, so a referral
+// from gemini.google.com is reported as AI and not as Google organic. Knowing
+// how much work arrives through AI answers is the point of the llms.txt and
+// schema work, and it is invisible otherwise.
+const AI_HOSTS = ["chatgpt.com","openai.com","perplexity.ai","claude.ai","copilot.microsoft.com","gemini.google.com","you.com","phind.com"];
+const SEARCH_HOSTS = ["google.","bing.","duckduckgo.","yahoo.","ecosia.","brave.","startpage."];
+const SOCIAL_HOSTS = ["facebook.","instagram.","linkedin.","twitter.","x.com","t.co","youtube.","nextdoor.","reddit."];
+
+function classifyReferrer(ref) {
+  if (!ref) return { source: "direct", medium: "none" };
+  let host = "";
+  try { host = new URL(ref).hostname.replace(/^www\./, ""); } catch { return { source: "direct", medium: "none" }; }
+  const self = window.location.hostname.replace(/^www\./, "");
+  if (host === self) return null;                       // internal navigation
+  const hit = (list) => list.some(h => host === h || host.indexOf(h) !== -1);
+  if (hit(AI_HOSTS)) return { source: host, medium: "ai_search" };
+  if (hit(SEARCH_HOSTS)) return { source: host, medium: "organic" };
+  if (hit(SOCIAL_HOSTS)) return { source: host, medium: "social" };
+  return { source: host, medium: "referral" };
+}
+
+function currentTouch() {
+  if (typeof window === "undefined") return null;
+  const q = new URLSearchParams(window.location.search);
+  const t = { landing_path: window.location.pathname, at: new Date().toISOString() };
+  let tagged = false;
+  UTM_KEYS.forEach(k => { const v = q.get(k); if (v) { t[k] = v.slice(0, 120); tagged = true; } });
+  CLICK_IDS.forEach(k => { const v = q.get(k); if (v) { t[k] = v.slice(0, 200); tagged = true; } });
+  const ref = typeof document !== "undefined" ? document.referrer : "";
+  const cls = classifyReferrer(ref);
+  if (cls) {
+    if (ref) t.referrer = ref.slice(0, 300);
+    // only fill source/medium from the referrer when the URL did not carry utms
+    if (!t.utm_source && cls.medium !== "none") { t.utm_source = cls.source; t.utm_medium = cls.medium; }
+  }
+  t.meaningful = tagged || !!(cls && cls.medium !== "none");
+  return t;
+}
+
+// Runs once per page load. First touch is written on the very first visit even
+// if it is direct. Last touch is only overwritten by a load that actually
+// carries campaign data or an external referrer, so clicking around the site
+// can never overwrite the campaign that brought the visitor here.
+function recordTouch() {
+  const t = currentTouch();
+  if (!t) return;
+  if (!readCookie(FT_COOKIE)) writeCookie(FT_COOKIE, t);
+  if (t.meaningful) writeCookie(LT_COOKIE, t);
+}
+
+function flattenTouch(t, prefix) {
+  const out = {};
+  if (!t) return out;
+  Object.keys(t).forEach(k => { if (k !== "meaningful" && t[k]) out[prefix + k] = t[k]; });
+  return out;
+}
+
+// GA4 params. GA4 has its own attribution model, but stamping the stored first
+// touch onto phone and form events is what lets a call be traced to a campaign
+// inside GHL and GA4 at the same time.
+function attrParams() {
+  const ft = readCookie(FT_COOKIE);
+  if (!ft) return {};
+  const out = {};
+  if (ft.utm_source) out.lead_source = ft.utm_source;
+  if (ft.utm_medium) out.lead_medium = ft.utm_medium;
+  if (ft.utm_campaign) out.lead_campaign = ft.utm_campaign;
+  return out;
+}
+
 function leadContext() {
   if (typeof window === "undefined") return {};
   const q = new URLSearchParams(window.location.search);
   const utm = {};
-  ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid"].forEach(k => {
-    const v = q.get(k); if (v) utm[k] = v;
-  });
+  [...UTM_KEYS, ...CLICK_IDS].forEach(k => { const v = q.get(k); if (v) utm[k] = v; });
+  const ft = readCookie(FT_COOKIE);
+  const lt = readCookie(LT_COOKIE) || ft;
   return {
     page_path: window.location.pathname,
     page_url: window.location.href,
     page_title: typeof document !== "undefined" ? document.title : "",
     referrer: typeof document !== "undefined" ? document.referrer : "",
     ...utm,
+    ...flattenTouch(ft, "ft_"),
+    ...flattenTouch(lt, "lt_"),
   };
 }
 
@@ -213,20 +315,19 @@ function TrustBar() {
   );
 }
 
+// The keyframes live in the static <style> block in index.html, not in an
+// effect here. This used to build a random animation name with Math.random()
+// during render, which meant the pre-rendered HTML and the hydrated client
+// disagreed on the name: a React hydration mismatch, no animation at all
+// between first paint and hydration, and pre-render output that changed on
+// every build even when nothing changed.
 function LogoBar() {
-  const id = useRef("marquee-" + Math.random().toString(36).slice(2, 8));
-  useEffect(() => {
-    const style = document.createElement("style");
-    style.textContent = `@keyframes ${id.current}{0%{transform:translateX(0)}100%{transform:translateX(calc(-100% / 3))}}`;
-    document.head.appendChild(style);
-    return () => style.remove();
-  }, []);
   const tripled = [...LOGOS, ...LOGOS, ...LOGOS];
   return (
     <section style={{ background: "#fff", padding: "28px 0", borderBottom: "1px solid #eee", overflow: "hidden" }}>
       <p style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: "#6b6b6b", letterSpacing: 2, textTransform: "uppercase", textAlign: "center", marginBottom: 18 }}>Certified By</p>
       <div style={{ overflow: "hidden", width: "100%", maskImage: "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 72, width: "max-content", animation: `${id.current} 40s linear infinite` }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 72, width: "max-content", animation: "cr-marquee 40s linear infinite" }}>
           {tripled.map((l, i) => <img key={l.n + i} src={l.s} alt={l.n} style={{ height: 38, opacity: 0.65, filter: "grayscale(1)", flexShrink: 0 }} />)}
         </div>
       </div>
@@ -378,14 +479,24 @@ function Process() {
               const container = e.currentTarget;
               container.innerHTML = '<div style="position:relative;padding-bottom:56.25%;height:0"><iframe src="https://player.vimeo.com/video/1008586531?h=15d792bdc8&autoplay=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen title="Coons Roofing"></iframe></div>';
             }}>
-            <div style={{ paddingBottom: "56.25%", background: `linear-gradient(135deg, ${C.black} 0%, #1a1a1a 100%)`, position: "relative" }}>
+            <div style={{ paddingBottom: "56.25%", background: C.black, position: "relative" }}>
+              {/* A real jobsite frame behind the play button. This used to be a
+                  flat gradient, which meant the section carried no image at all
+                  until someone clicked, and VideoObject had no honest thumbnail
+                  to point at. Decorative, so alt is empty: the heading above
+                  already names the video. */}
+              <img src="/video-poster.jpg" srcSet="/video-poster-sm.jpg 640w, /video-poster.jpg 1280w" sizes="(max-width: 772px) calc(100vw - 32px), 740px" alt="" width="1280" height="720" loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              {/* The poster is a bright white TPO roof under a pale sky, so the
+                  scrim has to be heavier than a photo-over-dark case would need
+                  to keep the label and play button readable. */}
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(10,10,10,0.35) 0%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0.7) 100%)" }} />
               <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12 }}>
                 <div style={{ width: 64, height: 64, borderRadius: "50%", background: C.red, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 20px rgba(230,34,54,0.4)", transition: "transform 0.3s" }}
                   onMouseOver={e=>e.currentTarget.style.transform="scale(1.1)"}
                   onMouseOut={e=>e.currentTarget.style.transform="scale(1)"}>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><polygon points="8,5 20,12 8,19"/></svg>
                 </div>
-                <span style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.6)", letterSpacing: 0.5 }}>Watch How We Work</span>
+                <span style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: "#fff", letterSpacing: 0.5, textShadow: "0 1px 6px rgba(0,0,0,0.65)" }}>Watch How We Work</span>
               </div>
             </div>
           </div>
@@ -598,7 +709,7 @@ function CTA() {
       });
       if (res.ok) {
         setSent(true);
-        track("generate_lead", { form: "roof_assessment", page_path: typeof window !== "undefined" ? window.location.pathname : "" });
+        track("generate_lead", { form: "roof_assessment", page_path: typeof window !== "undefined" ? window.location.pathname : "", ...attrParams() });
       } else { setError("Something went wrong. Please call us at 713-367-1495."); }
     } catch { setError("Connection error. Please call us at 713-367-1495."); }
     setSubmitting(false);
@@ -1762,6 +1873,19 @@ export function headFor(route) {
   }
   if (route === "home") {
     jsonld.push({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": HOME_FAQS.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) });
+    // The Vimeo embed in the "How We Work" section. Without VideoObject the video
+    // is invisible to Google and to AI crawlers, since it only exists inside a
+    // click-to-load iframe. uploadDate and duration come from Vimeo's oEmbed.
+    jsonld.push({
+      "@context": "https://schema.org", "@type": "VideoObject",
+      "name": "How We Work With Building Owners and PMs",
+      "description": "A short introduction to Coons Roofing, the commercial roofing contractor serving building owners and property managers across the Houston metro.",
+      "thumbnailUrl": SITE + "/video-poster.jpg",
+      "uploadDate": "2024-09-11",
+      "duration": "PT1M4S",
+      "embedUrl": "https://player.vimeo.com/video/1008586531",
+      "publisher": { "@type": "RoofingContractor", "@id": SITE + "/#business", "name": "Coons Roofing" },
+    });
   }
   if (route === "metal-roof-coating-houston") {
     jsonld.push({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": METAL_FAQS.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) });
@@ -1773,15 +1897,17 @@ export function headFor(route) {
 }
 
 export default function CoonsHomepage({ route }) {
+  useEffect(() => { recordTouch(); }, []);
   useEffect(() => {
     const onClick = (e) => {
       const a = e.target && e.target.closest ? e.target.closest("a") : null;
       if (!a) return;
       const href = a.getAttribute("href") || "";
       const where = window.location.pathname;
-      if (href.startsWith("tel:")) track("contact_phone", { page_path: where });
-      else if (href.startsWith("sms:")) track("contact_text", { page_path: where });
-      else if (href.indexOf("#contact") !== -1) track("cta_click", { page_path: where, label: (a.textContent || "").trim().slice(0, 40) });
+      const attr = attrParams();
+      if (href.startsWith("tel:")) track("contact_phone", { page_path: where, ...attr });
+      else if (href.startsWith("sms:")) track("contact_text", { page_path: where, ...attr });
+      else if (href.indexOf("#contact") !== -1) track("cta_click", { page_path: where, label: (a.textContent || "").trim().slice(0, 40), ...attr });
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);

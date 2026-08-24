@@ -1,0 +1,197 @@
+{
+  "_note": "url -> { hash, lastmod }. Maintained by scripts/prerender.mjs. Seeded 2026-08-24 by diffing the build against live production; unchanged pages kept the 2026-08-02 deploy date.",
+  "pages": {
+    "https://coonsroofing.com/": {
+      "hash": "81dafc7e7e64f6e1",
+      "lastmod": "2026-08-24"
+    },
+    "https://coonsroofing.com/warehouse-roofing-houston/": {
+      "hash": "78836e0129698ac9",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/retail-roofing-houston/": {
+      "hash": "a0f99a31b8796e83",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/multifamily-roofing-houston/": {
+      "hash": "d7ac8286a2c0ea88",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/church-roofing-houston/": {
+      "hash": "5057932811730a51",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/medical-office-roofing-houston/": {
+      "hash": "3b69bd7c5b2efa13",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/contact/": {
+      "hash": "96ef67c673801ce1",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/repair/": {
+      "hash": "f07b4b4065028399",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/maintenance/": {
+      "hash": "5ab96777ab6dde03",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/coatings/": {
+      "hash": "b9e9a318c6a21f4b",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/replacement/": {
+      "hash": "c02d0fd41eee7380",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/inspections/": {
+      "hash": "7fe26871c0ddf6db",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/emergency/": {
+      "hash": "39203c0850f2860e",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/about/": {
+      "hash": "0dc1e774a8cdf7b2",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/houston/": {
+      "hash": "1bcd6e5e666f23ab",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/tpo-roofing-houston/": {
+      "hash": "d59dfc1b12a00476",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/flat-roof-repair-houston/": {
+      "hash": "4b78c8b65c7c588a",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/projects/": {
+      "hash": "204c0e2623e734c1",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/metal-roof-coating-houston/": {
+      "hash": "346bc24832ad7502",
+      "lastmod": "2026-08-24"
+    },
+    "https://coonsroofing.com/katy/": {
+      "hash": "98d9215d82140926",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/the-woodlands/": {
+      "hash": "e793586a52affe8d",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/tomball/": {
+      "hash": "f6edae51f7cd98c6",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/pearland/": {
+      "hash": "9aa4d0768110f015",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/league-city/": {
+      "hash": "c4117b1bac8f6456",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/sugar-land/": {
+      "hash": "6da47c27b90a9e19",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/spring/": {
+      "hash": "d72a9d9fd2ab415a",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/cypress/": {
+      "hash": "ab10d15940bc3a5f",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/pasadena/": {
+      "hash": "829f970d669c65f4",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/conroe/": {
+      "hash": "9f1bab15c3c023cc",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/": {
+      "hash": "a9d1e65537288f45",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/fluid-applied-metal-roof-restoration-houston/": {
+      "hash": "91d47ffc5807d00d",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/commercial-roof-maintenance-program-houston/": {
+      "hash": "d4ada2de5dd18c09",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/tpo-roof-repair-houston/": {
+      "hash": "6e88e65532005143",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/commercial-roof-storm-damage-insurance-claim-houston/": {
+      "hash": "25ad95fb8e53cb60",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/commercial-roof-inspection-houston/": {
+      "hash": "142f41d78f20693f",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/tpo-vs-pvc-houston/": {
+      "hash": "f079360f0d1db878",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/signs-commercial-roof-needs-repair/": {
+      "hash": "66d3a6ac6bab3ea7",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/roof-coating-restoration-guide/": {
+      "hash": "2ab59bfeb50ccdc0",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/commercial-roof-leak-during-business-hours/": {
+      "hash": "64d3b73fd6e6ba71",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/property-manager-roof-maintenance-budgeting/": {
+      "hash": "2b65390a4215e678",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/houston-storm-season-roof-preparation/": {
+      "hash": "6d791c8f0a28d768",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/roofing-contractor-insurance-requirements/": {
+      "hash": "e03a9feb610242b9",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/flat-roof-drainage-problems-houston/": {
+      "hash": "2098e2f42398602f",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/roof-maintenance-protects-warranty/": {
+      "hash": "7094e491aeafc4f4",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/commercial-roof-replacement-what-to-expect/": {
+      "hash": "29729ba8e3e198eb",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/blog/hoa-multifamily-roofing-guide/": {
+      "hash": "107aebf559d13508",
+      "lastmod": "2026-08-02"
+    },
+    "https://coonsroofing.com/privacy/": {
+      "hash": "10c2c2fad944c23b",
+      "lastmod": "2026-08-24"
+    },
+    "https://coonsroofing.com/terms/": {
+      "hash": "1efed2ee639efc64",
+      "lastmod": "2026-08-02"
+    }
+  }
+}

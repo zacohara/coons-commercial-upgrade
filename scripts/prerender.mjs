@@ -5,12 +5,13 @@
 //   vite build                                   -> dist/ (template + assets)
 //   vite build --ssr src/entry-server.jsx --outDir dist-server
 //   node scripts/prerender.mjs
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
+import { hashPageHtml } from './lib/page-hash.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const { render, ROUTES } = await import(
+const { render, ROUTES, BLOG, BLOG_SEO } = await import(
   pathToFileURL(join(root, 'dist-server/entry-server.js')).href
 )
 
@@ -81,7 +82,36 @@ function buildPage(html, head) {
 }
 
 const SITE = 'https://coonsroofing.com'
-const LASTMOD = '2026-08-02'
+
+// Per-page lastmod, derived rather than hardcoded.
+//
+// Every url in the sitemap used to carry a single frozen date, which was
+// already wrong and got worse with each deploy. A lastmod that never moves is
+// noise; one that moves on every build is worse, because it claims all 48 pages
+// changed when one did.
+//
+// docs/page-dates.json remembers a content fingerprint and the date that
+// fingerprint last changed. A page keeps its stored date until its rendered
+// content actually differs, then it advances to the build date. The manifest is
+// committed, so it must be committed again after any build that changes content
+// or the next build will move dates a second time.
+const DATES_FILE = join(root, 'docs', 'page-dates.json')
+const BUILD_DATE = new Date().toISOString().slice(0, 10)
+const dateManifest = existsSync(DATES_FILE)
+  ? JSON.parse(readFileSync(DATES_FILE, 'utf-8'))
+  : { _note: 'url -> { hash, lastmod }. Maintained by scripts/prerender.mjs.', pages: {} }
+const pageDates = dateManifest.pages || {}
+let moved = 0
+
+function lastmodFor(url, html) {
+  const hash = hashPageHtml(html)
+  const prev = pageDates[url]
+  if (!prev || prev.hash !== hash) {
+    pageDates[url] = { hash, lastmod: BUILD_DATE }
+    if (prev) moved++
+  }
+  return pageDates[url].lastmod
+}
 
 let count = 0
 const urls = []
@@ -94,7 +124,7 @@ for (const route of ROUTES) {
       : join(root, 'dist', route, 'index.html')
   mkdirSync(dirname(outPath), { recursive: true })
   writeFileSync(outPath, page)
-  urls.push(head.canonical)
+  urls.push({ loc: head.canonical, lastmod: lastmodFor(head.canonical, page) })
   count++
   console.log('prerendered', route, '->', outPath.replace(root, ''))
 }
@@ -123,8 +153,13 @@ for (const [from, to] of Object.entries(LEGACY)) {
 }
 console.log('wrote', Object.keys(LEGACY).length, 'legacy redirect stubs')
 
-// Static legal pages (served from public/, not React routes)
-urls.push(SITE + '/privacy/', SITE + '/terms/')
+// Static legal pages (served from public/, not React routes). They are copied
+// verbatim out of public/, so their source is the file itself.
+for (const legal of ['privacy', 'terms']) {
+  const lp = join(root, 'dist', legal, 'index.html')
+  const loc = `${SITE}/${legal}/`
+  urls.push({ loc, lastmod: existsSync(lp) ? lastmodFor(loc, readFileSync(lp, 'utf-8')) : BUILD_DATE })
+}
 
 const sitemap =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
@@ -132,11 +167,62 @@ const sitemap =
   urls
     .map(
       (u) =>
-        `  <url><loc>${u}</loc><lastmod>${LASTMOD}</lastmod><changefreq>weekly</changefreq></url>`,
+        `  <url><loc>${u.loc}</loc><lastmod>${u.lastmod}</lastmod><changefreq>weekly</changefreq></url>`,
     )
     .join('\n') +
   '\n</urlset>\n'
 writeFileSync(join(root, 'dist', 'sitemap.xml'), sitemap)
-console.log('wrote sitemap.xml with', urls.length, 'urls')
+mkdirSync(dirname(DATES_FILE), { recursive: true })
+dateManifest.pages = pageDates
+writeFileSync(DATES_FILE, JSON.stringify(dateManifest, null, 2) + '\n')
+console.log('wrote sitemap.xml with', urls.length, 'urls,', moved, 'lastmod date(s) advanced')
+
+// Build-time RSS feed for the blog. A discovery surface for aggregators and AI
+// crawlers, and a freshness signal Google reads. Built from the same BLOG array
+// the pages render from, so it cannot drift.
+// Twelve of the sixteen posts predate the `published` field and only carry a
+// month. BlogPosting schema already falls back to 2026-03-15 for those, so the
+// feed uses the same date rather than inventing a different one or dropping
+// three quarters of the blog.
+const PUBLISHED_FALLBACK = '2026-03-15'
+const pubDateOf = (p) => p.published || PUBLISHED_FALLBACK
+const posts = [...BLOG].sort((a, b) => (pubDateOf(a) < pubDateOf(b) ? 1 : -1))
+
+const rfc822 = (d) => new Date(`${d}T12:00:00Z`).toUTCString()
+const firstProse = (body) => {
+  const p = body.find((b) => typeof b === 'string')
+  return p ? p.slice(0, 300) : ''
+}
+
+const feedItems = posts
+  .map((p) => {
+    const url = `${SITE}/blog/${p.slug}/`
+    const desc = BLOG_SEO[p.slug]?.d || firstProse(p.body)
+    return `    <item>
+      <title>${esc(p.title)}</title>
+      <link>${url}</link>
+      <guid isPermaLink="true">${url}</guid>
+      <pubDate>${rfc822(pubDateOf(p))}</pubDate>
+      <author>wade@coonsroofing.com (Wade Coons)</author>
+      <description>${esc(desc)}</description>
+    </item>`
+  })
+  .join('\n')
+
+const feed = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Coons Roofing Blog</title>
+    <link>${SITE}/blog/</link>
+    <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Commercial roofing guidance for Houston property managers and building owners: maintenance, repair, coatings, metal roof restoration and replacement.</description>
+    <language>en-us</language>
+    <lastBuildDate>${posts.length ? rfc822(pubDateOf(posts[0])) : new Date().toUTCString()}</lastBuildDate>
+${feedItems}
+  </channel>
+</rss>
+`
+writeFileSync(join(root, 'dist', 'feed.xml'), feed)
+console.log('wrote feed.xml with', posts.length, 'items')
 
 console.log(`\n✓ pre-rendered ${count} routes`)

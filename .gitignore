@@ -26,3 +26,6 @@ dist-server
 
 .npmcache
 incoming-media/
+
+# never commit the GoDaddy PAT
+.env
