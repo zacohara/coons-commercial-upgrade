@@ -15,9 +15,9 @@
 // body plus title and description) and not the whole file, because Vite asset
 // filenames change on every build and would mark all 48 pages as changed.
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'node:fs'
-import { createHash } from 'node:crypto'
 import { dirname, join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { hashPageHtml, isNoindex } from './lib/page-hash.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const SITE = 'https://coonsroofing.com'
@@ -40,7 +40,7 @@ function pages(dir = join(root, 'dist'), out = []) {
     else if (entry === 'index.html') {
       // The legacy redirect stubs are noindex on purpose. Submitting them would
       // ask Bing to crawl ten pages we are explicitly telling it to ignore.
-      if (/<meta name="robots" content="noindex/.test(readFileSync(full, 'utf-8'))) continue
+      if (isNoindex(readFileSync(full, 'utf-8'))) continue
       const rel = relative(join(root, 'dist'), dirname(full))
       out.push({ url: rel ? `${SITE}/${rel}/` : `${SITE}/`, file: full })
     }
@@ -48,21 +48,7 @@ function pages(dir = join(root, 'dist'), out = []) {
   return out
 }
 
-// Hash only what a reader would notice changing.
-function contentHash(file) {
-  const html = readFileSync(file, 'utf-8')
-  // Everything from the pre-rendered root div to </body>. Vite emits the module
-  // script into <head>, so the body slice carries no content-hashed filenames
-  // and is stable across rebuilds. Scripts are stripped anyway, defensively.
-  const start = html.indexOf('<div id="root">')
-  const end = html.indexOf('</body>')
-  const body = start >= 0 && end > start
-    ? html.slice(start, end).replace(/<script[\s\S]*?<\/script>/g, '')
-    : html
-  const title = (html.match(/<title>([\s\S]*?)<\/title>/) || [, ''])[1]
-  const desc = (html.match(/<meta name="description" content="([^"]*)"/) || [, ''])[1]
-  return createHash('sha256').update(title + '\u0000' + desc + '\u0000' + body).digest('hex').slice(0, 16)
-}
+const contentHash = (file) => hashPageHtml(readFileSync(file, 'utf-8'))
 
 if (!existsSync(join(root, 'dist'))) {
   console.error('dist/ not found. Run npm run build first.')
