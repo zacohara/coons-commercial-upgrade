@@ -1,0 +1,9 @@
+# AI crawlers are welcome here. Being citable in an AI answer is lead flow for a
+# local contractor, so GPTBot, ClaudeBot, PerplexityBot, Google-Extended and the
+# rest are deliberately not blocked.
+# Plain-language summary of this site for LLMs: https://coonsroofing.com/llms.txt
+
+User-agent: *
+Allow: /
+
+Sitemap: https://coonsroofing.com/sitemap.xml
