@@ -10,7 +10,7 @@ Checked and confirmed, not assumed:
 | Thing | State |
 |---|---|
 | Live site vs `main` | In sync. Phase 2 pages (`/contact/`, building types) all return 200 |
-| Live site vs this branch | NOT deployed. `/llms.txt` and `/feed.xml` return 404 in production |
+| Live site vs this branch | DEPLOYED 2026-08-24 (source `f9a5f31`). All 31 production checks pass |
 | Build | 46 pre-rendered routes, 48 sitemap urls, 16 feed items, deterministic across two runs |
 | Page audit | 48 indexable pages, zero duplicate titles, zero duplicate canonicals, every page has a description and a self-referencing canonical |
 | Attribution tests | 22/22 assertions pass (`npm run test:attribution`) |
@@ -155,28 +155,46 @@ Note on the GA4 step: the spec calls the event `phone_click`. The site has been
 firing `contact_phone` since the Phase 2 work. Mark that one. Do not create
 `phone_click`.
 
-### Code work, unblocked, not yet done
+### Code work: done and deployed 2026-08-24
 
-**Privacy policy is now inaccurate.** It says technical data is collected
-"through standard web analytics" and never mentions cookies. The site sets GA4
-cookies already and now sets `cr_ft` and `cr_lt` as well, storing referral
-source and campaign parameters for 90 days. This needs a cookies and tracking
-section and a bumped Last updated date. It is also a prerequisite for running
-Google Ads cleanly.
+**Privacy policy.** Cookies and Tracking section added, separating analytics
+from attribution, stating what the attribution cookie holds, for how long, and
+that it carries no name, email or phone. Texas privacy rights added. Every A2P
+clause verified still present.
 
-**Sitemap `lastmod` is hardcoded to 2026-08-02** on all 48 urls. It is already
-wrong and gets worse every deploy. The IndexNow manifest now computes a content
-hash per page, so real per-page dates are cheap to derive from it.
+**Sitemap `lastmod`.** No longer hardcoded. `docs/page-dates.json` stores a
+content fingerprint per url and the date it last changed. Seeded by diffing the
+build against live production, so the first sitemap moved exactly three pages
+and left 45 on 2026-08-02.
+
+**Video poster.** A real crew photo now sits behind the play button, at two
+widths with srcset, and `VideoObject.thumbnailUrl` points at it. A true frame
+from the video could not be obtained: Vimeo 403s the player config endpoint and
+headless Chrome will not advance video decode under a virtual time budget.
+
+**Marquee hydration bug.** Fixed and live. Production no longer serves a random
+animation name.
+
+**IndexNow.** All 48 live urls submitted and accepted (HTTP 202). The manifest
+is the baseline for future diffs.
+
+### Code work, unblocked, still open
 
 **Twelve of sixteen blog posts have no real publish date.** They fall back to
-2026-03-15 in both the schema and the new feed. Wade or the git history can
-supply real dates.
+2026-03-15 in both the schema and the feed. Wade or the git history can supply
+real dates. Now slightly more visible than before, because those dates show in
+the RSS feed.
 
-**Deploy pipeline is still a manual force-push.** Nothing on this branch is
-live, including the marquee fix, which means production is currently serving
-the hydration mismatch. L.4 in the spec wants build, gates, deploy, IndexNow
-ping and verify in one workflow. That is the natural home for the IndexNow
-manifest commit too.
+**Deploy is still a manual force-push.** It worked, and it is documented, but
+every step (build, CNAME, gh-pages push, IndexNow submit, manifest commit) is
+done by hand and in the right order or the deploy is wrong. L.4 in the spec
+wants that as one workflow. The post-deploy smoke test written for this deploy
+(31 url assertions) is most of `verify-live.sh` already and should be committed
+into the repo when L.1 is built.
+
+**No `og:image` dimensions for the new poster.** Not a regression, the site
+still uses `og-default.jpg` for social cards. Only noted so nobody assumes the
+video poster doubles as a share image.
 
 ### Spec items that reference things this repo does not have
 
